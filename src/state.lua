@@ -26,6 +26,23 @@ function getEquipment(slot)
     return objInSlot.configName
 end
 
+function objectHasParam(objectConfig, param)
+    -- Check for nil
+    if objectConfig == nil then
+        return false
+    end
+
+    -- Iterate over all params of the object, returning true if it has the requested param
+    for _, value in pairs(config.Obj[objectConfig].params) do
+        if value == param then
+            return true
+        end
+    end
+
+    -- The object did not have the param, return false
+    return false
+end
+
 local getState = function()
     -- Coin pouch
     local currencyPouchGp = Inventory.Find(config.Inv.MONEY_POUCH):GetTotal(id.Obj.COINS)
@@ -44,6 +61,7 @@ local getState = function()
     local feet = getEquipment(equipmentSlots.Feet)
     local ring = getEquipment(equipmentSlots.Ring)
     local quiver = getEquipment(equipmentSlots.Quiver)
+    local pocket = getEquipment(equipmentSlots.Pocket)
 
     -- H.A.M. outfit check
     local fullHam =
@@ -86,6 +104,17 @@ local getState = function()
         or head == config.Obj.XMAS25_BLUE_SANTAHAT_WITH_BEARD.configName
         or head == config.Obj.XMAS25_FESTIVE_AURORA_SANTAHAT_WITH_BEARD.configName
 
+    -- Hallowe'en mask check
+    local halloweenMask =
+        head == config.Obj.HALLOWEENMASK_BLUE.configName
+        or head == config.Obj.HALLOWEENMASK_GREEN.configName
+        or head == config.Obj.HALLOWEENMASK_RED.configName
+        or head == config.Obj.HALLOWEENMASK_PINK.configName
+        or head == config.Obj.TRH175_HALLOWEENMASK_PURPLE.configName
+        or head == config.Obj.TRH175_HALLOWEENMASK_SOUL_DYE.configName
+        or head == config.Obj.TRH175_HALLOWEENMASK_YELLOW.configName
+        or head == config.Obj.HALLOWEEN23_HALLOWEENMASK_ORANGE.configName
+
     -- Ironman status
     local isIronman = var.VarPlayer.IRONMAN_ENABLED.value
     local isHardcoreIronman = var.VarPlayer.HARDCORE_ENABLED.value
@@ -93,6 +122,60 @@ local getState = function()
     -- Misc.
     local hasExaminedRimmingtonBench = var.VarPlayer.XMAS16_BASEPERM2.value ~= 0 -- Examined the Rimmington ninja bench
     local isDead = var.VarPlayer.LIFEPOINTS.value < 1
+    local charmingImp = pocket == config.Obj.RAND_REWARD_CHARMING_IMP.configName
+    local fixedDevice = mainHand == config.Obj.MOURNING_PAINT_GUN.configName
+
+    local fireCape = cape == config.Obj.TZHAAR_CAPE_FIRE.configName
+
+    -- Kiln cape check
+    local kilnCape =
+        cape == config.Obj.TZKILN_TOKHAAR_CAPE.configName
+        or cape == config.Obj.TZKILN_TOKHAAR_CAPE_MAGIC.configName
+        or cape == config.Obj.TZKILN_TOKHAAR_CAPE_RANGED.configName
+        or cape == config.Obj.TZKILN_TOKHAAR_CAPE_NECROMANCY.configName
+
+    -- Zuk cape check
+    local zukCape =
+        cape == config.Obj.EGWD_FUL_BOSS_MELEE_CAPE.configName
+        or cape == config.Obj.EGWD_FUL_BOSS_MAGIC_CAPE.configName
+        or cape == config.Obj.EGWD_FUL_BOSS_RANGED_CAPE.configName
+        or cape == config.Obj.EGWD_FUL_BOSS_NECROMANCY_CAPE.configName
+        or cape == config.Obj.EGWD_FUL_BOSS_FLAWLESS_CAPE.configName
+
+    -- Hybrid zyk cape check
+    local zukHybridCape = cape == config.Obj.EGWD_FUL_BOSS_FLAWLESS_CAPE.configName
+
+    local skillcape = objectHasParam(cape, config.Param.SKILLCAPE)
+    
+    -- Max cape check
+    local maxCape =
+        cape == config.Obj.SKILLCAPE_MAX.configName
+        or cape == config.Obj.SKILLCAPE_MAX_HOODED.configName
+
+    -- Master max cape check
+    local masterMaxCape =
+        cape == config.Obj.SKILLCAPE_120_ALL.configName
+        or cape == config.Obj.SKILLCAPE_120_ALL_HOODED.configName
+
+    -- Comp cape check
+    local compCape =
+        cape == config.Obj.SKILLCAPE_COMPLETIONIST.configName
+        or cape == config.Obj.SKILLCAPE_COMPLETIONIST_HOODED.configName
+
+    -- Master comp cape check
+    local masterCompCape =
+        cape == config.Obj.SKILLCAPE_COMPLETIONIST_120_ALL.configName
+        or cape == config.Obj.SKILLCAPE_COMPLETIONIST_120_ALL_HOODED.configName
+
+    -- Trimmed comp cape check
+    local trimmedCompCape =
+        cape == config.Obj.SKILLCAPE_COMPLETIONIST_INSANE.configName
+        or cape == config.Obj.SKILLCAPE_COMPLETIONIST_INSANE_HOODED.configName
+
+    -- Master trimmed comp cape check
+    local masterTrimmedCompCape =
+        cape == config.Obj.SKILLCAPE_COMPLETIONIST_INSANE_120_ALL.configName
+        or cape == config.Obj.SKILLCAPE_COMPLETIONIST_INSANE_120_ALL_HOODED.configName
 
     return {
         attackLevel = Player.GetLevelGameplay(SkillType.ATTACK),
@@ -120,6 +203,7 @@ local getState = function()
         feet = feet,
         ring = ring,
         quiver  = quiver,
+        pocket  = pocket,
     }
 end
 
