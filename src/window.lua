@@ -9,6 +9,7 @@ local label
 local lastId = ""
 local currentAnimation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"
 local currentText = ""
+local currentErrorMessage = ""
 local mainWindow = prettyui.Window.new(gameArea, {
     title = "Chatterbox",
     x = -mainWindowWidth / 2,
@@ -43,14 +44,25 @@ local function debugPlayButtonClick()
         return
     end
 
+    -- Clear the current error message if not nil
+    if currentErrorMessage then
+        currentErrorMessage = nil
+    end
+
     local lineIndex = math.floor(random(1, #availableLines + 1))
     local selectedLine = availableLines[lineIndex]
 
     lastId = selectedLine.key
 
-    currentLine = audio.Play(Plugin.resources["DECtalk"][tostring(selectedLine.key)])
-    currentText = selectedLine.value.text
-    currentAnimation = selectedLine.value.animation
+    -- Attempt to play the selected line
+    if pcall(function() currentLine = audio.Play(Plugin.resources["DECtalk"][tostring(selectedLine.key)]) end) then
+        currentText = selectedLine.value.text
+        currentAnimation = selectedLine.value.animation
+    else
+        local errorMessage = string.format("Failed to play sound resource '%s'", selectedLine.key)
+        currentErrorMessage = errorMessage
+        log(errorMessage)
+    end
 end
 
 mainWindow:AddSimpleButton("Debug Play", debugPlayButtonClick, { inline = true })
@@ -64,7 +76,10 @@ Event.Logic.Subscribe("chatterboxModelLogicEvent", function(logicEvent)
     model:SetSize(mainWindow.content.width, mainWindow.content.height)
     label:SetSize(mainWindow.content.width - 4, mainWindow.content.height - 60)
 
-    if currentLine and currentLine.isPlaying then
+    if currentErrorMessage then
+        label.colour = Vector4.new(1.0, 0.0, 0.0, 1.0)
+        label.content = currentErrorMessage
+    elseif currentLine and currentLine.isPlaying then
         model.animID = config.Seq[currentAnimation].id
         label.content = currentText
         label.colour = Vector4.new(1.0, 1.0, 1.0, 1.0)
