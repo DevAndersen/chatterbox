@@ -65,7 +65,7 @@ return {
         category = "trivia",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
         requirements = function(state)
-            return state.hasExaminedRimmingtonBench
+            return state.hasExaminedRimmingtonBench == false
         end,
     },
     [11] = {
