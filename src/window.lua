@@ -6,6 +6,7 @@ local mainWindowHeight = 340
 
 local gameArea = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__GAME_AREA)
 local label
+local errorLabel
 local lastId = ""
 local currentAnimation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"
 local currentText = ""
@@ -44,20 +45,16 @@ local function debugPlayButtonClick()
         return
     end
 
-    -- Clear the current error message if not nil
-    if currentErrorMessage then
-        currentErrorMessage = nil
-    end
-
     local lineIndex = math.floor(random(1, #availableLines + 1))
     local selectedLine = availableLines[lineIndex]
 
     lastId = selectedLine.key
+    currentText = selectedLine.value.text
+    currentAnimation = selectedLine.value.animation
 
     -- Attempt to play the selected line
     if pcall(function() currentLine = audio.Play(Plugin.resources["DECtalk"][tostring(selectedLine.key)]) end) then
-        currentText = selectedLine.value.text
-        currentAnimation = selectedLine.value.animation
+        currentErrorMessage = ""
     else
         local errorMessage = string.format("Failed to play sound resource '%s'", selectedLine.key)
         currentErrorMessage = errorMessage
@@ -71,17 +68,16 @@ mainWindow:AddSimpleButton("Debug State", function() log(state.getState()) end, 
 local model = ui.Model.new(mainWindow.content)
 model:SetSize(mainWindow.content.width, mainWindow.content.height)
 
-Event.Logic.Subscribe("chatterboxModelLogicEvent", function(logicEvent)
-
+Event.Logic.Subscribe("chatterboxModelLogicEvent", function()
     model:SetSize(mainWindow.content.width, mainWindow.content.height)
-    label:SetSize(mainWindow.content.width - 4, mainWindow.content.height - 60)
 
-    if currentErrorMessage then
-        label.colour = Vector4.new(1.0, 0.0, 0.0, 1.0)
-        label.content = currentErrorMessage
-    elseif currentLine and currentLine.isPlaying then
+    label:SetSize(mainWindow.content.width - 4, mainWindow.content.height - 60)
+    label.content = currentText
+
+    errorLabel.content = currentErrorMessage
+
+    if currentLine and currentLine.isPlaying then
         model.animID = config.Seq[currentAnimation].id
-        label.content = currentText
         label.colour = Vector4.new(1.0, 1.0, 1.0, 1.0)
     else
         model.animID = config.Seq["HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"].id
@@ -118,5 +114,12 @@ label:SetPos(0, 120)
 label:SetSize(mainWindow.content.width - 4, mainWindow.content.height - 60)
 label.font = id.Font.NOTOSANS_BOLD_14
 label.colour = Vector4.new(1.0, 1.0, 1.0, 1.0)
+
+errorLabel = ui.Text.new(mainWindow.content)
+errorLabel:AlignTo(ui.AlignMode.CENTRE)
+errorLabel:SetPos(0, 0)
+errorLabel:SetSize(mainWindow.content.width - 4, 120)
+errorLabel.font = id.Font.NOTOSANS_BOLD_14
+errorLabel.colour = Vector4.new(1.0, 0.0, 0.0, 1.0)
 
 return mainWindow
