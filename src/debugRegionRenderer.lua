@@ -75,9 +75,6 @@ function drawRegion(pos1, pos2)
     drawTileBorder(Vector3.new(pos2.x, pos2.level, pos2.z))
 end
 
---local Pos1 = CoordGrid.new()
---local Pos2 = CoordGrid.new()
-
 local regionRenderDistance = 32
 
 Event.Draw.Subscribe("chatterboxDebugRegionDrawEvent", function()

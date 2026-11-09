@@ -137,7 +137,50 @@ local regions = {
         Pos1 = CoordGrid.new(0,43,52,50,2),
         Pos2 = CoordGrid.new(0,44,52,55,63),
     },
+    Menaphos = {
+        Pos1 = CoordGrid.new(0,48,40,3,43),
+        Pos2 = CoordGrid.new(0,50,43,53,55),
+    },
+    Sophanem = {
+        Pos1 = CoordGrid.new(0,51,42,4,14),
+        Pos2 = CoordGrid.new(0,51,43,58,56),
+    },
+    Wendlewick = {
+        Pos1 = CoordGrid.new(0,53,23,28,3),
+        Pos2 = CoordGrid.new(0,55,24,0,46),
+    },
+    Amberfell = {
+        Pos1 = CoordGrid.new(0,58,24,2,14),
+        Pos2 = CoordGrid.new(0,58,24,44,50),
+    },
+    LinbogVillage = {
+        Pos1 = CoordGrid.new(0,60,21,23,54),
+        Pos2 = CoordGrid.new(0,62,23,10,18),
+    },
+    Heathervein = {
+        Pos1 = CoordGrid.new(0,60,26,2,1),
+        Pos2 = CoordGrid.new(0,60,26,45,35),
+    },
+    Canifis = {
+        Pos1 = CoordGrid.new(0,54,54,18,11),
+        Pos2 = CoordGrid.new(0,54,54,62,52),
+    },
+    Daemonheim = {
+        Pos1 = CoordGrid.new(0,53,56,0,36),
+        Pos2 = CoordGrid.new(0,54,59,63,13),
+    },
+    PortPhasmatys = {
+        Pos1 = CoordGrid.new(0,57,54,2,1),
+        Pos2 = CoordGrid.new(0,57,55,63,11),
+    },
+    Barrows = {
+        Pos1 = CoordGrid.new(0,55,51,28,10),
+        Pos2 = CoordGrid.new(0,55,51,63,45),
+    },
 }
+
+--Pos1 = CoordGrid.new(),
+--Pos2 = CoordGrid.new(),
 
 local getRegionState = function()
     local regionState = {}
