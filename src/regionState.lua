@@ -177,6 +177,10 @@ local regions = {
         Pos1 = CoordGrid.new(0,55,51,28,10),
         Pos2 = CoordGrid.new(0,55,51,63,45),
     },
+    Edgeville = {
+        Pos1 = CoordGrid.new(0,48,54,2,6),
+        Pos2 = CoordGrid.new(0,48,55,43,0),
+    },
 }
 
 --Pos1 = CoordGrid.new(),
