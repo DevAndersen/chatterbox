@@ -120,7 +120,23 @@ local regions = {
     ArchGlacorArena = {
         Pos1 = CoordGrid.new(1,101,10,18,41),
         Pos2 = CoordGrid.new(1,101,10,49,47),
-    }
+    },
+    Prifddinas = {
+        Pos1 = CoordGrid.new(1,32,51,52,13),
+        Pos2 = CoordGrid.new(1,35,53,49,62),
+    },
+    MaxGuild = {
+        Pos1 = CoordGrid.new(1,35,51,26,37),
+        Pos2 = CoordGrid.new(1,35,51,46,52),
+    },
+    PortSarim = {
+        Pos1 = CoordGrid.new(0,47,49,0,41),
+        Pos2 = CoordGrid.new(0,47,51,51,0),
+    },
+    Entrana = {
+        Pos1 = CoordGrid.new(0,43,52,50,2),
+        Pos2 = CoordGrid.new(0,44,52,55,63),
+    },
 }
 
 local getRegionState = function()
