@@ -8,13 +8,11 @@
 return {
     [1] = {
         text = "I am your goblin buddy.",
-        file = "1",
         category = "generic",
         animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
     },
     [2] = {
         text = "Are those HAM robes? I hope you are just wearing them because you like the color pink.",
-        file = "2",
         category = "equipment",
         animation = "HUMAN_UPDATE_CHATHEAD_QUIZZICAL_LEN4",
         requirements = function(state)
@@ -23,13 +21,11 @@ return {
     },
     [3] = {
         text = "Cabbages are actually very tasty.",
-        file = "3",
         category = "generic",
         animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
     },
     [4] = {
         text = "Did you know: Abyssal whips are made from Abyssal Demon spines. Allegedly.",
-        file = "4",
         category = "trivia",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
         requirements = function(state)
@@ -38,37 +34,34 @@ return {
     },
     [5] = {
         text = "Did you know: You cannot eat a mud pie. Because it contains compost and clay. And you shouldn't eat those. Apparently.",
-        file = "5",
         category = "trivia",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
     },
     [6] = {
         text = "Did you know: Hans is the oldest NPC in RuneScape. He looks good for his age.",
-        file = "6",
         category = "trivia",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
     },
     [7] = {
         text = "Did you know: Mint cakes were once considered highly valuable. They still are to me. I like the taste.",
-        file = "7",
         category = "trivia",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.GrandExchange
+        end
     },
     [8] = {
         text = "Did you know: A bug caused the red Fremennik cloak to provide extreme defensive boosts. A very fashionable bug.",
-        file = "8",
         category = "trivia",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
     },
     [9] = {
         text = "Did you know: The symbol of Guthix used to look different in RuneScape Classic.",
-        file = "9",
         category = "trivia",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
     },
     [10] = {
         text = "Did you know: There's a ninja hiding on a bench in Rimmington. Just examine it, you'll see.",
-        file = "10",
         category = "trivia",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
         requirements = function(state)
@@ -78,7 +71,6 @@ return {
     [11] = {
         text = "I like Hazelmere. I hope nothing bad happens to him.",
         audio = "I like Hazel mere. I hope nothing bad happens to him.",
-        file = "11",
         category = "quest",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
         requirements = function(state)
@@ -89,7 +81,6 @@ return {
     [12] = {
         text = "I miss Hazelmere. He was a nice guy.",
         audio = "I miss Hazel mere. He was a nice guy.",
-        file = "12",
         category = "quest",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
         requirements = function(state)
@@ -99,20 +90,17 @@ return {
     [13] = {
         text = "The quest name \"A Void Dance\" is a play on the word \"avoidance\". Or maybe \"avoid dance\", which is what I do.",
         audio = "The quest name A Void Dance is a play on the word avoidance. Or maybe avoid dance, which is what I do.",
-        file = "13",
         category = "trivia",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
     },
     [14] = {
         text = "Baxtorian's name is a wordplay on the word \"backstory\". Jagex are not very subtle.",
         audio = "Baxtorian's name is a wordplay on the word backstory. Jagex are not very subtle.",
-        file = "14",
         category = "trivia",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
     },
     [15] = {
         text = "You look tough. Can you take down the King Black Dragon by wielding nothing more than a bronze dagger?",
-        file = "15",
         category = "level",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
         requirements = function(state)
@@ -121,7 +109,6 @@ return {
     },
     [16] = {
         text = "If you need money, you can high alch items.",
-        file = "16",
         category = "money",
         animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
         requirements = function(state)
@@ -130,11 +117,58 @@ return {
     },
     [17] = {
         text = "If you need money, you can high alch items. But you cannot high alch people, because that would be wrong.",
-        file = "17",
         category = "money",
         animation = "HUMAN_UPDATE_CHATHEAD_SHIFTY_LEN4",
         requirements = function(state)
             return state.coins < 1000000
         end,
+    },
+    [18] = {
+        text = "The Grand Exchange isn't all that useful to you, by the way.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.GrandExchange and state.isIronman
+        end
+    },
+    [19] = {
+        text = "It is always nice to visit my home town.",
+        category = "generic",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.GoblinVillage
+        end
+    },
+    [20] = {
+        text = "I was once on vacation here. The local goblins were very nice to me.",
+        category = "generic",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.LumbridgeGoblins
+        end
+    },
+    [21] = {
+        text = "That hat looks very expensive. But not nearly as comfortable as mine.",
+        category = "equipment",
+        animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
+        requirements = function(state)
+            return state.partyhat
+        end
+    },
+    [22] = {
+        text = "Does Santa know that you took his hat? Stealing people's hats isn't a very nice thing to do.",
+        category = "equipment",
+        animation = "HUMAN_UPDATE_CHATHEAD_SHIFTY_LEN4",
+        requirements = function(state)
+            return state.santaHat
+        end
+    },
+    [23] = {
+        text = "That mask makes you look very scary. But I'm not sure it is going to work on bosses.",
+        category = "equipment",
+        animation = "HUMAN_UPDATE_CHATHEAD_QUIZZICAL_LEN4",
+        requirements = function(state)
+            return state.halloweenMask
+        end
     },
 }

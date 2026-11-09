@@ -190,6 +190,7 @@ local getState = function()
         fullHam = fullHam,
         partyhat = partyhat,
         santaHat = santaHat,
+        halloweenMask = halloweenMask,
         isIronman = isIronman,
         isHardcoreIronman = isHardcoreIronman,
         hasExaminedRimmingtonBench = hasExaminedRimmingtonBench,

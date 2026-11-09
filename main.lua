@@ -35,8 +35,8 @@ local function debugPlayButtonClick()
 
     -- Check which lines meet their requirements, excluding the previously played line
     for key,value in pairs(linesData) do
-        if lastId ~= value.file and (value.requirements == nil or value.requirements(playerState)) then
-            availableLines[#availableLines + 1] = value
+        if lastId ~= key and (value.requirements == nil or value.requirements(playerState)) then
+            availableLines[#availableLines + 1] = { key = key, value = value }
         end
     end
 
@@ -48,11 +48,11 @@ local function debugPlayButtonClick()
     local lineIndex = math.floor(random(1, #availableLines + 1))
     local selectedLine = availableLines[lineIndex]
 
-    lastId = selectedLine.file
+    lastId = selectedLine.key
 
-    currentLine = audio.Play(Plugin.resources["DECtalk"][selectedLine.file])
-    currentText = selectedLine.text
-    currentAnimation = selectedLine.animation
+    currentLine = audio.Play(Plugin.resources["DECtalk"][tostring(selectedLine.key)])
+    currentText = selectedLine.value.text
+    currentAnimation = selectedLine.value.animation
 end
 
 mainWindow:AddSimpleButton("Debug Play", debugPlayButtonClick, { inline = true })
@@ -85,7 +85,7 @@ end)
 -- Graardor: TSD_GRAARDOR_HEAD_CHAT_AVATARUPDATEINTERIM
 
 -- Configure the model and camera
-model:SetModel(ui.ModelType.MODEL, id.Model.TSD_GRAARDOR_HEAD_CHAT_AVATARUPDATEINTERIM)
+model:SetModel(ui.ModelType.MODEL, id.Model.SLICE_GOBLIN_CHATHEAD_2011)
 model:SetPos(0, 0)
 model.viewDistance = 1600
 model.animID = config.Seq["HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"].id
