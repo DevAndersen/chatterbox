@@ -171,4 +171,12 @@ return {
             return state.halloweenMask
         end
     },
+    [24] = {
+        text = "I'm feeling a bit hungry. Could you cook a chicken on that campfire over there?",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_BORED_LEN4",
+        requirements = function(state)
+            return state.region.WarsRetreat
+        end
+    },
 }
