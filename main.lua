@@ -1,6 +1,7 @@
 -- Call script files
 local state = require("src/state")
 local linesData = require("src/lines")
+--require("src/debugRegionRenderer")
 
 local mainWindowWidth = 440
 local mainWindowHeight = 340
@@ -75,10 +76,18 @@ Event.Logic.Subscribe("chatterboxLogicEvent", function(logicEvent)
     end
 end)
 
+-- Grubfoot: SLICE_GOBLIN_CHATHEAD_2011
+-- The Raptor: SIGHERO_RAPTOR_CHATHEAD
+-- Goebie: TUSKA_RAIDS_GOEBIE_VAR1_CHAT
+-- Ripper demon: HLM_RIPPER_DEMON_CHAT
+-- Yelps: QUEST_BANDOS_YELPS_CHAT
+-- Imp: EASTER_2015_IMP_CHAT
+-- Graardor: TSD_GRAARDOR_HEAD_CHAT_AVATARUPDATEINTERIM
+
 -- Configure the model and camera
-model:SetModel(ui.ModelType.MODEL, id.Model.SLICE_GOBLIN_CHATHEAD_2011)
+model:SetModel(ui.ModelType.MODEL, id.Model.TSD_GRAARDOR_HEAD_CHAT_AVATARUPDATEINTERIM)
 model:SetPos(0, 0)
-model.viewDistance = 2000
+model.viewDistance = 1600
 model.animID = config.Seq["HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"].id
 
 local ambient = 1.0

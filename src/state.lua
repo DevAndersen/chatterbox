@@ -1,3 +1,5 @@
+local regionState = require("src/regionState")
+
 -- Equipment slot IDs (config.Enum.WORNITEMS_SLOT_NAME.values)
 local equipmentSlots = {
     Head = 1, -- Helmet
@@ -202,8 +204,9 @@ local getState = function()
         hands = hands,
         feet = feet,
         ring = ring,
-        quiver  = quiver,
-        pocket  = pocket,
+        quiver = quiver,
+        pocket = pocket,
+        region = regionState.getRegionState(),
     }
 end
 
