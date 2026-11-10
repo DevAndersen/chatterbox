@@ -87,7 +87,6 @@ Event.Draw.Subscribe("chatterboxDebugRegionDrawEvent", function()
         local aabb = AABB.new(
             Vector3.new(region.Pos1.x - regionRenderDistance, region.Pos1.level - regionRenderDistance, region.Pos1.z - regionRenderDistance),
             Vector3.new(region.Pos2.x + regionRenderDistance, region.Pos2.level + regionRenderDistance, region.Pos2.z + regionRenderDistance))
-        local playerCoordGrid = Player.GetEntity().coordGrid
 
         if aabb:IsInside(playerPos) then
             drawRegion(region.Pos1, region.Pos2)
