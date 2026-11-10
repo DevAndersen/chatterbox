@@ -1,9 +1,14 @@
 local state = require("src/state")
-local linesData = require("src/lines")
+local speakers = require("src/speakers")
 
 local mainWindowWidth = 440
 local mainWindowHeight = 340
 
+local speakerId = 0
+local speaker = speakers[speakerId]
+local linesData = speaker.Lines
+
+local currentLine
 local gameArea = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__GAME_AREA)
 local label
 local errorLabel
@@ -22,12 +27,58 @@ local mainWindow = prettyui.Window.new(gameArea, {
     resizable = true,
 })
 
-local currentLine
+local model = ui.Model.new(mainWindow.content)
 
-local function debugPlayButtonClick()
-    -- Stop the currently playing voice line
+local title = ui.Text.new(mainWindow.content)
+
+-- Stop the currently playing voice line
+local function stopAudio()
     if currentLine and currentLine.isPlaying then
         currentLine:Stop()
+    end
+end
+
+-- Update the speaker
+local function updateSpeaker()
+    stopAudio()
+
+    currentText = ""
+    currentErrorMessage = ""
+    speaker = speakers[speakerId]
+
+    title.content = speaker.Name
+    model:SetModel(ui.ModelType.MODEL, speaker.Model)
+    model.animID = config.Seq["HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"].id
+    linesData = speaker.Lines
+end
+
+-- Go to the next speaker
+local function nextSpeaker()
+    speakerId = (speakerId + 1) % ((#speakers) + 1)
+    updateSpeaker()
+end
+
+-- Go to the previous speaker
+local function previousSpeaker()
+    speakerId = (speakerId - 1) % ((#speakers) + 1)
+    updateSpeaker()
+end
+
+mainWindow:AddSpriteButton("ARROW_LEFT", previousSpeaker, { x = 8, inline = true })
+mainWindow:AddSpriteButton("ARROW_RIGHT", nextSpeaker, { x = -32, xAnchor = 1, inline = true })
+
+title:AlignTo(ui.AlignMode.CENTRE)
+title:SetSize(mainWindowWidth, 50)
+title.font = id.Font.QUILL_OBLIQUE_LARGE
+title.colour = Vector4.new(0.83, 0.71, 0.38, 1.0)
+title.content = speaker.Name
+
+local function debugPlayButtonClick()
+    stopAudio()
+
+    -- Early return if no line data was found
+    if not linesData then
+        return
     end
 
     local availableLines = {}
@@ -53,19 +104,18 @@ local function debugPlayButtonClick()
     currentAnimation = selectedLine.value.animation
 
     -- Attempt to play the selected line
-    if pcall(function() currentLine = audio.Play(Plugin.resources["DECtalk"][tostring(selectedLine.key)]) end) then
+    if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.ResourceDirectory][tostring(selectedLine.key)]) end) then
         currentErrorMessage = ""
     else
-        local errorMessage = string.format("Failed to play sound resource '%s'", selectedLine.key)
+        local errorMessage = string.format("Failed to play sound resource '%s' for speaker '%s'", selectedLine.key, speaker.Name)
         currentErrorMessage = errorMessage
         log(errorMessage)
     end
 end
 
-mainWindow:AddSimpleButton("Debug Play", debugPlayButtonClick, { inline = true })
-mainWindow:AddSimpleButton("Debug State", function() log(state.getState()) end, { inline = true })
+mainWindow:AddSimpleButton("Debug Play", debugPlayButtonClick)
+mainWindow:AddSimpleButton("Debug State", function() log(state.getState()) end)
 
-local model = ui.Model.new(mainWindow.content)
 model:SetSize(mainWindow.content.width, mainWindow.content.height)
 
 Event.Logic.Subscribe("chatterboxModelLogicEvent", function()
@@ -85,16 +135,14 @@ Event.Logic.Subscribe("chatterboxModelLogicEvent", function()
     end
 end)
 
--- Grubfoot: SLICE_GOBLIN_CHATHEAD_2011
--- The Raptor: SIGHERO_RAPTOR_CHATHEAD
--- Goebie: TUSKA_RAIDS_GOEBIE_VAR1_CHAT
--- Ripper demon: HLM_RIPPER_DEMON_CHAT
--- Yelps: QUEST_BANDOS_YELPS_CHAT
--- Imp: EASTER_2015_IMP_CHAT
--- Graardor: TSD_GRAARDOR_HEAD_CHAT_AVATARUPDATEINTERIM
+Event.Draw.Subscribe("myEvent", function(drawEvent)
+    title:SetSize(mainWindow.content.width, 50)
+    label:SetSize(mainWindow.content.width - 4, mainWindow.content.height - 60)
+    errorLabel:SetSize(mainWindow.content.width - 4, 120)
+end)
 
 -- Configure the model and camera
-model:SetModel(ui.ModelType.MODEL, id.Model.SLICE_GOBLIN_CHATHEAD_2011)
+model:SetModel(ui.ModelType.MODEL, speaker.Model)
 model:SetPos(0, 0)
 model.viewDistance = 1600
 model.animID = config.Seq["HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"].id

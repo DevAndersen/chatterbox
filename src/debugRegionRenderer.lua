@@ -1,7 +1,7 @@
 local regionState = require("src/regionState")
 
 -- Write the player's current grid coordinates to the developer console
---log("PlayerCoord:", tostring(Player.GetEntity().coordGrid))
+log("PlayerCoord:", tostring(Player.GetEntity().coordGrid))
 
 -- Shape data
 local tileSize = 512

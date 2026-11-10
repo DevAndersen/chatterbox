@@ -148,7 +148,7 @@ local getState = function()
     local zukHybridCape = cape == config.Obj.EGWD_FUL_BOSS_FLAWLESS_CAPE.configName
 
     local skillcape = objectHasParam(cape, config.Param.SKILLCAPE)
-    
+
     -- Max cape check
     local maxCape =
         cape == config.Obj.SKILLCAPE_MAX.configName
@@ -180,10 +180,13 @@ local getState = function()
         or cape == config.Obj.SKILLCAPE_COMPLETIONIST_INSANE_120_ALL_HOODED.configName
 
     return {
+        -- Todo: Turn skills into their own table
         attackLevel = Player.GetLevelGameplay(SkillType.ATTACK),
         strengthLevel = Player.GetLevelGameplay(SkillType.STRENGTH),
         thievingLevel = Player.GetLevelGameplay(SkillType.THIEVING),
         cookingLevel = Player.GetLevelGameplay(SkillType.COOKING),
+        slayerLevel = Player.GetLevelGameplay(SkillType.SLAYER),
+
         coins = coins,
         completedTheGrandTree = config.Quest.FromID(id.Quest.THEGRANDTREE).hasFinishedQuest,
         completedWhileGuthixSleeps = config.Quest.FromID(id.Quest.WHILE_GUTHIX_SLEEPS).hasFinishedQuest,
