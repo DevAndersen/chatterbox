@@ -4,7 +4,7 @@ local speakers = require("src/speakers")
 local mainWindowWidth = 440
 local mainWindowHeight = 340
 
-local speakerId = 0
+local speakerId = 1
 local speaker = speakers[speakerId]
 local linesData = speaker.Lines
 
@@ -54,18 +54,21 @@ end
 
 -- Go to the next speaker
 local function nextSpeaker()
-    speakerId = (speakerId + 1) % ((#speakers) + 1)
+    speakerId = speakerId % #speakers + 1
     updateSpeaker()
 end
 
 -- Go to the previous speaker
 local function previousSpeaker()
-    speakerId = (speakerId - 1) % ((#speakers) + 1)
+    speakerId = (speakerId - 2) % #speakers + 1
     updateSpeaker()
 end
 
-mainWindow:AddSpriteButton("ARROW_LEFT", previousSpeaker, { x = 8, inline = true })
-mainWindow:AddSpriteButton("ARROW_RIGHT", nextSpeaker, { x = -32, xAnchor = 1, inline = true })
+-- Add speaker navigation buttons if there are multiple speakers available
+if #speakers > 1 then
+    mainWindow:AddSpriteButton("ARROW_LEFT", previousSpeaker, { x = 8, inline = true })
+    mainWindow:AddSpriteButton("ARROW_RIGHT", nextSpeaker, { x = -32, xAnchor = 1, inline = true })
+end
 
 title:AlignTo(ui.AlignMode.CENTRE)
 title:SetSize(mainWindowWidth, 50)

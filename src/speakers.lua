@@ -7,13 +7,13 @@
 -- Graardor: TSD_GRAARDOR_HEAD_CHAT_AVATARUPDATEINTERIM
 
 return {
-    [0] = {
+    [1] = {
         Name = "Gobbo",
         Model = id.Model.SLICE_GOBLIN_CHATHEAD_2011,
         Lines = require("src/lines/goblin"),
         ResourceDirectory = "DECtalk"
     },
-    [1] = {
+    [2] = {
         Name = "The Raptor",
         Model = id.Model.SIGHERO_RAPTOR_CHATHEAD,
         Lines = require("src/lines/raptor"),
