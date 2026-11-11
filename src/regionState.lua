@@ -217,8 +217,15 @@ local regions = {
         Pos1 = CoordGrid.new(0,51,52,51,16),
         Pos2 = CoordGrid.new(0,53,53,2,50),
     },
+    Lletya = {
+        Pos1 = CoordGrid.new(0,36,49,14,18),
+        Pos2 = CoordGrid.new(0,36,49,54,59),
+    },
+    TzHaarCity = {
+        Pos1 = CoordGrid.new(0,70,78,63,62),
+        Pos2 = CoordGrid.new(0,74,80,61,60),
+    },
 }
-
 
 --Pos1 = CoordGrid.new(),
 --Pos2 = CoordGrid.new(),
