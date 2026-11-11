@@ -40,9 +40,15 @@ local initContentLayer = function(contentLayerReadyEvent)
         toggleable = true,
     })
 
+    panel:AddSimpleButton("Poke", function()
+        mainWindowFunctions.speakEvent(SpeakerEventType.Poke)
+    end)
+
     Event.Logic.Subscribe(contentLayerLogicEventName, function()
         speakerNameLabel.content = Speakers[SpeakerId].Name
     end)
+
+    panel:AddSimpleButton("Debug State", function() log(require("src/state").getState()) end)
 
     return panel
 end

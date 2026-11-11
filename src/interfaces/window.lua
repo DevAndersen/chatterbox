@@ -1,6 +1,16 @@
 local mainWindowDrawEventName = "mainWindowDrawEventName"
 local mainWindowLogicEventName = "mainWindowLogicEventName"
 
+local speakerEventData
+local currentLine
+
+-- Stop the currently playing voice line
+local function stopAudio()
+    if currentLine and currentLine.isPlaying then
+        currentLine:Stop()
+    end
+end
+
 local function createMainWindow()
     -- Exit if main window already exists
     if MainWindow then
@@ -16,7 +26,6 @@ local function createMainWindow()
     local speaker = Speakers[SpeakerId]
     local linesData = speaker.Lines
 
-    local currentLine
     local uiLayer = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__PLUGIN_BUILD_LAYER_TOP)
     local label
     local errorLabel
@@ -24,6 +33,11 @@ local function createMainWindow()
     local currentAnimation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"
     local currentText = ""
     local currentErrorMessage = ""
+
+    -- Clear any potential speaker event data, to ensure lines aren't played for old events
+    speakerEventData = nil
+
+    local lineDelay = 3
 
     MainWindow = prettyui.Window.new(uiLayer, {
         title = "Chatterbox",
@@ -39,13 +53,6 @@ local function createMainWindow()
     local model = ui.Model.new(MainWindow.content)
 
     local title = ui.Text.new(MainWindow.content)
-
-    -- Stop the currently playing voice line
-    local function stopAudio()
-        if currentLine and currentLine.isPlaying then
-            currentLine:Stop()
-        end
-    end
 
     -- Update the speaker
     local function updateSpeaker()
@@ -67,11 +74,14 @@ local function createMainWindow()
     title.colour = Vector4.new(0.83, 0.71, 0.38, 1.0)
     title.content = speaker.Name
 
-    local function debugPlayButtonClick()
-        stopAudio()
-
+    local function playLine()
         -- Early return if no line data was found
         if not linesData then
+            return
+        end
+
+        -- Early return if a line is already playing
+        if currentLine and currentLine.isPlaying then
             return
         end
 
@@ -105,14 +115,24 @@ local function createMainWindow()
             currentErrorMessage = errorMessage
             log(errorMessage)
         end
+        speakerEventData = nil
     end
-
-    MainWindow:AddSimpleButton("Debug Play", debugPlayButtonClick)
-    MainWindow:AddSimpleButton("Debug State", function() log(state.getState()) end)
 
     model:SetSize(MainWindow.content.width, MainWindow.content.height)
 
-    Event.Logic.Subscribe(mainWindowLogicEventName, function()
+    Event.Logic.Subscribe(mainWindowLogicEventName, function(logicEvent)
+
+        if logicEvent.logicTick % 10 == 0 and lineDelay > 0 then
+            lineDelay = lineDelay - 1
+        end
+
+        if speakerEventData and speakerEventData.EventType == SpeakerEventType.Poke then
+            stopAudio()
+            playLine()
+        elseif lineDelay == 0 and speakerEventData ~= nil then
+            playLine()
+            lineDelay = 20
+        end
 
         if lastSpeakerId ~= SpeakerId then
             updateSpeaker()
@@ -181,6 +201,8 @@ local function destroyMainWindow()
         MainWindow:Destroy()
         MainWindow = nil
     end
+
+    stopAudio()
 end
 
 local function toggleMainWindow()
@@ -192,7 +214,14 @@ local function toggleMainWindow()
     ShowMainWindow = not ShowMainWindow
 end
 
+local function speakEvent(speakerEventType, speakerEventMetadata)
+    if MainWindow then
+        speakerEventData = { EventType = speakerEventType, Metadata = speakerEventMetadata }
+    end
+end
+
 return  {
     toggleMainWindow = toggleMainWindow,
-    destroyMainWindow = destroyMainWindow
+    destroyMainWindow = destroyMainWindow,
+    speakEvent = speakEvent
 }
