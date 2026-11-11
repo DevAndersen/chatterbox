@@ -19,7 +19,7 @@ end
 -- Call script files
 local contentLayerFunctions = require("src/interfaces/contentLayer")
 local mainWindowFunctions = require("src/interfaces/window")
-require("src/debugRegionRenderer")
+--require("src/debugRegionRenderer")
 
 -- Called after a set amount of client-side logic event ticks.
 function OnRandomTick()

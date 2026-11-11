@@ -9,12 +9,14 @@
 return {
     [1] = {
         Name = "Gobbo",
+        Description = "A well-spoken goblin.",
         Model = id.Model.SLICE_GOBLIN_CHATHEAD_2011,
         Lines = require("src/lines/goblin"),
         ResourceDirectory = "DECtalk"
     },
     [2] = {
         Name = "The Raptor",
+        Description = "A mysterious but highly skilled warrior.",
         Model = id.Model.SIGHERO_RAPTOR_CHATHEAD,
         Lines = require("src/lines/raptor"),
         ResourceDirectory = "DECtalk"

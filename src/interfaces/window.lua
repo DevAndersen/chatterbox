@@ -4,6 +4,9 @@ local mainWindowLogicEventName = "mainWindowLogicEventName"
 local speakerEventData
 local currentLine
 
+local createMainWindow
+local destroyMainWindow
+
 -- Stop the currently playing voice line
 local function stopAudio()
     if currentLine and currentLine.isPlaying then
@@ -11,7 +14,30 @@ local function stopAudio()
     end
 end
 
-local function createMainWindow()
+destroyMainWindow = function()
+    -- Unsubscribe event listeners
+    Event.Logic.Unsubscribe(mainWindowLogicEventName)
+    Event.Draw.Unsubscribe(mainWindowDrawEventName)
+
+    -- Clean up the main window
+    if MainWindow then
+        MainWindow:Destroy()
+        MainWindow = nil
+    end
+
+    stopAudio()
+end
+
+local toggleMainWindow = function()
+    if ShowMainWindow then
+        destroyMainWindow()
+    else
+        createMainWindow()
+    end
+    ShowMainWindow = not ShowMainWindow
+end
+
+createMainWindow = function()
     -- Exit if main window already exists
     if MainWindow then
         return
@@ -48,6 +74,9 @@ local function createMainWindow()
         width = mainWindowWidth,
         height = mainWindowHeight,
         resizable = true,
+        onClose = function()
+            toggleMainWindow()
+        end,
     })
 
     local model = ui.Model.new(MainWindow.content)
@@ -189,29 +218,6 @@ local function createMainWindow()
     errorLabel:SetSize(MainWindow.content.width - 4, 120)
     errorLabel.font = id.Font.NOTOSANS_BOLD_14
     errorLabel.colour = Vector4.new(1.0, 0.0, 0.0, 1.0)
-end
-
-local function destroyMainWindow()
-    -- Unsubscribe event listeners
-    Event.Logic.Unsubscribe(mainWindowLogicEventName)
-    Event.Draw.Unsubscribe(mainWindowDrawEventName)
-
-    -- Clean up the main window
-    if MainWindow then
-        MainWindow:Destroy()
-        MainWindow = nil
-    end
-
-    stopAudio()
-end
-
-local function toggleMainWindow()
-    if ShowMainWindow then
-        destroyMainWindow()
-    else
-        createMainWindow()
-    end
-    ShowMainWindow = not ShowMainWindow
 end
 
 local function speakEvent(speakerEventType, speakerEventMetadata)

@@ -34,7 +34,11 @@ local initContentLayer = function(contentLayerReadyEvent)
     speakerNameLabel.colour = Vector4.new(0.83, 0.71, 0.38, 1.0)
     speakerNameLabel.content = Speakers[SpeakerId].Name
 
-    panel:AddSimpleButton("Show window", function() mainWindowFunctions.toggleMainWindow() end,
+    local speakerDescriptionButton = panel:AddSpriteButton("INFO")
+    speakerDescriptionButton:SetTooltip(Speakers[SpeakerId].Description)
+
+    local windowToggleButton
+    windowToggleButton = panel:AddSimpleButton("Toggle window", function() mainWindowFunctions.toggleMainWindow() end,
     {
         active = ShowMainWindow,
         toggleable = true,
@@ -45,7 +49,15 @@ local initContentLayer = function(contentLayerReadyEvent)
     end)
 
     Event.Logic.Subscribe(contentLayerLogicEventName, function()
+        -- Ensure that speaker-specific details changes if the speaker is changed
         speakerNameLabel.content = Speakers[SpeakerId].Name
+        speakerDescriptionButton:SetTooltip(Speakers[SpeakerId].Description)
+
+        -- Ensure that the window toggle button shows the correct state
+        --log(windowToggleButton.active, ShowMainWindow)
+        if windowToggleButton.active ~= ShowMainWindow then
+            windowToggleButton:SetActive(ShowMainWindow)
+        end
     end)
 
     panel:AddSimpleButton("Debug State", function() log(require("src/state").getState()) end)
