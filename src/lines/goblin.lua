@@ -187,4 +187,196 @@ return {
             return state.follower == config.Obj.LORE_PACK_YAK
         end
     },
+    [26] = {
+        text = "I enjoy Dungeoneering. It is my favorite minigame.",
+        category = "humor",
+        animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
+        requirements = function(state)
+            return state.region.Daemonheim
+        end
+    },
+    [27] = {
+        text = "I heard that the Wise Old Man once robbed a Draynor bank. It is nice to see elderly people with active hobbies.",
+        category = "humor",
+        animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
+        requirements = function(state)
+            return state.region.DraynorVillage
+        end
+    },
+    [28] = {
+        text = "For a haunted manor, this place has quite a few residents. I wonder if they all get along.",
+        category = "generic",
+        animation = "HUMAN_UPDATE_CHATHEAD_QUIZZICAL_LEN4",
+        requirements = function(state)
+            return state.region.DraynorVillage
+        end
+    },
+    [29] = {
+        text = "Cows have a hundred words for grass. And they're all different variations of 'Moo'.",
+        category = "humor",
+        animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
+        requirements = function(state)
+            return state.region.LumbridgeCowPen
+        end
+    },
+    [30] = {
+        text = "I actually speak a little cow. 'Moo' means 'Hello', and also 'Goodbye'.",
+        category = "humor",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.LumbridgeCowPen
+        end
+    },
+    [31] = {
+        text = "Did you know: the name 'Lumbridge' is a reference to 'Cambridge', where Jagex HQ is located.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.Lumbridge
+        end
+    },
+    [32] = {
+        text = "Archaeologist are weird. Why would you dig up dirt if you don't plan on eating it?",
+        category = "humor",
+        animation = "HUMAN_UPDATE_CHATHEAD_QUIZZICAL_LEN4",
+        requirements = function(state)
+            return state.region.VarrockDigSite
+        end
+    },
+    [33] = {
+        text = "Did you know: Falador Park used to be where a lot of players did their trading. I don't think the gardener liked it very much.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.Falador
+        end
+    },
+    [34] = {
+        text = "Did you know: Many elves and elven places names are Welsh words.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.Tirannwn or state.region.Prifddinas
+        end
+    },
+    [35] = {
+        text = "Did you know: 'Prifddinas' is the Welsh word for 'Capital'.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.Prifddinas
+        end
+    },
+    [36] = {
+        text = "Did you know: Fairy rings exist in real life. Sadly, they are not very useful for transportation.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK"
+    },
+    [37] = {
+        text = "Monkfish don't look very much like monks.",
+        category = "generic",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.PiscatorisFishingColony
+        end
+    },
+    [38] = {
+        text = "Nobody can agree on how to pronouncing this city's name. Best to just call it 'Ardy'.",
+        category = "humor",
+        animation = "HUMAN_UPDATE_CHATHEAD_SHIFTY_LEN4",
+        requirements = function(state)
+            return state.region.EastArdougne
+        end
+    },
+    [39] = {
+        text = "Remember, Jad's healers will respawn if they heal him up to full health.",
+        category = "generic",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.TzhaarFightCave
+        end
+    },
+    [40] = {
+        text = "Did you know: If you drop magic logs, you can see the stars moving.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK"
+    },
+    [41] = {
+        text = "Did you know: Magic logs used to look like a lighter version of willow logs.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK"
+    },
+    [42] = {
+        text = "Did you know: The 'g' in 'gnome' is silent.",
+        audio = "Did you know: The 'g' in 'nome' is silent.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.GnomeStronghold
+        end
+    },
+    [43] = {
+        text = "Did you know: Ghasts can turn easter eggs into rotten food. A fast way to lose money.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.MortMyreSwamp
+        end
+    },
+    [44] = {
+        text = "Those snails have some pretty shells. They would make for an excellent hat.",
+        category = "generic",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.MortMyreSwamp
+        end
+    },
+    [45] = {
+        text = "What do you call a terrified Mort Myre spirit? An aghast ghast.",
+        category = "humor",
+        animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_EXTREME_LEN4",
+        requirements = function(state)
+            return state.region.MortMyreSwamp
+        end
+    },
+    [46] = {
+        text = "The citizens in this place gives me the creeps.",
+        category = "generic",
+        animation = "HUMAN_UPDATE_CHATHEAD_SHIFTY_LEN4",
+        requirements = function(state)
+            return state.region.Canifis
+        end
+    },
+    [47] = {
+        text = "Did you know: The names of these islands are puns on 'Ya, tis' so' and 'Nay, tis' not'.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
+        requirements = function(state)
+            return state.region.FremennikIsles
+        end
+    },
+    [48] = {
+        text = "Yak perfume is popular among goblins.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
+        requirements = function(state)
+            return state.region.NeitiznotYakPen
+        end
+    },
+    [49] = {
+        text = "If you pickpocket the pillory guard, you'll get free tomatoes.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
+        requirements = function(state)
+            return state.region.Yanille
+        end
+    },
+    [50] = {
+        text = "The walls of this city look perfect for trapping penguins.",
+        category = "trivia",
+        animation = "HUMAN_UPDATE_CHATHEAD_QUIZZICAL_LEN4",
+        requirements = function(state)
+            return state.region.Yanille
+        end
+    },
 }

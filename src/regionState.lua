@@ -49,7 +49,7 @@ local regions = {
         Pos1 = CoordGrid.new(0,50,50,41,25),
         Pos2 = CoordGrid.new(0,51,50,0,54),
     },
-    Draynor = {
+    DraynorManor = {
         Pos1 = CoordGrid.new(0,48,52,15,4),
         Pos2 = CoordGrid.new(0,49,52,4,53),
     },
@@ -224,6 +224,18 @@ local regions = {
     TzhaarFightCave = {
         Pos1 = CoordGrid.new(0,69,80,0,0),
         Pos2 = CoordGrid.new(0,69,80,63,63),
+    },
+    LumbridgeCowPen = {
+        Pos1 = CoordGrid.new(0,50,50,53,55),
+        Pos2 = CoordGrid.new(0,51,51,2,34),
+    },
+    Tirannwn = {
+        Pos1 = CoordGrid.new(0,33,48,37,29),
+        Pos2 = CoordGrid.new(0,36,51,21,11),
+    },
+    NeitiznotYakPen = {
+        Pos1 = CoordGrid.new(0,36,59,11,10),
+        Pos2 = CoordGrid.new(0,36,59,24,24),
     },
 }
 
