@@ -1,5 +1,14 @@
+-- Global variables
+Speaker = nil
+SpeakerId = 1
+ShowMainWindow = false
+MainWindow = nil
+ContentLayerInterface = nil
+Speakers = require("src/speakers")
+
 -- Call script files
-local mainWindow = require("src/window")
+local contentLayerFunctions = require("src/interfaces/contentLayer")
+local mainWindowFunctions = require("src/interfaces/window")
 --require("src/debugRegionRenderer")
 
 -- Called after a set amount of client-side logic event ticks.
@@ -17,12 +26,6 @@ end
 -- Called when the player gain XP.
 function OnGainXP(skill, level, xp)
 end
-
-Event.Logic.Subscribe("chatterboxLogicTriggerEvent", function(logicEvent)
-    if logicEvent.logicTick % 100 == 0 then
-        OnTick()
-    end
-end)
 
 Event.SkillTransmit.Subscribe("chatterboxSkillTriggerEvent", function (skillTransmitEvent)
     local skill = skillTransmitEvent.skill
@@ -43,9 +46,19 @@ Event.SkillTransmit.Subscribe("chatterboxSkillTriggerEvent", function (skillTran
     end
 end)
 
+Event.Logic.Subscribe("chatterboxLogicTriggerEvent", function(logicEvent)
+    if logicEvent.logicTick % 100 == 0 then
+        OnTick()
+    end
+end)
+
+ContentLayerInterface = contentLayerFunctions.createContentLayer()
+
 -- Shutdown cleanup
 function PluginShutdown()
-    if mainWindow then
-        mainWindow:Destroy()
-    end
+    -- Clean up main window
+    mainWindowFunctions.destroyMainWindow()
+
+    -- Clean up content layer
+    contentLayerFunctions.destroyContentLayer()
 end

@@ -2,6 +2,7 @@
     "name": "Chatterbox",
     "version": "0.0.1",
     "contactEmailAddress": "local@local.local",
+    "hasRibbonIcon" : true,
     "requiredDependencies":
     {
         "prettyui": 6398181
