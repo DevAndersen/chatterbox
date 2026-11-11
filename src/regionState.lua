@@ -57,10 +57,6 @@ local regions = {
         Pos1 = CoordGrid.new(0,45,49,63,52),
         Pos2 = CoordGrid.new(0,46,50,27,23),
     },
-    PlayerOwnedHouseIsland = {
-        Pos1 = CoordGrid.new(0,62,32,8,9),
-        Pos2 = CoordGrid.new(0,65,35,6,0),
-    },
     GnomeMaze = {
         Pos1 = CoordGrid.new(0,39,49,9,5),
         Pos2 = CoordGrid.new(0,39,49,58,54),
@@ -225,6 +221,10 @@ local regions = {
         Pos1 = CoordGrid.new(0,70,78,63,62),
         Pos2 = CoordGrid.new(0,74,80,61,60),
     },
+    TzhaarFightCave = {
+        Pos1 = CoordGrid.new(0,69,80,0,0),
+        Pos2 = CoordGrid.new(0,69,80,63,63),
+    },
 }
 
 --Pos1 = CoordGrid.new(),
@@ -236,7 +236,7 @@ local getRegionState = function()
     -- Iterate over all regions, adding them as true or false to a table depending if the player is currently within a region
     for key, value in pairs(regions) do
         local aabb = AABB.new(Vector3.new(value.Pos1.x, value.Pos1.level, value.Pos1.z), Vector3.new(value.Pos2.x, value.Pos2.level, value.Pos2.z))
-        local playerCoordGrid = Player.GetEntity().coordGrid
+        local playerCoordGrid = GetPlayerCoords()
         local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
         regionState[key] = aabb:IsInside(playerPos)
     end
@@ -245,6 +245,6 @@ local getRegionState = function()
 end
 
 return {
-    regions=regions,
-    getRegionState=getRegionState
+    regions = regions,
+    getRegionState = getRegionState
 }

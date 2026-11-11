@@ -1,7 +1,7 @@
 local regionState = require("src/regionState")
 
 -- Write the player's current grid coordinates to the developer console
-log("PlayerCoord:", tostring(Player.GetEntity().coordGrid))
+log(tostring(GetPlayerCoords()))
 
 -- Shape data
 local tileSize = 512
@@ -18,7 +18,7 @@ function drawRegionSquare(pos1, pos2)
 
     -- Geometry
     local aabb = AABB.new(Vector3.new(pos1.x, pos1.level, pos1.z), Vector3.new(pos2.x, pos2.level, pos2.z))
-    local playerCoordGrid = Player.GetEntity().coordGrid
+    local playerCoordGrid = GetPlayerCoords()
     local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
     local isPlayerInside = aabb:IsInside(playerPos)
 
@@ -78,7 +78,7 @@ end
 local regionRenderDistance = 32
 
 Event.Draw.Subscribe("chatterboxDebugRegionDrawEvent", function()
-    local playerCoordGrid = Player.GetEntity().coordGrid
+    local playerCoordGrid = GetPlayerCoords()
     local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
 
     for _, region in pairs(regionState.regions) do
