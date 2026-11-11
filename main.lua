@@ -7,6 +7,9 @@ ContentLayerInterface = nil
 Speakers = require("src/speakers")
 SpeakerEventType = require("src/speakerEventType")
 
+-- Local variables
+local previousLifepoints = var.VarPlayer.LIFEPOINTS.value
+
 -- Global functions
 function GetPlayerCoords()
     if World.IsRegion() then
@@ -41,6 +44,10 @@ function OnGainXP(skill, level, xp)
     mainWindowFunctions.speakEvent(SpeakerEventType.GainXP, { Skill = skill, Level = level, XP = xp })
 end
 
+function OnDeath()
+    mainWindowFunctions.speakEvent(SpeakerEventType.Death)
+end
+
 Event.SkillTransmit.Subscribe("chatterboxSkillTriggerEvent", function (skillTransmitEvent)
     local skill = skillTransmitEvent.skill
     local oldXP = skillTransmitEvent.oldXP
@@ -61,8 +68,18 @@ Event.SkillTransmit.Subscribe("chatterboxSkillTriggerEvent", function (skillTran
 end)
 
 Event.Logic.Subscribe("chatterboxLogicTriggerEvent", function(logicEvent)
+    -- Random tick
     if logicEvent.logicTick % 100 == 0 and math.floor(random(0, 50)) == 0 then
         OnRandomTick()
+    end
+
+    -- Check if the player has died
+    local currentLifepoints = var.VarPlayer.LIFEPOINTS.value
+    if logicEvent.logicTick % 30 == 0 then
+        if currentLifepoints == 0 and previousLifepoints > 0 then
+            OnDeath()
+        end
+        previousLifepoints = currentLifepoints
     end
 end)
 
