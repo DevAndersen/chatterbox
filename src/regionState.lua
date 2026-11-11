@@ -101,7 +101,7 @@ local regions = {
         Pos1 = CoordGrid.new(0,36,59,3,0),
         Pos2 = CoordGrid.new(0,37,60,59,59),
     },
-    Piscatoris = {
+    PiscatorisFishingColony = {
         Pos1 = CoordGrid.new(0,36,57,8,15),
         Pos2 = CoordGrid.new(0,36,57,52,54),
     },
@@ -181,7 +181,44 @@ local regions = {
         Pos1 = CoordGrid.new(0,48,54,2,6),
         Pos2 = CoordGrid.new(0,48,55,43,0),
     },
+    GnomeStronghold = {
+        Pos1 = CoordGrid.new(0,37,53,7,3),
+        Pos2 = CoordGrid.new(0,38,54,61,58),
+    },
+    PiscatorisHunteAarea = {
+        Pos1 = CoordGrid.new(0,35,55,52,10),
+        Pos2 = CoordGrid.new(0,37,57,36,11),
+    },
+    Karamja = {
+        Pos1 = CoordGrid.new(0,42,45,2,1),
+        Pos2 = CoordGrid.new(0,46,49,24,46),
+    },
+    Karamja2 = { -- Todo
+        Pos1 = CoordGrid.new(0,42,48,0,55),
+        Pos2 = CoordGrid.new(0,43,50,59,50),
+    },
+    FortForinthry = {
+        Pos1 = CoordGrid.new(0,51,55,10,11),
+        Pos2 = CoordGrid.new(0,52,55,8,55),
+    },
+    MosLeHarmless = {
+        Pos1 = CoordGrid.new(0,56,45,59,44),
+        Pos2 = CoordGrid.new(0,60,48,17,1),
+    },
+    Havenhythe = {
+        Pos1 = CoordGrid.new(0,53,20,7,49),
+        Pos2 = CoordGrid.new(0,63,28,54,10),
+    },
+    EverlightDigSite = {
+        Pos1 = CoordGrid.new(0,57,48,38,57),
+        Pos2 = CoordGrid.new(0,59,51,46,53),
+    },
+    VarrockDigSite = {
+        Pos1 = CoordGrid.new(0,51,52,51,16),
+        Pos2 = CoordGrid.new(0,53,53,2,50),
+    },
 }
+
 
 --Pos1 = CoordGrid.new(),
 --Pos2 = CoordGrid.new(),
