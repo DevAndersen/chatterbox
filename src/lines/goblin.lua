@@ -12,17 +12,17 @@ return {
         animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
     },
     [2] = {
+        text = "Cabbages are actually very tasty.",
+        category = "generic",
+        animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
+    },
+    [3] = {
         text = "Are those HAM robes? I hope you are just wearing them because you like the color pink.",
         category = "equipment",
         animation = "HUMAN_UPDATE_CHATHEAD_QUIZZICAL_LEN4",
         requirements = function(state)
             return state.fullHam
         end,
-    },
-    [3] = {
-        text = "Cabbages are actually very tasty.",
-        category = "generic",
-        animation = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
     },
     [4] = {
         text = "Did you know: Abyssal whips are made from Abyssal Demon spines. Allegedly.",
@@ -177,6 +177,14 @@ return {
         animation = "HUMAN_UPDATE_CHATHEAD_BORED_LEN4",
         requirements = function(state)
             return state.region.WarsRetreat
+        end
+    },
+    [25] = {
+        text = "Roses are red, violets are blue, your familiar is a pack yak, baroo baroo",
+        category = "humor",
+        animation = "HUMAN_UPDATE_CHATHEAD_BORED_LEN4",
+        requirements = function(state)
+            return state.follower == config.Obj.LORE_PACK_YAK
         end
     },
 }

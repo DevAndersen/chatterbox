@@ -179,6 +179,12 @@ local getState = function()
         cape == config.Obj.SKILLCAPE_COMPLETIONIST_INSANE_120_ALL.configName
         or cape == config.Obj.SKILLCAPE_COMPLETIONIST_INSANE_120_ALL_HOODED.configName
 
+    -- Follower (pets and familiars)
+    local follower = var.VarPlayer.FOLLOWER_OBJ.value
+    if follower.id == -1 then
+        follower = nil
+    end
+
     return {
         -- Todo: Turn skills into their own table
         attackLevel = Player.GetLevelGameplay(SkillType.ATTACK),
@@ -211,6 +217,7 @@ local getState = function()
         quiver = quiver,
         pocket = pocket,
         region = regionState.getRegionState(),
+        follower = follower
     }
 end
 
