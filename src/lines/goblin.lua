@@ -199,7 +199,7 @@ return {
         end
     },
     [24] = {
-        text = "I'm feeling a bit hungry. Could you cook a chicken on that campfire over there?",
+        text = "I'm feeling a bit hungry. Would you mind cooking a chicken on War's campfire?",
         type = eventType.RandomTick,
         category = category.Trivia,
         animation = animation.Bored,
@@ -431,6 +431,93 @@ return {
         animation = animation.Quizzical,
         requirements = function(state)
             return state.region.Yanille
+        end
+    },
+    [51] = {
+        text = "I don't believe dying was the right thing to do there.",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.Quizzical
+    },
+    [52] = {
+        text = "Donating money to Death's retirement fund is very kind of you.",
+        type = eventType.HappyExtreme,
+        category = category.Generic,
+        animation = animation.Quizzical
+    },
+    [53] = {
+        text = "Have you considered not dying?",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.Quizzical
+    },
+    [54] = {
+        text = "It is nice of you to keep Death company.",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.Happy
+    },
+    [55] = {
+        text = "Say hello to Death for me!",
+        type = eventType.Death,
+        category = category.Happy,
+        animation = animation.Quizzical
+    },
+    [56] = {
+        text = "Did you mean to die like that?",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.Quizzical
+    },
+    [57] = {
+        text = "You died very gracefully. It did not look embarrassing at all.",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.Happy
+    },
+    [58] = {
+        text = "That looked painful...",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.Quizzical
+    },
+    [59] = {
+        text = "Should I bless your grave, or...?",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.Neutral
+    },
+    [60] = {
+        text = "You are the weakest link. Goodbye.",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.Neutral
+    },
+    [61] = {
+        text = "No fire cape for you.",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.region.TzhaarFightCave
+        end
+    },
+    [62] = {
+        text = "That death was udderly embarrassing. Get it? Udder-ly!",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.HappyExtreme,
+        requirements = function(state)
+            return state.region.LumbridgeCowPen
+        end
+    },
+    [63] = {
+        text = "They should rename that place to SomewhatHarmless.",
+        type = eventType.Death,
+        category = category.Generic,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.region.MosLeHarmless
         end
     },
 }
