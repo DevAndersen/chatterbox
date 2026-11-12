@@ -237,10 +237,19 @@ local regions = {
         Pos1 = CoordGrid.new(0,36,59,11,10),
         Pos2 = CoordGrid.new(0,36,59,24,24),
     },
+    Barrows2 = { -- Todo
+        Pos1 = CoordGrid.new(0,55,150,8,7),
+        Pos2 = CoordGrid.new(0,55,150,58,56),
+    },
+    Barrows3 = { -- Todo
+        Pos1 = CoordGrid.new(0,55,151,4,3),
+        Pos2 = CoordGrid.new(0,55,151,59,58),
+    },
+    Barrows4 = { -- Todo
+        Pos1 = CoordGrid.new(0,55,149,6,44),
+        Pos2 = CoordGrid.new(0,55,149,30,57),
+    },
 }
-
---Pos1 = CoordGrid.new(),
---Pos2 = CoordGrid.new(),
 
 local getRegionState = function()
     local regionState = {}
