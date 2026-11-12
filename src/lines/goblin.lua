@@ -367,7 +367,7 @@ return {
         end
     },
     [49] = {
-        text = "If you pickpocket the pillory guard, you'll get free tomatoes.",
+        text = "If you pickpocket the Yanille pillory guard, you'll get free tomatoes.",
         category = category.Trivia,
         animation = animation.Happy,
         requirements = function(state)
