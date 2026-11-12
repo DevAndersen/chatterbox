@@ -1,3 +1,7 @@
+-- Constants
+local furnitureTypeBitMask = 0xfff -- The first three nibbles of the "CONSTRUCTION_HOUSE_FURNITURE_DATA_INDEX_" player variables appear to correspond to furniture ID.
+local furnitureDemonicThroneId = 228
+
 local regionState = require("src/regionState")
 
 -- Equipment slot IDs (config.Enum.WORNITEMS_SLOT_NAME.values)
@@ -17,7 +21,7 @@ local equipmentSlots = {
     Pocket = 18, -- Pocket
 }
 
-function getEquipment(slot)
+local function getEquipment(slot)
     local wornEquipment = Inventory.Find(id.Inv.WORN)
     local objInSlot = wornEquipment:GetSlots(0)[slot].obj
 
@@ -28,7 +32,7 @@ function getEquipment(slot)
     return objInSlot.configName
 end
 
-function objectHasParam(objectConfig, param)
+local function objectHasParam(objectConfig, param)
     -- Check for nil
     if objectConfig == nil then
         return false
@@ -42,6 +46,18 @@ function objectHasParam(objectConfig, param)
     end
 
     -- The object did not have the param, return false
+    return false
+end
+
+local function hasFurniture(furnitureTypeId)
+    for i = 1,500 do
+        local furnitureData = var.VarPlayer["CONSTRUCTION_HOUSE_FURNITURE_DATA_INDEX_" .. i].value
+        local furnitureType = furnitureData & furnitureTypeBitMask
+
+        if furnitureType == furnitureTypeId then
+            return true
+        end
+    end
     return false
 end
 
@@ -185,6 +201,8 @@ local getState = function()
         follower = nil
     end
 
+    local hasDemonicThrone = hasFurniture(furnitureDemonicThroneId)
+
     return {
         -- Todo: Turn skills into their own table
         attackLevel = Player.GetLevelGameplay(SkillType.ATTACK),
@@ -217,7 +235,8 @@ local getState = function()
         quiver = quiver,
         pocket = pocket,
         region = regionState.getRegionState(),
-        follower = follower
+        follower = follower,
+        hasDemonicThrone = hasDemonicThrone
     }
 end
 
