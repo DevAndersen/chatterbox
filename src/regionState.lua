@@ -265,6 +265,22 @@ local regions = {
         Pos1 = CoordGrid.new(2,85,30,0,0),
         Pos2 = CoordGrid.new(2,85,30,63,63),
     },
+    SanctumOfRebirth1 = { -- Todo
+        Pos1 = CoordGrid.new(1,86,21,8,41),
+        Pos2 = CoordGrid.new(1,86,21,55,55),
+    },
+    SanctumOfRebirth2 = { -- Todo
+        Pos1 = CoordGrid.new(1,85,23,18,16),
+        Pos2 = CoordGrid.new(1,85,23,44,48),
+    },
+    SanctumOfRebirth3 = { -- Todo
+        Pos1 = CoordGrid.new(1,88,21,18,12),
+        Pos2 = CoordGrid.new(1,88,21,43,58),
+    },
+    TheLostGrove = {
+        Pos1 = CoordGrid.new(0,20,87,11,8),
+        Pos2 = CoordGrid.new(0,22,89,59,53),
+    }
 }
 
 local getRegionState = function()
