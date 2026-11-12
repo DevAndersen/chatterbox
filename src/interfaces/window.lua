@@ -114,12 +114,17 @@ createMainWindow = function()
             return
         end
 
+        -- Early return if the speaker event data is missing
+        if speakerEventData == nil or speakerEventData.EventType == nil then
+            return
+        end
+
         local availableLines = {}
         local playerState = state.getState()
 
         -- Check which lines meet their requirements, excluding the previously played line
         for key,value in pairs(linesData) do
-            if lastId ~= key and (value.requirements == nil or value.requirements(playerState)) then
+            if lastId ~= key and (value.requirements == nil or value.requirements(playerState)) and speakerEventData.EventType == value.type then
                 availableLines[#availableLines + 1] = { key = key, value = value }
             end
         end
