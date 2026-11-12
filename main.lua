@@ -12,10 +12,15 @@ local previousLifepoints = var.VarPlayer.LIFEPOINTS.value
 
 -- Global functions
 function GetPlayerCoords()
+    local playerCoordGrid = Player.GetEntity().coordGrid
     if World.IsRegion() then
-        return World.GetRegionSourceForCoordGrid(Player.GetEntity().coordGrid)
+        -- GetRegionSourceForCoordGrid rounds down to the nearest 8x8 zone, so this needs to be added back into the value before returning
+        local origin = World.GetRegionSourceForCoordGrid(playerCoordGrid)
+        origin.x = origin.x + (playerCoordGrid.x % 8)
+        origin.z = origin.z + (playerCoordGrid.z % 8)
+        return origin
     else
-        return Player.GetEntity().coordGrid
+        return playerCoordGrid
     end
 end
 
