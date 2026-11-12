@@ -249,6 +249,22 @@ local regions = {
         Pos1 = CoordGrid.new(0,55,149,6,44),
         Pos2 = CoordGrid.new(0,55,149,30,57),
     },
+    BrimhavenAgilityArena = {
+        Pos1 = CoordGrid.new(3,43,149,7,8),
+        Pos2 = CoordGrid.new(3,43,149,55,56),
+    },
+    Um = {
+        Pos1 = CoordGrid.new(1,15,26,0,25),
+        Pos2 = CoordGrid.new(1,18,29,62,62),
+    },
+    UmRitualSite = {
+        Pos1 = CoordGrid.new(1,16,27,0,32),
+        Pos2 = CoordGrid.new(1,16,27,26,58),
+    },
+    GateOfElidinis = {
+        Pos1 = CoordGrid.new(2,85,30,0,0),
+        Pos2 = CoordGrid.new(2,85,30,63,63),
+    },
 }
 
 local getRegionState = function()
