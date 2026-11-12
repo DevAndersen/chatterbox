@@ -18,12 +18,12 @@ function drawRegionSquare(pos1, pos2)
 
     -- Geometry
     local aabb = AABB.new(Vector3.new(pos1.x, pos1.level, pos1.z), Vector3.new(pos2.x, pos2.level, pos2.z))
-    local playerCoordGrid = GetPlayerCoords()
-    local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
+    local realPlayerCoordGrid = Player.GetEntity().coordGrid
+    local playerPos = Vector3.new(realPlayerCoordGrid.x, realPlayerCoordGrid.level, realPlayerCoordGrid.z)
     local isPlayerInside = aabb:IsInside(playerPos)
 
     -- Coordinates
-    local groundHeight = World.GetGroundHeight(playerCoordGrid.level, playerPos.x * tileSize, playerPos.z * tileSize) + 1020
+    local groundHeight = World.GetGroundHeight(realPlayerCoordGrid.level, realPlayerCoordGrid.x * tileSize, realPlayerCoordGrid.z * tileSize) + 1020
     local minX = aabb.minX * tileSize
     local minZ = aabb.minZ * tileSize
     local maxX = (aabb.maxX + 1) * tileSize
@@ -78,18 +78,32 @@ end
 local regionRenderDistance = 32
 
 Event.Draw.Subscribe("chatterboxDebugRegionDrawEvent", function()
+    local realPlayerCoordGrid = Player.GetEntity().coordGrid
     local playerCoordGrid = GetPlayerCoords()
     local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
 
     for _, region in pairs(regionState.regions) do
-
         -- Determine if the player is close enough to the region that it should be rendered
         local aabb = AABB.new(
             Vector3.new(region.Pos1.x - regionRenderDistance, region.Pos1.level - regionRenderDistance, region.Pos1.z - regionRenderDistance),
             Vector3.new(region.Pos2.x + regionRenderDistance, region.Pos2.level + regionRenderDistance, region.Pos2.z + regionRenderDistance))
 
         if aabb:IsInside(playerPos) then
-            drawRegion(region.Pos1, region.Pos2)
+
+            local pos1 = CoordFine.new(region.Pos1.level, region.Pos1.x, region.Pos1.z)
+            local pos2 = CoordFine.new(region.Pos2.level, region.Pos2.x, region.Pos2.z)
+
+            -- If the player is currently in a region, determine the offset from the origin
+            if World.IsRegion() then
+                local diffX = realPlayerCoordGrid.x - playerCoordGrid.x
+                local diffZ = realPlayerCoordGrid.z - playerCoordGrid.z
+                pos1.x = pos1.x + diffX
+                pos1.z = pos1.z + diffZ
+                pos2.x = pos2.x + diffX
+                pos2.z = pos2.z + diffZ
+            end
+
+            drawRegion(pos1, pos2)
         end
     end
 end)
