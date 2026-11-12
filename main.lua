@@ -44,6 +44,7 @@ function OnGainXP(skill, level, xp)
     mainWindowFunctions.speakEvent(SpeakerEventType.GainXP, { Skill = skill, Level = level, XP = xp })
 end
 
+-- Called when the player dies.
 function OnDeath()
     mainWindowFunctions.speakEvent(SpeakerEventType.Death)
 end
