@@ -106,16 +106,16 @@ local regions = {
         Pos2 = CoordGrid.new(0,48,51,34,18),
     },
     KerapacArena = {
-        Pos1 = CoordGrid.new(0,249,7,14,14),
-        Pos2 = CoordGrid.new(0,249,7,46,49),
+        Pos1 = CoordGrid.new(0,5,2,14,14),
+        Pos2 = CoordGrid.new(0,5,2,46,49),
     },
     CroesusFront = {
         Pos1 = CoordGrid.new(0,28,19,35,10),
         Pos2 = CoordGrid.new(0,29,19,61,53),
     },
     ArchGlacorArena = {
-        Pos1 = CoordGrid.new(1,101,10,18,41),
-        Pos2 = CoordGrid.new(1,101,10,49,47),
+        Pos1 = CoordGrid.new(1,27,16,18,41),
+        Pos2 = CoordGrid.new(1,27,16,49,47),
     },
     Prifddinas = {
         Pos1 = CoordGrid.new(1,32,51,52,13),
@@ -280,7 +280,11 @@ local regions = {
     TheLostGrove = {
         Pos1 = CoordGrid.new(0,20,87,11,8),
         Pos2 = CoordGrid.new(0,22,89,59,53),
-    }
+    },
+    ZukArena = {
+        Pos1 = CoordGrid.new(0,15,6,17,15),
+        Pos2 = CoordGrid.new(0,15,6,47,49),
+    },
 }
 
 local getRegionState = function()
