@@ -10,6 +10,7 @@ local animation = {
 }
 
 return {
+    -- Generic
     [1] = {
         text = "I am your goblin buddy.",
         type = eventType.RandomTick,
@@ -22,6 +23,71 @@ return {
         category = category.Generic,
         animation = animation.Happy,
     },
+    [19] = {
+        text = "It is always nice to visit my home town.",
+        type = eventType.RandomTick,
+        category = category.Generic,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.region.GoblinVillage
+        end
+    },
+    [20] = {
+        text = "I was once on vacation here. The local goblins were very nice to me.",
+        type = eventType.RandomTick,
+        category = category.Generic,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.region.LumbridgeGoblins
+        end
+    },
+    [28] = {
+        text = "For a haunted manor, this place has quite a few residents. I wonder if they all get along.",
+        type = eventType.RandomTick,
+        category = category.Generic,
+        animation = animation.Quizzical,
+        requirements = function(state)
+            return state.region.DraynorManor
+        end
+    },
+    [37] = {
+        text = "Monkfish don't look very much like monks.",
+        type = eventType.RandomTick,
+        category = category.Generic,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.region.PiscatorisFishingColony
+        end
+    },
+    [39] = {
+        text = "Remember, Jad's healers will respawn if they heal him up to full health.",
+        type = eventType.RandomTick,
+        category = category.Generic,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.region.TzhaarFightCave
+        end
+    },
+    [44] = {
+        text = "Those snails have some pretty shells. They would make for an excellent hat.",
+        type = eventType.RandomTick,
+        category = category.Generic,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.region.MortMyreSwamp
+        end
+    },
+    [46] = {
+        text = "The citizens in this place gives me the creeps.",
+        type = eventType.RandomTick,
+        category = category.Generic,
+        animation = animation.Shifty,
+        requirements = function(state)
+            return state.region.Canifis
+        end
+    },
+
+    -- Equipment
     [3] = {
         text = "Are those HAM robes? I hope you are just wearing them because you like the color pink.",
         type = eventType.RandomTick,
@@ -31,6 +97,35 @@ return {
             return state.fullHam
         end,
     },
+    [21] = {
+        text = "That hat looks very expensive. But not nearly as comfortable as mine.",
+        type = eventType.RandomTick,
+        category = category.Equipment,
+        animation = animation.Happy,
+        requirements = function(state)
+            return state.partyhat
+        end
+    },
+    [22] = {
+        text = "Does Santa know that you took his hat? Stealing people's hats isn't a very nice thing to do.",
+        type = eventType.RandomTick,
+        category = category.Equipment,
+        animation = animation.Shifty,
+        requirements = function(state)
+            return state.santaHat
+        end
+    },
+    [23] = {
+        text = "That mask makes you look very scary. But I'm not sure it is going to work on bosses.",
+        type = eventType.RandomTick,
+        category = category.Equipment,
+        animation = animation.Quizzical,
+        requirements = function(state)
+            return state.halloweenMask
+        end
+    },
+
+    -- Trivia
     [4] = {
         text = "Did you know: Abyssal whips are made from Abyssal Demon spines. Allegedly.",
         type = eventType.RandomTick,
@@ -82,27 +177,6 @@ return {
             return state.hasExaminedRimmingtonBench == false
         end,
     },
-    [11] = {
-        text = "I like Hazelmere. I hope nothing bad happens to him.",
-        audio = "I like Hazel mere. I hope nothing bad happens to him.",
-        type = eventType.RandomTick,
-        category = category.Quest,
-        animation = animation.Neutral,
-        requirements = function(state)
-            return state.completedTheGrandTree
-                and state.completedWhileGuthixSleeps == false
-        end,
-    },
-    [12] = {
-        text = "I miss Hazelmere. He was a nice guy.",
-        audio = "I miss Hazel mere. He was a nice guy.",
-        type = eventType.RandomTick,
-        category = category.Quest,
-        animation = animation.Neutral,
-        requirements = function(state)
-            return state.completedWhileGuthixSleeps
-        end,
-    },
     [13] = {
         text = "The quest name \"A Void Dance\" is a play on the word \"avoidance\". Or maybe \"avoid dance\", which is what I do.",
         audio = "The quest name A Void Dance is a play on the word avoidance. Or maybe avoid dance, which is what I do.",
@@ -117,33 +191,6 @@ return {
         category = category.Trivia,
         animation = animation.Neutral,
     },
-    [15] = {
-        text = "You look tough. Can you take down the King Black Dragon by wielding nothing more than a bronze dagger?",
-        type = eventType.RandomTick,
-        category = category.Level,
-        animation = animation.Neutral,
-        requirements = function(state)
-            return state.attackLevel >= 99
-        end,
-    },
-    [16] = {
-        text = "If you need money, you can high alch items.",
-        type = eventType.RandomTick,
-        category = category.Money,
-        animation = animation.Neutral,
-        requirements = function(state)
-            return state.coins < 1000000
-        end,
-    },
-    [17] = {
-        text = "If you need money, you can high alch items. But you cannot high alch people, because that would be wrong.",
-        type = eventType.RandomTick,
-        category = category.Money,
-        animation = animation.Shifty,
-        requirements = function(state)
-            return state.coins < 1000000
-        end,
-    },
     [18] = {
         text = "The Grand Exchange isn't all that useful to you, by the way.",
         type = eventType.RandomTick,
@@ -151,51 +198,6 @@ return {
         animation = animation.Neutral,
         requirements = function(state)
             return state.region.GrandExchange and state.isIronman
-        end
-    },
-    [19] = {
-        text = "It is always nice to visit my home town.",
-        type = eventType.RandomTick,
-        category = category.Generic,
-        animation = animation.Neutral,
-        requirements = function(state)
-            return state.region.GoblinVillage
-        end
-    },
-    [20] = {
-        text = "I was once on vacation here. The local goblins were very nice to me.",
-        type = eventType.RandomTick,
-        category = category.Generic,
-        animation = animation.Neutral,
-        requirements = function(state)
-            return state.region.LumbridgeGoblins
-        end
-    },
-    [21] = {
-        text = "That hat looks very expensive. But not nearly as comfortable as mine.",
-        type = eventType.RandomTick,
-        category = category.Equipment,
-        animation = animation.Happy,
-        requirements = function(state)
-            return state.partyhat
-        end
-    },
-    [22] = {
-        text = "Does Santa know that you took his hat? Stealing people's hats isn't a very nice thing to do.",
-        type = eventType.RandomTick,
-        category = category.Equipment,
-        animation = animation.Shifty,
-        requirements = function(state)
-            return state.santaHat
-        end
-    },
-    [23] = {
-        text = "That mask makes you look very scary. But I'm not sure it is going to work on bosses.",
-        type = eventType.RandomTick,
-        category = category.Equipment,
-        animation = animation.Quizzical,
-        requirements = function(state)
-            return state.halloweenMask
         end
     },
     [24] = {
@@ -207,60 +209,6 @@ return {
             return state.region.WarsRetreat
         end
     },
-    [25] = {
-        text = "Roses are red, violets are blue, your familiar is a pack yak, baroo baroo",
-        type = eventType.RandomTick,
-        category = category.Humor,
-        animation = animation.Bored,
-        requirements = function(state)
-            return state.follower == config.Obj.LORE_PACK_YAK
-        end
-    },
-    [26] = {
-        text = "I enjoy Dungeoneering. It is my favorite minigame.",
-        type = eventType.RandomTick,
-        category = category.Humor,
-        animation = animation.Happy,
-        requirements = function(state)
-            return state.region.Daemonheim
-        end
-    },
-    [27] = {
-        text = "I heard that the Wise Old Man once robbed a Draynor bank. It is nice to see elderly people with active hobbies.",
-        type = eventType.RandomTick,
-        category = category.Humor,
-        animation = animation.Happy,
-        requirements = function(state)
-            return state.region.DraynorVillage
-        end
-    },
-    [28] = {
-        text = "For a haunted manor, this place has quite a few residents. I wonder if they all get along.",
-        type = eventType.RandomTick,
-        category = category.Generic,
-        animation = animation.Quizzical,
-        requirements = function(state)
-            return state.region.DraynorManor
-        end
-    },
-    [29] = {
-        text = "Cows have a hundred words for grass. And they're all different variations of 'Moo'.",
-        type = eventType.RandomTick,
-        category = category.Humor,
-        animation = animation.Happy,
-        requirements = function(state)
-            return state.region.LumbridgeCowPen
-        end
-    },
-    [30] = {
-        text = "I actually speak a little cow. 'Moo' means 'Hello', and also 'Goodbye'.",
-        type = eventType.RandomTick,
-        category = category.Humor,
-        animation = animation.Neutral,
-        requirements = function(state)
-            return state.region.LumbridgeCowPen
-        end
-    },
     [31] = {
         text = "Did you know: the name 'Lumbridge' is a reference to 'Cambridge', where Jagex HQ is located.",
         type = eventType.RandomTick,
@@ -268,15 +216,6 @@ return {
         animation = animation.Neutral,
         requirements = function(state)
             return state.region.Lumbridge
-        end
-    },
-    [32] = {
-        text = "Archaeologist are weird. Why would you dig up dirt if you don't plan on eating it?",
-        type = eventType.RandomTick,
-        category = category.Humor,
-        animation = animation.Quizzical,
-        requirements = function(state)
-            return state.region.VarrockDigSite
         end
     },
     [33] = {
@@ -312,33 +251,7 @@ return {
         category = category.Trivia,
         animation = animation.Neutral
     },
-    [37] = {
-        text = "Monkfish don't look very much like monks.",
-        type = eventType.RandomTick,
-        category = category.Generic,
-        animation = animation.Neutral,
-        requirements = function(state)
-            return state.region.PiscatorisFishingColony
-        end
-    },
-    [38] = {
-        text = "Nobody can agree on how to pronouncing this city's name. Best to just call it 'Ardy'.",
-        type = eventType.RandomTick,
-        category = category.Humor,
-        animation = animation.Shifty,
-        requirements = function(state)
-            return state.region.EastArdougne
-        end
-    },
-    [39] = {
-        text = "Remember, Jad's healers will respawn if they heal him up to full health.",
-        type = eventType.RandomTick,
-        category = category.Generic,
-        animation = animation.Neutral,
-        requirements = function(state)
-            return state.region.TzhaarFightCave
-        end
-    },
+
     [40] = {
         text = "Did you know: If you drop magic logs, you can see the stars moving.",
         type = eventType.RandomTick,
@@ -368,33 +281,6 @@ return {
         animation = animation.Neutral,
         requirements = function(state)
             return state.region.MortMyreSwamp
-        end
-    },
-    [44] = {
-        text = "Those snails have some pretty shells. They would make for an excellent hat.",
-        type = eventType.RandomTick,
-        category = category.Generic,
-        animation = animation.Neutral,
-        requirements = function(state)
-            return state.region.MortMyreSwamp
-        end
-    },
-    [45] = {
-        text = "What do you call a terrified Mort Myre spirit? An aghast ghast.",
-        type = eventType.RandomTick,
-        category = category.Humor,
-        animation = animation.HappyExtreme,
-        requirements = function(state)
-            return state.region.MortMyreSwamp
-        end
-    },
-    [46] = {
-        text = "The citizens in this place gives me the creeps.",
-        type = eventType.RandomTick,
-        category = category.Generic,
-        animation = animation.Shifty,
-        requirements = function(state)
-            return state.region.Canifis
         end
     },
     [47] = {
@@ -433,6 +319,142 @@ return {
             return state.region.Yanille
         end
     },
+
+    -- Quest
+    [11] = {
+        text = "I like Hazelmere. I hope nothing bad happens to him.",
+        audio = "I like Hazel mere. I hope nothing bad happens to him.",
+        type = eventType.RandomTick,
+        category = category.Quest,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.completedTheGrandTree
+                and state.completedWhileGuthixSleeps == false
+        end,
+    },
+    [12] = {
+        text = "I miss Hazelmere. He was a nice guy.",
+        audio = "I miss Hazel mere. He was a nice guy.",
+        type = eventType.RandomTick,
+        category = category.Quest,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.completedWhileGuthixSleeps
+        end,
+    },
+
+    -- Level
+    [15] = {
+        text = "You look tough. Can you take down the King Black Dragon by wielding nothing more than a bronze dagger?",
+        type = eventType.RandomTick,
+        category = category.Level,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.attackLevel >= 99
+        end,
+    },
+
+    -- Money
+    [16] = {
+        text = "If you need money, you can high alch items.",
+        type = eventType.RandomTick,
+        category = category.Money,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.coins < 1000000
+        end,
+    },
+    [17] = {
+        text = "If you need money, you can high alch items. But you cannot high alch people, because that would be wrong.",
+        type = eventType.RandomTick,
+        category = category.Money,
+        animation = animation.Shifty,
+        requirements = function(state)
+            return state.coins < 1000000
+        end,
+    },
+
+    -- Humor
+    [25] = {
+        text = "Roses are red, violets are blue, your familiar is a pack yak, baroo baroo",
+        type = eventType.RandomTick,
+        category = category.Humor,
+        animation = animation.Bored,
+        requirements = function(state)
+            return state.follower == config.Obj.LORE_PACK_YAK
+        end
+    },
+    [26] = {
+        text = "I enjoy Dungeoneering. It is my favorite minigame.",
+        type = eventType.RandomTick,
+        category = category.Humor,
+        animation = animation.Happy,
+        requirements = function(state)
+            return state.region.Daemonheim
+        end
+    },
+    [27] = {
+        text = "I heard that the Wise Old Man once robbed a Draynor bank. It is nice to see elderly people with active hobbies.",
+        type = eventType.RandomTick,
+        category = category.Humor,
+        animation = animation.Happy,
+        requirements = function(state)
+            return state.region.DraynorVillage
+        end
+    },
+    [29] = {
+        text = "Cows have a hundred words for grass. And they're all different variations of 'Moo'.",
+        type = eventType.RandomTick,
+        category = category.Humor,
+        animation = animation.Happy,
+        requirements = function(state)
+            return state.region.LumbridgeCowPen
+        end
+    },
+    [30] = {
+        text = "I actually speak a little cow. 'Moo' means 'Hello', and also 'Goodbye'.",
+        type = eventType.RandomTick,
+        category = category.Humor,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.region.LumbridgeCowPen
+        end
+    },
+    [32] = {
+        text = "Archaeologist are weird. Why would you dig up dirt if you don't plan on eating it?",
+        type = eventType.RandomTick,
+        category = category.Humor,
+        animation = animation.Quizzical,
+        requirements = function(state)
+            return state.region.VarrockDigSite
+        end
+    },
+    [38] = {
+        text = "Nobody can agree on how to pronouncing this city's name. Best to just call it 'Ardy'.",
+        type = eventType.RandomTick,
+        category = category.Humor,
+        animation = animation.Shifty,
+        requirements = function(state)
+            return state.region.EastArdougne
+        end
+    },
+    [45] = {
+        text = "What do you call a terrified Mort Myre spirit? An aghast ghast.",
+        type = eventType.RandomTick,
+        category = category.Humor,
+        animation = animation.HappyExtreme,
+        requirements = function(state)
+            return state.region.MortMyreSwamp
+        end
+    },
+
+    -- Death
+    [55] = {
+        text = "Say hello to Death for me!",
+        type = eventType.Death,
+        category = category.Humor,
+        animation = animation.Quizzical
+    },
     [51] = {
         text = "I don't believe dying was the right thing to do there.",
         type = eventType.Death,
@@ -456,12 +478,6 @@ return {
         type = eventType.Death,
         category = category.Generic,
         animation = animation.Happy
-    },
-    [55] = {
-        text = "Say hello to Death for me!",
-        type = eventType.Death,
-        category = category.Happy,
-        animation = animation.Quizzical
     },
     [56] = {
         text = "Did you mean to die like that?",
