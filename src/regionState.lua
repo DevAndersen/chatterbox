@@ -285,6 +285,122 @@ local regions = {
         Pos1 = CoordGrid.new(0,15,6,17,15),
         Pos2 = CoordGrid.new(0,15,6,47,49),
     },
+    ZukThrone = {
+        Pos1 = CoordGrid.new(1,15,6,31,52),
+        Pos2 = CoordGrid.new(1,15,6,33,53),
+    },
+    KalphiteKingArena = {
+        Pos1 = CoordGrid.new(0,46,27,16,18),
+        Pos2 = CoordGrid.new(0,46,27,46,46),
+    },
+    ExiledKalphiteQueenArena = {
+        Pos1 = CoordGrid.new(0,46,26,3,29),
+        Pos2 = CoordGrid.new(0,46,26,38,52),
+    },
+    KalphiteQueenArena = {
+        Pos1 = CoordGrid.new(0,54,148,10,10),
+        Pos2 = CoordGrid.new(0,54,148,52,46),
+    },
+    TheHeartOfGielinorMainArea = { -- Note: Overlaps with HelwyrArena
+        Pos1 = CoordGrid.new(1,48,107,45,40),
+        Pos2 = CoordGrid.new(1,51,110,19,16),
+    },
+    GregorovicArena = {
+        Pos1 = CoordGrid.new(1,51,110,24,24),
+        Pos2 = CoordGrid.new(1,51,110,47,47),
+    },
+    TwinFuriesArena = {
+        Pos1 = CoordGrid.new(1,48,110,21,21),
+        Pos2 = CoordGrid.new(1,48,110,40,40),
+    },
+    VindictaAndGorvekArena = {
+        Pos1 = CoordGrid.new(1,48,107,16,17),
+        Pos2 = CoordGrid.new(1,48,107,39,47),
+    },
+    HelwyrArena = { -- Note: Overlaps with TheHeartOfGielinorMainArea
+        Pos1 = CoordGrid.new(1,51,107,16,25),
+        Pos2 = CoordGrid.new(1,51,107,39,47),
+    },
+    TelosArena1 = {
+        Pos1 = CoordGrid.new(0,59,110,10,10),
+        Pos2 = CoordGrid.new(0,59,110,33,33),
+    },
+    TelosArena2 = {
+        Pos1 = CoordGrid.new(0,60,110,10,10),
+        Pos2 = CoordGrid.new(0,60,110,33,33),
+    },
+    TelosArena3 = {
+        Pos1 = CoordGrid.new(0,59,109,10,10),
+        Pos2 = CoordGrid.new(0,59,109,33,33),
+    },
+    TelosArena4 = {
+        Pos1 = CoordGrid.new(1,60,109,12,13),
+        Pos2 = CoordGrid.new(1,60,109,49,50),
+    },
+    AraxxorArena = {
+        Pos1 = CoordGrid.new(1,70,97,10,37),
+        Pos2 = CoordGrid.new(1,71,98,29,8),
+    },
+    AraxxiArena = {
+        Pos1 = CoordGrid.new(1,71,97,36,46),
+        Pos2 = CoordGrid.new(1,71,98,57,5),
+    },
+    GodWarsDungeon = { -- Note: Overlaps with GraardorArena, KreearraArena, ZilyanaArena, and KrilTsutsarothArena
+        Pos1 = CoordGrid.new(0,44,82,0,0),
+        Pos2 = CoordGrid.new(0,45,83,63,63),
+    },
+    GraardorArena = { -- Note: Overlaps with GodWarsDungeon
+        Pos1 = CoordGrid.new(0,44,83,47,41),
+        Pos2 = CoordGrid.new(0,44,83,60,59),
+    },
+    KreearraArena = { -- Note: Overlaps with GodWarsDungeon
+        Pos1 = CoordGrid.new(0,44,82,4,47),
+        Pos2 = CoordGrid.new(0,44,82,22,60),
+    },
+    ZilyanaArena = { -- Note: Overlaps with GodWarsDungeon
+        Pos1 = CoordGrid.new(0,45,81,36,59),
+        Pos2 = CoordGrid.new(0,45,82,50,8),
+    },
+    KrilTsutsarothArena = { -- Note: Overlaps with GodWarsDungeon
+        Pos1 = CoordGrid.new(0,45,83,38,6),
+        Pos2 = CoordGrid.new(0,45,83,56,20),
+    },
+    NexArena = {
+        Pos1 = CoordGrid.new(0,45,81,31,5),
+        Pos2 = CoordGrid.new(0,45,81,59,33),
+    },
+    NexAngelOfDeathArena = {
+        Pos1 = CoordGrid.new(2,44,28,15,15),
+        Pos2 = CoordGrid.new(2,44,28,49,49),
+    },
+    VoragoArena1 = {
+        Pos1 = CoordGrid.new(0,48,95,20,20),
+        Pos2 = CoordGrid.new(0,48,95,43,43),
+    },
+    VoragoArena2 = {
+        Pos1 = CoordGrid.new(0,47,94,20,20),
+        Pos2 = CoordGrid.new(0,47,94,43,43),
+    },
+    VoragoArena3 = {
+        Pos1 = CoordGrid.new(0,48,94,20,20),
+        Pos2 = CoordGrid.new(0,48,94,43,43),
+    },
+    VoragoArena4 = {
+        Pos1 = CoordGrid.new(0,47,93,20,20),
+        Pos2 = CoordGrid.new(0,47,93,43,43),
+    },
+    VoragoArena5 = {
+        Pos1 = CoordGrid.new(0,48,93,19,30),
+        Pos2 = CoordGrid.new(0,48,93,42,34),
+    },
+    ZemouregalAndVorkathArena = {
+        Pos1 = CoordGrid.new(0,20,33,42,34),
+        Pos2 = CoordGrid.new(0,21,33,22,61),
+    },
+    IvarArena = {
+        Pos1 = CoordGrid.new(0,56,25,54,36),
+        Pos2 = CoordGrid.new(0,57,25,4,53),
+    },
 }
 
 local getRegionState = function()
