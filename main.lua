@@ -54,7 +54,7 @@ function OnDeath()
     mainWindowFunctions.speakEvent(SpeakerEventType.Death)
 end
 
-Event.SkillTransmit.Subscribe("chatterboxSkillTriggerEvent", function (skillTransmitEvent)
+Event.SkillTransmit.Subscribe("chatterboxSkillTriggerEvent", function(skillTransmitEvent)
     local skill = skillTransmitEvent.skill
     local oldXP = skillTransmitEvent.oldXP
     local newXP = skillTransmitEvent.newXP

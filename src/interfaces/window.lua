@@ -1,3 +1,4 @@
+-- Local variables
 local mainWindowDrawEventName = "mainWindowDrawEventName"
 local mainWindowLogicEventName = "mainWindowLogicEventName"
 
@@ -7,13 +8,14 @@ local currentLine
 local createMainWindow
 local destroyMainWindow
 
--- Stop the currently playing voice line
+---Stop the currently playing voice line.
 local function stopAudio()
     if currentLine and currentLine.isPlaying then
         currentLine:Stop()
     end
 end
 
+---Destroys the main window and performs cleanup logic.
 destroyMainWindow = function()
     -- Unsubscribe event listeners
     Event.Logic.Unsubscribe(mainWindowLogicEventName)
@@ -28,6 +30,7 @@ destroyMainWindow = function()
     stopAudio()
 end
 
+---Toggles the main window.
 local toggleMainWindow = function()
     if ShowMainWindow then
         destroyMainWindow()
@@ -37,6 +40,7 @@ local toggleMainWindow = function()
     ShowMainWindow = not ShowMainWindow
 end
 
+---Creates the main window.
 createMainWindow = function()
     -- Exit if main window already exists
     if MainWindow then
@@ -239,6 +243,7 @@ createMainWindow = function()
     errorLabel.colour = Vector4.new(1.0, 0.0, 0.0, 1.0)
 end
 
+---Attempt to invoke a speaker event.
 local function speakEvent(speakerEventType, speakerEventMetadata)
     if MainWindow then
         speakerEventData = { EventType = speakerEventType, Metadata = speakerEventMetadata }
