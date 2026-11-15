@@ -1,8 +1,7 @@
 return {
-    Poke = 1,
-    RandomTick = 2,
-    TrainSkill = 3,
-    GainXP = 4,
-    GainLevel = 5,
-    Death = 6
+    RandomTick = 1,
+    TrainSkill = 2,
+    GainXP = 3,
+    GainLevel = 4,
+    Death = 5
 }

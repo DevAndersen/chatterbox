@@ -125,7 +125,21 @@ createMainWindow = function()
         -- Check which lines meet their requirements, excluding the previously played line
         for key,value in pairs(linesData) do
             if lastId ~= key and (value.requirements == nil or value.requirements(playerState)) and speakerEventData.EventType == value.type then
-                availableLines[#availableLines + 1] = { key = key, value = value }
+
+                -- Determine how much the line should be weighed (i.e. how many times it should be added as an available line)
+                local weight = 1
+                if value.weight and value.weight > 1 then
+                    weight = value.weight
+                end
+
+                -- Add the line to the list of available lines
+                for _ = 1, weight do
+                    availableLines[#availableLines + 1] = {
+                        key = key,
+                        value = value
+                    }
+                end
+
             end
         end
 

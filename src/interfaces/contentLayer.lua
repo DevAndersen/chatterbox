@@ -45,7 +45,7 @@ local initContentLayer = function(contentLayerReadyEvent)
     })
 
     panel:AddSimpleButton("Poke", function()
-        mainWindowFunctions.speakEvent(SpeakerEventType.Poke)
+        mainWindowFunctions.speakEvent(SpeakerEventType.RandomTick)
     end)
 
     Event.Logic.Subscribe(contentLayerLogicEventName, function()
