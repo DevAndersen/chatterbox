@@ -50,7 +50,7 @@ local initContentLayer = function(contentLayerReadyEvent)
 
     -- Add a button to manually trigger a random tick event
     panel:AddSimpleButton("Poke", function()
-        mainWindowFunctions.speakEvent(SpeakerEventType.RandomTick)
+        mainWindowFunctions.speakEvent(SpeakerEventType.TICK)
     end)
 
     -- Subscribe to client logic updates

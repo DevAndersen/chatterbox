@@ -1,5 +1,3 @@
-local category = require("src/lineCategories")
-local eventType = require("src/speakerEventType")
 local animation = {
     Neutral = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
     Happy = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
@@ -12,14 +10,14 @@ local animation = {
 return {
     [1] = {
         text = "You don't look as tough as you think you do.",
-        type = eventType.RandomTick,
-        category = category.Generic,
+        type = SpeakerEventType.TICK,
+        category = LineCategory.GENERIC,
         animation = animation.Happy,
     },
     [2] = {
         text = "Do you even know how to kill a Turoth?",
-        type = eventType.RandomTick,
-        category = category.Level,
+        type = SpeakerEventType.TICK,
+        category = LineCategory.SKILL,
         animation = animation.Happy,
         requirements = function(state)
             return state.slayerLevel < 55
@@ -27,8 +25,8 @@ return {
     },
     [3] = {
         text = "Do you even remember how to kill a Turoth?",
-        type = eventType.RandomTick,
-        category = category.Level,
+        type = SpeakerEventType.TICK,
+        category = LineCategory.SKILL,
         animation = animation.Happy,
         requirements = function(state)
             return state.slayerLevel >= 75

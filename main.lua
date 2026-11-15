@@ -4,8 +4,10 @@ SpeakerId = 1
 ShowMainWindow = false
 MainWindow = nil
 ContentLayerInterface = nil
+
+require("src/speakerEventType")
+require("src/lineCategory")
 Speakers = require("src/speakers")
-SpeakerEventType = require("src/speakerEventType")
 
 -- Local variables
 local previousLifepoints = var.VarPlayer.LIFEPOINTS.value
@@ -31,27 +33,27 @@ local mainWindowFunctions = require("src/interfaces/window")
 
 -- Called after a set amount of client-side logic event ticks.
 function OnRandomTick()
-    mainWindowFunctions.speakEvent(SpeakerEventType.RandomTick)
+    mainWindowFunctions.speakEvent(SpeakerEventType.TICK)
 end
 
 -- Called when the player trains a skill. Also triggers if no XP is gained.
 function OnTrainSkill(skill, level, xp)
-    mainWindowFunctions.speakEvent(SpeakerEventType.TrainSkill, { Skill = skill, Level = level, XP = xp })
+    mainWindowFunctions.speakEvent(SpeakerEventType.SKILL, { Skill = skill, Level = level, XP = xp })
 end
 
 -- Called when the player gain a new level.
 function OnGainLevel(skill, level, xp)
-    mainWindowFunctions.speakEvent(SpeakerEventType.GainLevel, { Skill = skill, Level = level, XP = xp })
+    mainWindowFunctions.speakEvent(SpeakerEventType.LEVEL, { Skill = skill, Level = level, XP = xp })
 end
 
 -- Called when the player gain XP.
 function OnGainXP(skill, level, xp)
-    mainWindowFunctions.speakEvent(SpeakerEventType.GainXP, { Skill = skill, Level = level, XP = xp })
+    mainWindowFunctions.speakEvent(SpeakerEventType.XP, { Skill = skill, Level = level, XP = xp })
 end
 
 -- Called when the player dies.
 function OnDeath()
-    mainWindowFunctions.speakEvent(SpeakerEventType.Death)
+    mainWindowFunctions.speakEvent(SpeakerEventType.DEATH)
 end
 
 Event.SkillTransmit.Subscribe("chatterboxSkillTriggerEvent", function(skillTransmitEvent)
