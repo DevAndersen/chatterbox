@@ -178,10 +178,7 @@ createMainWindow = function()
             lineDelay = lineDelay - 1
         end
 
-        if speakerEventData and speakerEventData.EventType == SpeakerEventType.Poke then
-            stopAudio()
-            playLine()
-        elseif lineDelay == 0 and speakerEventData ~= nil then
+        if lineDelay == 0 and speakerEventData ~= nil then
             playLine()
             lineDelay = 20
         end
