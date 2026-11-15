@@ -9,7 +9,7 @@ local halfTileSize = tileSize / 2
 local tris = { 0, 1, 2, 0, 2, 3 }
 local lines = { 0, 1, 1, 2, 2, 3, 3, 0 }
 
-function drawRegionSquare(pos1, pos2)
+local function drawRegionSquare(pos1, pos2)
     -- Ensure that the two positions are on the same level
     if pos1.level ~= pos2.level then
         log(string.format(">>> Skipping region [%s, %s], the positions are not on the same level", tostring(pos1), tostring(pos2)))
@@ -50,7 +50,7 @@ function drawRegionSquare(pos1, pos2)
     }
 end
 
-function drawTileBorder(vec3)
+local function drawTileBorder(vec3)
     -- Geometry
     local groundHeight = World.GetGroundHeight(vec3.y, vec3.x * tileSize, vec3.z * tileSize) + 20
 
@@ -69,7 +69,7 @@ function drawTileBorder(vec3)
     }
 end
 
-function drawRegion(pos1, pos2)
+local function drawRegion(pos1, pos2)
     drawRegionSquare(pos1, pos2)
     drawTileBorder(Vector3.new(pos1.x, pos1.level, pos1.z))
     drawTileBorder(Vector3.new(pos2.x, pos2.level, pos2.z))

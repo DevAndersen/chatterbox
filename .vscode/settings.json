@@ -6,6 +6,7 @@
         "CoordFine",
         "CoordGrid",
         "Event",
+        "GetPlayerCoords",
         "id",
         "Inventory",
         "log",
