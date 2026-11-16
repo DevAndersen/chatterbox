@@ -196,6 +196,9 @@ local getState = function()
         cape == config.Obj.SKILLCAPE_COMPLETIONIST_INSANE_120_ALL.configName
         or cape == config.Obj.SKILLCAPE_COMPLETIONIST_INSANE_120_ALL_HOODED.configName
 
+    -- Whip weapons
+    local whip = string.find(tostring(mainHand), "WHIP") ~= nil
+
     -- Follower (pets and familiars)
     local follower = var.VarPlayer.FOLLOWER_OBJ.value
     if follower.id == -1 then
@@ -211,6 +214,7 @@ local getState = function()
         thievingLevel = Player.GetLevelGameplay(SkillType.THIEVING),
         cookingLevel = Player.GetLevelGameplay(SkillType.COOKING),
         slayerLevel = Player.GetLevelGameplay(SkillType.SLAYER),
+        archaeologyLevel = Player.GetLevelGameplay(SkillType.ARCHAEOLOGY),
 
         coins = coins,
         completedTheGrandTree = config.Quest.FromID(id.Quest.THEGRANDTREE).hasFinishedQuest,
@@ -218,6 +222,7 @@ local getState = function()
         fullHam = fullHam,
         partyhat = partyhat,
         santaHat = santaHat,
+        whip = whip,
         halloweenMask = halloweenMask,
         isIronman = isIronman,
         isHardcoreIronman = isHardcoreIronman,

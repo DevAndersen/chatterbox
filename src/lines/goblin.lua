@@ -122,6 +122,33 @@ return {
             return state.halloweenMask
         end
     },
+    [64] = {
+        text = "Judging by your hat, you are ready to party.",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.EQUIPMENT,
+        animation = animation.Neutral,
+        requirements = function(state)
+            return state.partyhat
+        end
+    },
+    [65] = {
+        text = "That 'sheep painting device' of yours looks rather intimidating.",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.EQUIPMENT,
+        animation = animation.Shifty,
+        requirements = function(state)
+            return state.mainHand == config.Obj.MOURNING_PAINT_GUN.configName
+        end
+    },
+    [66] = {
+        text = "You archaeologists sure do love your whips.",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.EQUIPMENT,
+        animation = animation.Shifty,
+        requirements = function(state)
+            return state.mainHand == config.whip and state.archaeologyLevel > 75
+        end
+    },
 
     -- Trivia
     [4] = {
@@ -155,7 +182,7 @@ return {
         end
     },
     [8] = {
-        text = "Did you know: A bug caused the red Fremennik cloak to provide extreme defensive boosts. A very fashionable bug.",
+        text = "Did you know: A bug once caused the red Fremennik cloak to provide extreme defensive boosts. A very fashionable bug.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = animation.Neutral,
