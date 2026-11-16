@@ -102,6 +102,7 @@ local getState = function()
         or head == config.Obj.WHITE_PARTYHAT.configName
         or head == config.Obj.GOLDEN_PARTY_HAT.configName
         or head == config.Obj.BLACK_PARTYHAT.configName
+        or head == config.Obj.Q200_CHROMATIC_PARTYHAT_FORKEEPS.configName
 
     -- Santa hat check
     local santaHat =
