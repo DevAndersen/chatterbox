@@ -60,7 +60,7 @@ createMainWindow = function()
     local label
     local errorLabel
     local lastId = ""
-    local currentAnimation = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"
+    local currentAnimation = LineAnimation.Idle
     local currentText = ""
     local currentErrorMessage = ""
 
@@ -97,7 +97,7 @@ createMainWindow = function()
 
         title.content = speaker.name
         model:SetModel(ui.ModelType.MODEL, speaker.model)
-        model.animID = config.Seq["HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"].id
+        model.animID = config.Seq[LineAnimation.Idle].id
         linesData = speaker.lines
     end
 
@@ -199,7 +199,7 @@ createMainWindow = function()
             model.animID = config.Seq[currentAnimation].id
             label.colour = Vector4.new(1.0, 1.0, 1.0, 1.0)
         else
-            model.animID = config.Seq["HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"].id
+            model.animID = config.Seq[LineAnimation.Idle].id
             label.colour = Vector4.new(1.0, 1.0, 1.0, 0.5)
         end
     end)
@@ -214,7 +214,7 @@ createMainWindow = function()
     model:SetModel(ui.ModelType.MODEL, speaker.model)
     model:SetPos(0, 0)
     model.viewDistance = 1600
-    model.animID = config.Seq["HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"].id
+    model.animID = config.Seq[LineAnimation.Idle].id
 
     local ambient = 1.0
     local contrast = 1.0

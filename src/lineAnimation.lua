@@ -1,6 +1,7 @@
 ---@enum LineAnimation
 ---Voice line animations.
 LineAnimation = {
+    Idle = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE",
     Neutral = "HUMAN_UPDATE_CHATHEAD_NEUTRAL_TALK",
     Happy = "HUMAN_UPDATE_CHATHEAD_HAPPY_NORMAL_LEN4",
     HappyExtreme = "HUMAN_UPDATE_CHATHEAD_HAPPY_EXTREME_LEN4",
