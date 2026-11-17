@@ -101,13 +101,10 @@
 ---@field ZemouregalAndVorkathArena boolean
 ---@field IvarArena boolean
 
-
 ---Defines an area of the game world.
 ---@class Area
 ---@field Pos1 CoordGrid
 ---@field Pos2 CoordGrid
-
-
 
 -- Areas
 -- Note: Areas must be on the same level (first CoordGrid constructor parameter).

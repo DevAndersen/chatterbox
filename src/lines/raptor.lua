@@ -11,7 +11,7 @@ return {
         category = LineCategory.SKILL,
         animation = LineAnimation.Happy,
         requirements = function(state)
-            return state.slayerLevel < 55
+            return state.skill.slayer.level < 55
         end,
     },
     [3] = {
@@ -20,7 +20,7 @@ return {
         category = LineCategory.SKILL,
         animation = LineAnimation.Happy,
         requirements = function(state)
-            return state.slayerLevel >= 75
+            return state.skill.slayer.level >= 75
         end,
     },
 } --[=[@as Line[]]=]

@@ -2,6 +2,7 @@
 ---@class State
 ---@field equipment EquipmentState The state of player's equipment.
 ---@field area AreaState The state of player's equipment.
+---@field skill SkillState The state of player's skills.
 ---@field coins integer The total number of coins in the player's coin pouch.
 ---@field follower userdata The player's current follower (use "config.Obj", familiars begin with "LORE_").
 ---@field isIronman boolean Is the player an ironman.
@@ -9,12 +10,12 @@
 ---@field isDead boolean Is the player dead (zero lifepoints).
 
 local equipmentStateFunctions = require("src/states/equipment")
+local skillStateFunctions = require("src/states/skill")
+local areaStateFunctions = require("src/states/area")
 
 -- Constants
 local furnitureTypeBitMask = 0xfff -- The first three nibbles of the "CONSTRUCTION_HOUSE_FURNITURE_DATA_INDEX_" player variables appear to correspond to furniture ID.
 local furnitureDemonicThroneId = 228
-
-local areaState = require("src/states/areaState")
 
 local function hasFurniture(furnitureTypeId)
     for i = 1,500 do
@@ -52,28 +53,19 @@ local getState = function()
 
     local hasDemonicThrone = hasFurniture(furnitureDemonicThroneId)
 
-    local equipmentState = equipmentStateFunctions.getEquipmentState()
-
     return {
-        -- Todo: Turn skills into their own table
-        attackLevel = Player.GetLevelGameplay(SkillType.ATTACK),
-        strengthLevel = Player.GetLevelGameplay(SkillType.STRENGTH),
-        thievingLevel = Player.GetLevelGameplay(SkillType.THIEVING),
-        cookingLevel = Player.GetLevelGameplay(SkillType.COOKING),
-        slayerLevel = Player.GetLevelGameplay(SkillType.SLAYER),
-        archaeologyLevel = Player.GetLevelGameplay(SkillType.ARCHAEOLOGY),
-
-        equipment = equipmentState,
-        area = areaState.getAreaState(),
-
+        equipment = equipmentStateFunctions.getEquipmentState(),
+        area = areaStateFunctions.getAreaState(),
+        skill = skillStateFunctions.getSkillState(),
         coins = coins,
-        completedTheGrandTree = config.Quest.FromID(id.Quest.THEGRANDTREE).hasFinishedQuest,
-        completedWhileGuthixSleeps = config.Quest.FromID(id.Quest.WHILE_GUTHIX_SLEEPS).hasFinishedQuest,
         isIronman = isIronman,
         isHardcoreIronman = isHardcoreIronman,
-        hasExaminedRimmingtonBench = hasExaminedRimmingtonBench,
         isDead = isDead,
         follower = follower,
+
+        completedTheGrandTree = config.Quest.FromID(id.Quest.THEGRANDTREE).hasFinishedQuest,
+        completedWhileGuthixSleeps = config.Quest.FromID(id.Quest.WHILE_GUTHIX_SLEEPS).hasFinishedQuest,
+        hasExaminedRimmingtonBench = hasExaminedRimmingtonBench,
         hasDemonicThrone = hasDemonicThrone
     }
 end

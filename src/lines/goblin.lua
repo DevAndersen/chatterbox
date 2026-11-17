@@ -148,7 +148,7 @@ return {
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Shifty,
         requirements = function(state)
-            return state.equipment.slots.mainHand == config.whip and state.archaeologyLevel > 75
+            return state.equipment.slots.mainHand == config.whip and state.skill.archaeology.level > 75
         end
     },
 

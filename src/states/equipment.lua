@@ -90,7 +90,7 @@ local function objectHasParam(objectConfig, param)
     return false
 end
 
----Get the state of player equipment.
+---Returns the state of player's equipment.
 ---@return EquipmentState
 local function getEquipmentState()
     -- Equipment slots.
