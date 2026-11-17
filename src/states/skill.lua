@@ -1,4 +1,4 @@
----The state of player's skills.
+---The state of the player's skills.
 ---@class SkillState
 ---@field attack SkillLevelState
 ---@field defence SkillLevelState

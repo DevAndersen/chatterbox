@@ -202,7 +202,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.hasExaminedRimmingtonBench == false
+            return state.special.hasExaminedRimmingtonBench == false
         end,
     },
     [13] = {
@@ -356,8 +356,8 @@ return {
         category = LineCategory.QUEST,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.completedTheGrandTree
-                and state.completedWhileGuthixSleeps == false
+            return state.quest.theGrandTree
+                and state.quest.whileGuthixSleeps == false
         end,
     },
     [12] = {
@@ -367,7 +367,7 @@ return {
         category = LineCategory.QUEST,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.completedWhileGuthixSleeps
+            return state.quest.whileGuthixSleeps
         end,
     },
 

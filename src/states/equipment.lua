@@ -1,4 +1,4 @@
----The state of player's equipment.
+---The state of the player's equipment.
 ---@class EquipmentState
 ---@field slots EquipmentSlotState Player's equipment slot states.
 ---@field special EquipmentSpecialState Special equipment checks.
