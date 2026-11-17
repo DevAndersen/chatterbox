@@ -1,6 +1,8 @@
-local regionState = require("src/regionState")
+local areaRenderDistance = 32
 
--- Write the player's current grid coordinates to the developer console
+local areaState = require("src/areaState")
+
+-- Write the player's current grid coordinates to the developer console.
 log(tostring(GetPlayerCoords()))
 
 -- Shape data
@@ -9,10 +11,10 @@ local halfTileSize = tileSize / 2
 local tris = { 0, 1, 2, 0, 2, 3 }
 local lines = { 0, 1, 1, 2, 2, 3, 3, 0 }
 
-local function drawRegionSquare(pos1, pos2)
-    -- Ensure that the two positions are on the same level
+local function drawAreaSquare(pos1, pos2)
+    -- Ensure that the two positions are on the same level.
     if pos1.level ~= pos2.level then
-        log(string.format(">>> Skipping region [%s, %s], the positions are not on the same level", tostring(pos1), tostring(pos2)))
+        log(string.format(">>> Skipping area [%s, %s], the positions are not on the same level", tostring(pos1), tostring(pos2)))
         return
     end
 
@@ -69,31 +71,29 @@ local function drawTileBorder(vec3)
     }
 end
 
-local function drawRegion(pos1, pos2)
-    drawRegionSquare(pos1, pos2)
+local function drawArea(pos1, pos2)
+    drawAreaSquare(pos1, pos2)
     drawTileBorder(Vector3.new(pos1.x, pos1.level, pos1.z))
     drawTileBorder(Vector3.new(pos2.x, pos2.level, pos2.z))
 end
 
-local regionRenderDistance = 32
-
-Event.Draw.Subscribe("chatterboxDebugRegionDrawEvent", function()
+Event.Draw.Subscribe("chatterboxDebugAreaDrawEvent", function()
     local realPlayerCoordGrid = Player.GetEntity().coordGrid
     local playerCoordGrid = GetPlayerCoords()
     local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
 
-    for _, region in pairs(regionState.regions) do
-        -- Determine if the player is close enough to the region that it should be rendered
+    for _, area in pairs(areaState.areas) do
+        -- Determine if the player is close enough to the area that it should be rendered.
         local aabb = AABB.new(
-            Vector3.new(region.Pos1.x - regionRenderDistance, region.Pos1.level - regionRenderDistance, region.Pos1.z - regionRenderDistance),
-            Vector3.new(region.Pos2.x + regionRenderDistance, region.Pos2.level + regionRenderDistance, region.Pos2.z + regionRenderDistance))
+            Vector3.new(area.Pos1.x - areaRenderDistance, area.Pos1.level - areaRenderDistance, area.Pos1.z - areaRenderDistance),
+            Vector3.new(area.Pos2.x + areaRenderDistance, area.Pos2.level + areaRenderDistance, area.Pos2.z + areaRenderDistance))
 
         if aabb:IsInside(playerPos) then
 
-            local pos1 = CoordFine.new(region.Pos1.level, region.Pos1.x, region.Pos1.z)
-            local pos2 = CoordFine.new(region.Pos2.level, region.Pos2.x, region.Pos2.z)
+            local pos1 = CoordFine.new(area.Pos1.level, area.Pos1.x, area.Pos1.z)
+            local pos2 = CoordFine.new(area.Pos2.level, area.Pos2.x, area.Pos2.z)
 
-            -- If the player is currently in a region, determine the offset from the origin
+            -- If the player is currently in a region (i.e. an instanced area), determine the offset from the origin.
             if World.IsRegion() then
                 local diffX = realPlayerCoordGrid.x - playerCoordGrid.x
                 local diffZ = realPlayerCoordGrid.z - playerCoordGrid.z
@@ -103,7 +103,7 @@ Event.Draw.Subscribe("chatterboxDebugRegionDrawEvent", function()
                 pos2.z = pos2.z + diffZ
             end
 
-            drawRegion(pos1, pos2)
+            drawArea(pos1, pos2)
         end
     end
 end)

@@ -1,6 +1,117 @@
--- Regions
--- Note: Regions must be on the same level (first CoordGrid constructor parameter)
-local regions = {
+---Defined areas, and whether or not the player is currently inside of them.
+---@class AreaState
+---@field Lumbridge boolean
+---@field GrandExchange boolean
+---@field Varrock boolean
+---@field AlKharid boolean
+---@field KharidianDesert boolean
+---@field MortMyreSwamp boolean
+---@field Falador boolean
+---@field BandosRemains boolean
+---@field GoblinVillage boolean
+---@field Wilderness boolean
+---@field WarsRetreat boolean
+---@field LumbridgeGoblins boolean
+---@field DraynorManor boolean
+---@field Rimmington boolean
+---@field GnomeMaze boolean
+---@field Yanille boolean
+---@field EastArdougne boolean
+---@field WestArdougne boolean
+---@field PlayerOwnedFarm boolean
+---@field Catherby boolean
+---@field Camelot boolean
+---@field SeersVillage boolean
+---@field Rellekka boolean
+---@field FremennikIsles boolean
+---@field PiscatorisFishingColony boolean
+---@field DraynorVillage boolean
+---@field KerapacArena boolean
+---@field CroesusFront boolean
+---@field ArchGlacorArena boolean
+---@field Prifddinas boolean
+---@field MaxGuild boolean
+---@field PortSarim boolean
+---@field Entrana boolean
+---@field Menaphos boolean
+---@field Sophanem boolean
+---@field Wendlewick boolean
+---@field Amberfell boolean
+---@field LinbogVillage boolean
+---@field Heathervein boolean
+---@field Canifis boolean
+---@field Daemonheim boolean
+---@field PortPhasmatys boolean
+---@field Barrows boolean
+---@field Edgeville boolean
+---@field GnomeStronghold boolean
+---@field PiscatorisHunteAarea boolean
+---@field Karamja boolean
+---@field Karamja2 boolean
+---@field FortForinthry boolean
+---@field MosLeHarmless boolean
+---@field Havenhythe boolean
+---@field EverlightDigSite boolean
+---@field VarrockDigSite boolean
+---@field Lletya boolean
+---@field TzHaarCity boolean
+---@field TzhaarFightCave boolean
+---@field LumbridgeCowPen boolean
+---@field Tirannwn boolean
+---@field NeitiznotYakPen boolean
+---@field Barrows2 boolean
+---@field Barrows3 boolean
+---@field Barrows4 boolean
+---@field BrimhavenAgilityArena boolean
+---@field Um boolean
+---@field UmRitualSite boolean
+---@field GateOfElidinis boolean
+---@field SanctumOfRebirth1 boolean
+---@field SanctumOfRebirth2 boolean
+---@field SanctumOfRebirth3 boolean
+---@field TheLostGrove boolean
+---@field ZukArena boolean
+---@field ZukThrone boolean
+---@field KalphiteKingArena boolean
+---@field ExiledKalphiteQueenArena boolean
+---@field KalphiteQueenArena boolean
+---@field TheHeartOfGielinorMainArea boolean
+---@field GregorovicArena boolean
+---@field TwinFuriesArena boolean
+---@field VindictaAndGorvekArena boolean
+---@field HelwyrArena boolean
+---@field TelosArena1 boolean
+---@field TelosArena2 boolean
+---@field TelosArena3 boolean
+---@field TelosArena4 boolean
+---@field AraxxorArena boolean
+---@field AraxxiArena boolean
+---@field GodWarsDungeon boolean
+---@field GraardorArena boolean
+---@field KreearraArena boolean
+---@field ZilyanaArena boolean
+---@field KrilTsutsarothArena boolean
+---@field NexArena boolean
+---@field NexAngelOfDeathArena boolean
+---@field VoragoArena1 boolean
+---@field VoragoArena2 boolean
+---@field VoragoArena3 boolean
+---@field VoragoArena4 boolean
+---@field VoragoArena5 boolean
+---@field ZemouregalAndVorkathArena boolean
+---@field IvarArena boolean
+
+
+---Defines an area of the game world.
+---@class Area
+---@field Pos1 CoordGrid
+---@field Pos2 CoordGrid
+
+
+
+-- Areas
+-- Note: Areas must be on the same level (first CoordGrid constructor parameter).
+local areas = {
     Lumbridge = {
         Pos1 = CoordGrid.new(0,49,50,60,2),
         Pos2 = CoordGrid.new(0,50,51,40,0),
@@ -403,21 +514,23 @@ local regions = {
     },
 }
 
-local getRegionState = function()
-    local regionState = {}
+---Returns all defined areas, and whether or not the player is currently inside of them.
+---@return AreaState
+local getAreaState = function()
+    local areaState = {}
 
-    -- Iterate over all regions, adding them as true or false to a table depending if the player is currently within a region
-    for key, value in pairs(regions) do
+    -- Iterate over all areas, adding them as true or false to a table depending if the player is currently within an area.
+    for key, value in pairs(areas) do
         local aabb = AABB.new(Vector3.new(value.Pos1.x, value.Pos1.level, value.Pos1.z), Vector3.new(value.Pos2.x, value.Pos2.level, value.Pos2.z))
         local playerCoordGrid = GetPlayerCoords()
         local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
-        regionState[key] = aabb:IsInside(playerPos)
+        areaState[key] = aabb:IsInside(playerPos)
     end
 
-    return regionState
+    return areaState
 end
 
 return {
-    regions = regions,
-    getRegionState = getRegionState
+    areas = areas,
+    getAreaState = getAreaState
 }

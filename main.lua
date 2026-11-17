@@ -1,10 +1,11 @@
--- Global variables
+-- Global variables.
 Speaker = nil
 SpeakerId = 1
 ShowMainWindow = false
 MainWindow = nil
 ContentLayerInterface = nil
 
+-- Global script imports.
 require("src/speakerEventType")
 require("src/lineCategory")
 require("src/lineAnimation")
@@ -17,7 +18,7 @@ local previousLifepoints = var.VarPlayer.LIFEPOINTS.value
 function GetPlayerCoords()
     local playerCoordGrid = Player.GetEntity().coordGrid
     if World.IsRegion() then
-        -- GetRegionSourceForCoordGrid rounds down to the nearest 8x8 zone, so this needs to be added back into the value before returning
+        -- GetRegionSourceForCoordGrid rounds down to the nearest 8x8 zone, so this needs to be added back into the value before returning.
         local origin = World.GetRegionSourceForCoordGrid(playerCoordGrid)
         origin.x = origin.x + (playerCoordGrid.x % 8)
         origin.z = origin.z + (playerCoordGrid.z % 8)
@@ -27,10 +28,10 @@ function GetPlayerCoords()
     end
 end
 
--- Call script files
+-- Function scripts.
 local contentLayerFunctions = require("src/interfaces/contentLayer")
 local mainWindowFunctions = require("src/interfaces/window")
---require("src/debugRegionRenderer")
+--require("src/debugAreaRenderer")
 
 -- Called after a set amount of client-side logic event ticks.
 function OnRandomTick()

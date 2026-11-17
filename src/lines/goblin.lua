@@ -29,7 +29,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.GoblinVillage
+            return state.area.GoblinVillage
         end
     },
     [20] = {
@@ -38,7 +38,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.LumbridgeGoblins
+            return state.area.LumbridgeGoblins
         end
     },
     [28] = {
@@ -47,7 +47,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.Quizzical,
         requirements = function(state)
-            return state.region.DraynorManor
+            return state.area.DraynorManor
         end
     },
     [37] = {
@@ -56,7 +56,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.PiscatorisFishingColony
+            return state.area.PiscatorisFishingColony
         end
     },
     [39] = {
@@ -65,7 +65,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.TzhaarFightCave
+            return state.area.TzhaarFightCave
         end
     },
     [44] = {
@@ -74,7 +74,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.MortMyreSwamp
+            return state.area.MortMyreSwamp
         end
     },
     [46] = {
@@ -83,7 +83,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.Shifty,
         requirements = function(state)
-            return state.region.Canifis
+            return state.area.Canifis
         end
     },
 
@@ -180,7 +180,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.GrandExchange
+            return state.area.GrandExchange
         end
     },
     [8] = {
@@ -224,7 +224,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.GrandExchange and state.isIronman
+            return state.area.GrandExchange and state.isIronman
         end
     },
     [24] = {
@@ -233,7 +233,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Bored,
         requirements = function(state)
-            return state.region.WarsRetreat
+            return state.area.WarsRetreat
         end
     },
     [31] = {
@@ -242,7 +242,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.Lumbridge
+            return state.area.Lumbridge
         end
     },
     [33] = {
@@ -251,7 +251,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.Falador
+            return state.area.Falador
         end
     },
     [34] = {
@@ -260,7 +260,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.Tirannwn or state.region.Prifddinas
+            return state.area.Tirannwn or state.area.Prifddinas
         end
     },
     [35] = {
@@ -269,7 +269,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.Prifddinas
+            return state.area.Prifddinas
         end
     },
     [36] = {
@@ -298,7 +298,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.GnomeStronghold
+            return state.area.GnomeStronghold
         end
     },
     [43] = {
@@ -307,7 +307,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.MortMyreSwamp
+            return state.area.MortMyreSwamp
         end
     },
     [47] = {
@@ -316,7 +316,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.FremennikIsles
+            return state.area.FremennikIsles
         end
     },
     [48] = {
@@ -325,7 +325,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Happy,
         requirements = function(state)
-            return state.region.NeitiznotYakPen
+            return state.area.NeitiznotYakPen
         end
     },
     [49] = {
@@ -334,7 +334,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Happy,
         requirements = function(state)
-            return state.region.Yanille
+            return state.area.Yanille
         end
     },
     [50] = {
@@ -343,7 +343,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Quizzical,
         requirements = function(state)
-            return state.region.Yanille
+            return state.area.Yanille
         end
     },
 
@@ -417,7 +417,7 @@ return {
         category = LineCategory.HUMOR,
         animation = LineAnimation.Happy,
         requirements = function(state)
-            return state.region.Daemonheim
+            return state.area.Daemonheim
         end
     },
     [27] = {
@@ -426,7 +426,7 @@ return {
         category = LineCategory.HUMOR,
         animation = LineAnimation.Happy,
         requirements = function(state)
-            return state.region.DraynorVillage
+            return state.area.DraynorVillage
         end
     },
     [29] = {
@@ -435,7 +435,7 @@ return {
         category = LineCategory.HUMOR,
         animation = LineAnimation.Happy,
         requirements = function(state)
-            return state.region.LumbridgeCowPen
+            return state.area.LumbridgeCowPen
         end
     },
     [30] = {
@@ -444,7 +444,7 @@ return {
         category = LineCategory.HUMOR,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.LumbridgeCowPen
+            return state.area.LumbridgeCowPen
         end
     },
     [32] = {
@@ -453,7 +453,7 @@ return {
         category = LineCategory.HUMOR,
         animation = LineAnimation.Quizzical,
         requirements = function(state)
-            return state.region.VarrockDigSite
+            return state.area.VarrockDigSite
         end
     },
     [38] = {
@@ -462,7 +462,7 @@ return {
         category = LineCategory.HUMOR,
         animation = LineAnimation.Shifty,
         requirements = function(state)
-            return state.region.EastArdougne
+            return state.area.EastArdougne
         end
     },
     [45] = {
@@ -471,7 +471,7 @@ return {
         category = LineCategory.HUMOR,
         animation = LineAnimation.HappyExtreme,
         requirements = function(state)
-            return state.region.MortMyreSwamp
+            return state.area.MortMyreSwamp
         end
     },
 
@@ -542,7 +542,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.TzhaarFightCave
+            return state.area.TzhaarFightCave
         end
     },
     [62] = {
@@ -551,7 +551,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.HappyExtreme,
         requirements = function(state)
-            return state.region.LumbridgeCowPen
+            return state.area.LumbridgeCowPen
         end
     },
     [63] = {
@@ -560,7 +560,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.region.MosLeHarmless
+            return state.area.MosLeHarmless
         end
     },
 } --[=[@as Line[]]=]

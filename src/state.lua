@@ -1,6 +1,7 @@
 ---Player state.
 ---@class State
 ---@field equipment EquipmentState The state of player's equipment.
+---@field area AreaState The state of player's equipment.
 
 local equipmentStateFunctions = require("src/states/equipment")
 
@@ -8,7 +9,7 @@ local equipmentStateFunctions = require("src/states/equipment")
 local furnitureTypeBitMask = 0xfff -- The first three nibbles of the "CONSTRUCTION_HOUSE_FURNITURE_DATA_INDEX_" player variables appear to correspond to furniture ID.
 local furnitureDemonicThroneId = 228
 
-local regionState = require("src/regionState")
+local areaState = require("src/areaState")
 
 local function hasFurniture(furnitureTypeId)
     for i = 1,500 do
@@ -58,6 +59,7 @@ local getState = function()
         archaeologyLevel = Player.GetLevelGameplay(SkillType.ARCHAEOLOGY),
 
         equipment = equipmentState,
+        area = areaState.getAreaState(),
 
         coins = coins,
         completedTheGrandTree = config.Quest.FromID(id.Quest.THEGRANDTREE).hasFinishedQuest,
@@ -66,7 +68,6 @@ local getState = function()
         isHardcoreIronman = isHardcoreIronman,
         hasExaminedRimmingtonBench = hasExaminedRimmingtonBench,
         isDead = isDead,
-        region = regionState.getRegionState(),
         follower = follower,
         hasDemonicThrone = hasDemonicThrone
     }
