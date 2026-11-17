@@ -7,6 +7,7 @@ ContentLayerInterface = nil
 
 require("src/speakerEventType")
 require("src/lineCategory")
+require("src/lineAnimation")
 Speakers = require("src/speakers")
 
 -- Local variables
