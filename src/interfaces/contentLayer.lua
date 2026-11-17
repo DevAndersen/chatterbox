@@ -16,8 +16,7 @@ end
 ---Initializes the content layer.
 local initContentLayer = function(contentLayerReadyEvent)
     local contentLayer = contentLayerReadyEvent.component
-    local panel = prettyui.SimpleView.new(contentLayer,
-    {
+    local panel = prettyui.SimpleView.new(contentLayer, {
         width = contentLayer.width,
         height = contentLayer.height
     })
@@ -42,8 +41,7 @@ local initContentLayer = function(contentLayerReadyEvent)
 
     -- Add a button for toggling the main window.
     local windowToggleButton
-    windowToggleButton = panel:AddSimpleButton("Toggle window", function() mainWindowFunctions.toggleMainWindow() end,
-    {
+    windowToggleButton = panel:AddSimpleButton("Toggle window", function() mainWindowFunctions.toggleMainWindow() end, {
         active = ShowMainWindow,
         toggleable = true,
     })

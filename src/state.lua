@@ -22,7 +22,7 @@ local furnitureTypeBitMask = 0xfff -- The first three nibbles of the "CONSTRUCTI
 local furnitureDemonicThroneId = 228
 
 local function hasFurniture(furnitureTypeId)
-    for i = 1,500 do
+    for i = 1, 500 do
         local furnitureData = var.VarPlayer["CONSTRUCTION_HOUSE_FURNITURE_DATA_INDEX_" .. i].value
         local furnitureType = furnitureData & furnitureTypeBitMask
 

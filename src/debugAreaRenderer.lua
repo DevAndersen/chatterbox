@@ -38,7 +38,7 @@ local function drawAreaSquare(pos1, pos2)
     end
 
     -- Draw
-    ShapeList.Draw{
+    ShapeList.Draw({
         shapePositions = {
             Vector3.new(minX, groundHeight, minZ),
             Vector3.new(maxX, groundHeight, minZ),
@@ -49,7 +49,7 @@ local function drawAreaSquare(pos1, pos2)
         shapeTris = tris,
         shapeLines = lines,
         ignoreDepth = false
-    }
+    })
 end
 
 local function drawTileBorder(vec3)
@@ -57,7 +57,7 @@ local function drawTileBorder(vec3)
     local groundHeight = World.GetGroundHeight(vec3.y, vec3.x * tileSize, vec3.z * tileSize) + 20
 
     -- Draw
-    ShapeList.Draw{
+    ShapeList.Draw({
         shapePositions = {
             Vector3.new(-halfTileSize, 0, -halfTileSize),
             Vector3.new(halfTileSize, 0, -halfTileSize),
@@ -68,7 +68,7 @@ local function drawTileBorder(vec3)
         shapeLines = lines,
         translation = (vec3 * tileSize) + Vector3.new(halfTileSize, groundHeight, halfTileSize),
         ignoreDepth = false
-    }
+    })
 end
 
 local function drawArea(pos1, pos2)

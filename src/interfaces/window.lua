@@ -127,7 +127,7 @@ createMainWindow = function()
         local playerState = state.getState()
 
         -- Check which lines meet their requirements, excluding the previously played line
-        for key,value in pairs(linesData) do
+        for key, value in pairs(linesData) do
             if lastId ~= key and (value.requirements == nil or value.requirements(playerState)) and speakerEventData.EventType == value.type then
 
                 -- Determine how much the line should be weighed (i.e. how many times it should be added as an available line)
@@ -247,7 +247,7 @@ local function speakEvent(speakerEventType, speakerEventMetadata)
     end
 end
 
-return  {
+return {
     toggleMainWindow = toggleMainWindow,
     destroyMainWindow = destroyMainWindow,
     speakEvent = speakEvent

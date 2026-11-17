@@ -6,6 +6,7 @@
             "unbalanced": "Warning"
         },
         "neededFileStatus": {
+            "codestyle-check": "Any",
             "name-style-check": "Any"
         },
         "groupFileStatus": {
@@ -57,6 +58,18 @@
             "camel_case",
             "pascal_case"
         ]
+    },
+    "format.defaultConfig": {
+
+    "indent_style": "space",
+    "indent_size": "4",
+    "quote_style": "double",
+    "call_arg_parentheses": "always",
+    "continuation_indent": "4",
+    "max_line_length": "120",
+    "trailing_table_separator": "smart",
+    "space_around_table_field_list": "true",
+    "space_before_attribute": "true"
     },
     "workspace.library": [
         "definitions"

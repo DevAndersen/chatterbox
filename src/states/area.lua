@@ -108,6 +108,7 @@
 
 -- Areas
 -- Note: Areas must be on the same level (first CoordGrid constructor parameter).
+---@diagnostic disable: codestyle-check
 local areas = {
     Lumbridge = {
         Pos1 = CoordGrid.new(0,49,50,60,2),
@@ -510,6 +511,7 @@ local areas = {
         Pos2 = CoordGrid.new(0,57,25,4,53),
     },
 }
+---@diagnostic enable: codestyle-check
 
 ---Returns all defined areas, and whether or not the player is currently inside of them.
 ---@return AreaState
