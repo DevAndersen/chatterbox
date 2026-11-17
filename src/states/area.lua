@@ -103,12 +103,13 @@
 
 ---Defines an area of the game world.
 ---@class Area
----@field Pos1 CoordGrid
----@field Pos2 CoordGrid
+---@field Pos1 CoordGrid The south-western corner of the area.
+---@field Pos2 CoordGrid The north-eastern corner of the area.
 
--- Areas
--- Note: Areas must be on the same level (first CoordGrid constructor parameter).
 ---@diagnostic disable: codestyle-check
+
+---Defined areas
+---Note: The two corner positions of areas must be on the same level (first CoordGrid constructor parameter).
 local areas = {
     Lumbridge = {
         Pos1 = CoordGrid.new(0,49,50,60,2),

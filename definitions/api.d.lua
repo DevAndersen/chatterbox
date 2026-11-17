@@ -12,6 +12,10 @@
 
 ---https://developer.runescape.com/rs/game/coordfine.html
 ---@class CoordFine
+---@field level integer
+---@field x number
+---@field y number
+---@field z number
 
 ---https://developer.runescape.com/rs/game/coordgrid.html
 ---@class CoordGrid
@@ -54,9 +58,16 @@
 
 ---https://developer.runescape.com/rs/math/vector.html#vector3
 ---@class Vector3
+---@field x number
+---@field y number
+---@field z number
 
 ---https://developer.runescape.com/rs/math/vector.html#vector4
 ---@class Vector4
+---@field x number
+---@field y number
+---@field z number
+---@field w number
 
 ---https://developer.runescape.com/rs/game/world.html
 ---@class World

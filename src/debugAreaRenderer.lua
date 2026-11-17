@@ -1,5 +1,5 @@
+-- Debugging/development helper script, visualizes areas and prints the player's coordinates to the console.
 local areaRenderDistance = 32
-
 local areaState = require("src/states/area")
 
 -- Write the player's current grid coordinates to the developer console.
@@ -11,6 +11,9 @@ local halfTileSize = tileSize / 2
 local tris = { 0, 1, 2, 0, 2, 3 }
 local lines = { 0, 1, 1, 2, 2, 3, 3, 0 }
 
+---Draw square over the game tiles of the area, with coloring depending if the player is currently inside or outside of the area.
+---@param pos1 CoordFine
+---@param pos2 CoordFine
 local function drawAreaSquare(pos1, pos2)
     -- Ensure that the two positions are on the same level.
     if pos1.level ~= pos2.level then
@@ -52,6 +55,8 @@ local function drawAreaSquare(pos1, pos2)
     })
 end
 
+---Draws a border on the specified game tile.
+---@param vec3 Vector3
 local function drawTileBorder(vec3)
     -- Geometry
     local groundHeight = World.GetGroundHeight(vec3.y, vec3.x * tileSize, vec3.z * tileSize) + 20
@@ -71,6 +76,9 @@ local function drawTileBorder(vec3)
     })
 end
 
+---Draw an area, including the corner positions.
+---@param pos1 CoordFine
+---@param pos2 CoordFine
 local function drawArea(pos1, pos2)
     drawAreaSquare(pos1, pos2)
     drawTileBorder(Vector3.new(pos1.x, pos1.level, pos1.z))
