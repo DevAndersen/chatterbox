@@ -94,7 +94,7 @@ return {
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Quizzical,
         requirements = function(state)
-            return state.fullHam
+            return state.equipment.special.fullHam
         end,
     },
     [21] = {

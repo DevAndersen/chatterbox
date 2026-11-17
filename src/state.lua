@@ -2,6 +2,11 @@
 ---@class State
 ---@field equipment EquipmentState The state of player's equipment.
 ---@field area AreaState The state of player's equipment.
+---@field coins integer The total number of coins in the player's coin pouch.
+---@field follower userdata The player's current follower (use "config.Obj", familiars begin with "LORE_").
+---@field isIronman boolean Is the player an ironman.
+---@field isHardcoreIronman boolean Is the player a hardcore ironman.
+---@field isDead boolean Is the player dead (zero lifepoints).
 
 local equipmentStateFunctions = require("src/states/equipment")
 
@@ -39,7 +44,7 @@ local getState = function()
     local hasExaminedRimmingtonBench = var.VarPlayer.XMAS16_BASEPERM2.value ~= 0 -- Examined the Rimmington ninja bench
     local isDead = var.VarPlayer.LIFEPOINTS.value < 1
 
-    -- Follower (pets and familiars)
+    -- Follower (pets and familiars).
     local follower = var.VarPlayer.FOLLOWER_OBJ.value
     if follower.id == -1 then
         follower = nil
