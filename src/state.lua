@@ -14,7 +14,7 @@ local equipmentStateFunctions = require("src/states/equipment")
 local furnitureTypeBitMask = 0xfff -- The first three nibbles of the "CONSTRUCTION_HOUSE_FURNITURE_DATA_INDEX_" player variables appear to correspond to furniture ID.
 local furnitureDemonicThroneId = 228
 
-local areaState = require("src/areaState")
+local areaState = require("src/states/areaState")
 
 local function hasFurniture(furnitureTypeId)
     for i = 1,500 do

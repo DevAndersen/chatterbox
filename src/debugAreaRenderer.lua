@@ -1,6 +1,6 @@
 local areaRenderDistance = 32
 
-local areaState = require("src/areaState")
+local areaState = require("src/states/areaState")
 
 -- Write the player's current grid coordinates to the developer console.
 log(tostring(GetPlayerCoords()))
