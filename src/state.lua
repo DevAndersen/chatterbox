@@ -11,6 +11,7 @@
 ---@field isHardcoreIronman boolean Is the player a hardcore ironman.
 ---@field isDead boolean Is the player dead (zero lifepoints).
 
+-- State check function imports.
 local equipmentStateFunctions = require("src/states/equipment")
 local skillStateFunctions = require("src/states/skill")
 local areaStateFunctions = require("src/states/area")
@@ -21,6 +22,9 @@ local specialStateFunctions = require("src/states/special")
 local furnitureTypeBitMask = 0xfff -- The first three nibbles of the "CONSTRUCTION_HOUSE_FURNITURE_DATA_INDEX_" player variables appear to correspond to furniture ID.
 local furnitureDemonicThroneId = 228
 
+---Determines if the player has at least one of the specified furniture type in their Player Owned House.
+---@param furnitureTypeId integer The ID of a type of furniture.
+---@return boolean
 local function hasFurniture(furnitureTypeId)
     for i = 1, 500 do
         local furnitureData = var.VarPlayer["CONSTRUCTION_HOUSE_FURNITURE_DATA_INDEX_" .. i].value

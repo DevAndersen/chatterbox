@@ -35,27 +35,27 @@ local contentLayerFunctions = require("src/interfaces/contentLayer")
 local mainWindowFunctions = require("src/interfaces/window")
 --require("src/debugAreaRenderer")
 
--- Called after a set amount of client-side logic event ticks.
+---Called after a set amount of client-side logic event ticks.
 local function onRandomTick()
     mainWindowFunctions.speakEvent(SpeakerEventType.TICK)
 end
 
--- Called when the player trains a skill. Also triggers if no XP is gained.
+---Called when the player trains a skill. Also triggers if no XP is gained.
 local function onTrainSkill(skill, level, xp)
     mainWindowFunctions.speakEvent(SpeakerEventType.SKILL, { Skill = skill, Level = level, XP = xp })
 end
 
--- Called when the player gain a new level.
+---Called when the player gain a new level.
 local function onGainLevel(skill, level, xp)
     mainWindowFunctions.speakEvent(SpeakerEventType.LEVEL, { Skill = skill, Level = level, XP = xp })
 end
 
--- Called when the player gain XP.
+---Called when the player gain XP.
 local function onGainXP(skill, level, xp)
     mainWindowFunctions.speakEvent(SpeakerEventType.XP, { Skill = skill, Level = level, XP = xp })
 end
 
--- Called when the player dies.
+---Called when the player dies.
 local function onDeath()
     mainWindowFunctions.speakEvent(SpeakerEventType.DEATH)
 end
@@ -97,7 +97,7 @@ end)
 
 ContentLayerInterface = contentLayerFunctions.createContentLayer()
 
--- Shutdown cleanup
+---Plugin shutdown cleanup
 function PluginShutdown()
     -- Clean up main window
     mainWindowFunctions.destroyMainWindow()
