@@ -34,11 +34,11 @@ local initContentLayer = function(contentLayerReadyEvent)
     speakerNameLabel:SetSize(panel.content.width, 50)
     speakerNameLabel.font = id.Font.QUILL_OBLIQUE_LARGE
     speakerNameLabel.colour = Vector4.new(0.83, 0.71, 0.38, 1.0)
-    speakerNameLabel.content = Speakers[SpeakerId].Name
+    speakerNameLabel.content = Speakers[SpeakerId].name
 
     -- Add a button with a tooltip containing the description of the speaker
     local speakerDescriptionButton = panel:AddSpriteButton("INFO")
-    speakerDescriptionButton:SetTooltip(Speakers[SpeakerId].Description)
+    speakerDescriptionButton:SetTooltip(Speakers[SpeakerId].description)
 
     -- Add a button for toggling the main window.
     local windowToggleButton
@@ -56,8 +56,8 @@ local initContentLayer = function(contentLayerReadyEvent)
     -- Subscribe to client logic updates
     Event.Logic.Subscribe(contentLayerLogicEventName, function()
         -- Ensure that speaker-specific details changes if the speaker is changed
-        speakerNameLabel.content = Speakers[SpeakerId].Name
-        speakerDescriptionButton:SetTooltip(Speakers[SpeakerId].Description)
+        speakerNameLabel.content = Speakers[SpeakerId].name
+        speakerDescriptionButton:SetTooltip(Speakers[SpeakerId].description)
 
         -- Ensure that the window toggle button shows the correct state
         if windowToggleButton.active ~= ShowMainWindow then

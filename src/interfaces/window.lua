@@ -54,7 +54,7 @@ createMainWindow = function()
 
     local lastSpeakerId = SpeakerId
     local speaker = Speakers[SpeakerId]
-    local linesData = speaker.Lines
+    local linesData = speaker.lines
 
     local uiLayer = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__PLUGIN_BUILD_LAYER_TOP)
     local label
@@ -95,17 +95,17 @@ createMainWindow = function()
         currentErrorMessage = ""
         speaker = Speakers[SpeakerId]
 
-        title.content = speaker.Name
-        model:SetModel(ui.ModelType.MODEL, speaker.Model)
+        title.content = speaker.name
+        model:SetModel(ui.ModelType.MODEL, speaker.model)
         model.animID = config.Seq["HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"].id
-        linesData = speaker.Lines
+        linesData = speaker.lines
     end
 
     title:AlignTo(ui.AlignMode.CENTRE)
     title:SetSize(mainWindowWidth, 50)
     title.font = id.Font.QUILL_OBLIQUE_LARGE
     title.colour = Vector4.new(0.83, 0.71, 0.38, 1.0)
-    title.content = speaker.Name
+    title.content = speaker.name
 
     local function playLine()
         -- Early return if no line data was found
@@ -160,10 +160,10 @@ createMainWindow = function()
         currentAnimation = selectedLine.value.animation
 
         -- Attempt to play the selected line
-        if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.ResourceDirectory][tostring(selectedLine.key)]) end) then
+        if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.resourceDirectory][tostring(selectedLine.key)]) end) then
             currentErrorMessage = ""
         else
-            local errorMessage = string.format("Failed to play sound resource '%s' for speaker '%s'", selectedLine.key, speaker.Name)
+            local errorMessage = string.format("Failed to play sound resource '%s' for speaker '%s'", selectedLine.key, speaker.name)
             currentErrorMessage = errorMessage
             log(errorMessage)
         end
@@ -211,7 +211,7 @@ createMainWindow = function()
     end)
 
     -- Configure the model and camera
-    model:SetModel(ui.ModelType.MODEL, speaker.Model)
+    model:SetModel(ui.ModelType.MODEL, speaker.model)
     model:SetPos(0, 0)
     model.viewDistance = 1600
     model.animID = config.Seq["HUMAN_UPDATE_CHATHEAD_NEUTRAL_IDLE"].id
