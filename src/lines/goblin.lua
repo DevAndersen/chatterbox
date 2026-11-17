@@ -377,7 +377,7 @@ return {
         category = LineCategory.SKILL,
         animation = LineAnimation.Neutral,
         requirements = function(state)
-            return state.attackLevel >= 99
+            return state.skill.attack.level >= 99
         end,
     },
 
