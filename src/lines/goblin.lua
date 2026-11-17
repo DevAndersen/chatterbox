@@ -4,6 +4,7 @@
 ---@field type SpeakerEventType The type of event that the line should be triggered by.
 ---@field category LineCategory The category of the line.
 ---@field animation string The animation to play when the line is being spoken.
+---@field weight number? The optional weight of the line (how likely it is to be selected).
 ---@field requirements LineRequirement? An optional requirements check that must either be null or return true for the line to be available.
 
 ---A line requirement function.
