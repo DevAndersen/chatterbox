@@ -60,7 +60,6 @@ local initContentLayer = function(contentLayerReadyEvent)
         speakerDescriptionButton:SetTooltip(Speakers[SpeakerId].Description)
 
         -- Ensure that the window toggle button shows the correct state
-        --log(windowToggleButton.active, ShowMainWindow)
         if windowToggleButton.active ~= ShowMainWindow then
             windowToggleButton:SetActive(ShowMainWindow)
         end
