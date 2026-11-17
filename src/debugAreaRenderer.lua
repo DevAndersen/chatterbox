@@ -80,6 +80,12 @@ end
 Event.Draw.Subscribe("chatterboxDebugAreaDrawEvent", function()
     local realPlayerCoordGrid = Player.GetEntity().coordGrid
     local playerCoordGrid = GetPlayerCoords()
+
+    -- Ensure that the player's coordinates were not nil.
+    if realPlayerCoordGrid == nil or playerCoordGrid == nil then
+        return
+    end
+
     local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
 
     for _, area in pairs(areaState.areas) do

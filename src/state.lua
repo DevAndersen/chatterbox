@@ -4,7 +4,7 @@
 ---@field area AreaState The state of player's equipment.
 ---@field skill SkillState The state of player's skills.
 ---@field coins integer The total number of coins in the player's coin pouch.
----@field follower userdata The player's current follower (use "config.Obj", familiars begin with "LORE_").
+---@field follower? userdata The player's current follower (use "config.Obj", familiars begin with "LORE_").
 ---@field isIronman boolean Is the player an ironman.
 ---@field isHardcoreIronman boolean Is the player a hardcore ironman.
 ---@field isDead boolean Is the player dead (zero lifepoints).
@@ -67,7 +67,7 @@ local getState = function()
         completedWhileGuthixSleeps = config.Quest.FromID(id.Quest.WHILE_GUTHIX_SLEEPS).hasFinishedQuest,
         hasExaminedRimmingtonBench = hasExaminedRimmingtonBench,
         hasDemonicThrone = hasDemonicThrone
-    }
+    } --[[@as State]]
 end
 
 return

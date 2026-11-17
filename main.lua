@@ -15,6 +15,8 @@ Speakers = require("src/speakers")
 local previousLifepoints = var.VarPlayer.LIFEPOINTS.value
 
 -- Global functions
+---Get the current location of the player. Returns reference location if the player is currently in a region (i.e. an instance).
+---@return CoordGrid?
 function GetPlayerCoords()
     local playerCoordGrid = Player.GetEntity().coordGrid
     if World.IsRegion() then
@@ -34,27 +36,27 @@ local mainWindowFunctions = require("src/interfaces/window")
 --require("src/debugAreaRenderer")
 
 -- Called after a set amount of client-side logic event ticks.
-function OnRandomTick()
+local function onRandomTick()
     mainWindowFunctions.speakEvent(SpeakerEventType.TICK)
 end
 
 -- Called when the player trains a skill. Also triggers if no XP is gained.
-function OnTrainSkill(skill, level, xp)
+local function onTrainSkill(skill, level, xp)
     mainWindowFunctions.speakEvent(SpeakerEventType.SKILL, { Skill = skill, Level = level, XP = xp })
 end
 
 -- Called when the player gain a new level.
-function OnGainLevel(skill, level, xp)
+local function onGainLevel(skill, level, xp)
     mainWindowFunctions.speakEvent(SpeakerEventType.LEVEL, { Skill = skill, Level = level, XP = xp })
 end
 
 -- Called when the player gain XP.
-function OnGainXP(skill, level, xp)
+local function onGainXP(skill, level, xp)
     mainWindowFunctions.speakEvent(SpeakerEventType.XP, { Skill = skill, Level = level, XP = xp })
 end
 
 -- Called when the player dies.
-function OnDeath()
+local function onDeath()
     mainWindowFunctions.speakEvent(SpeakerEventType.DEATH)
 end
 
@@ -66,28 +68,28 @@ Event.SkillTransmit.Subscribe("chatterboxSkillTriggerEvent", function(skillTrans
     local newLevel = skillTransmitEvent.newGameplayLevel
     local gainedXP = newXP - oldXP
 
-    OnTrainSkill(skill, newLevel, gainedXP)
+    onTrainSkill(skill, newLevel, gainedXP)
 
     if oldLevel ~= newLevel then
-        OnGainLevel(skill, newLevel, gainedXP)
+        onGainLevel(skill, newLevel, gainedXP)
     end
 
     if oldXP ~= newXP then
-        OnGainXP(skill, newLevel, gainedXP)
+        onGainXP(skill, newLevel, gainedXP)
     end
 end)
 
 Event.Logic.Subscribe("chatterboxLogicTriggerEvent", function(logicEvent)
     -- Random tick
     if logicEvent.logicTick % 100 == 0 and math.floor(random(0, 50)) == 0 then
-        OnRandomTick()
+        onRandomTick()
     end
 
     -- Check if the player has died
     local currentLifepoints = var.VarPlayer.LIFEPOINTS.value
     if logicEvent.logicTick % 30 == 0 then
         if currentLifepoints == 0 and previousLifepoints > 0 then
-            OnDeath()
+            onDeath()
         end
         previousLifepoints = currentLifepoints
     end

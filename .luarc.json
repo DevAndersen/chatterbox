@@ -1,0 +1,64 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "diagnostics":
+    {
+        "groupSeverity": {
+            "unbalanced": "Warning"
+        },
+        "neededFileStatus": {
+            "name-style-check": "Any"
+        },
+        "groupFileStatus": {
+            "ambiguity": "Any",
+            "await": "Any",
+            "duplicate": "Any",
+            "global": "Any",
+            "luadoc": "Any",
+            "redefined": "Any",
+            "strict": "Any",
+            "type-check": "Any",
+            "unbalanced": "Any",
+            "unused": "Any"
+        },
+        "globals":
+        [
+            "AABB",
+            "audio",
+            "config",
+            "CoordFine",
+            "CoordGrid",
+            "Event",
+            "GetPlayerCoords",
+            "id",
+            "Inventory",
+            "log",
+            "Player",
+            "Plugin",
+            "prettyui",
+            "random",
+            "ShapeList",
+            "SkillType",
+            "ui",
+            "var",
+            "Vector3",
+            "Vector4",
+            "World"
+        ]
+    },
+    "nameStyle.config": {
+        "local_name_style": "camel_case",
+        "global_variable_name_style": "pascal_case",
+        "function_name_style": "pascal_case",
+        "local_function_name_style": "camel_case",
+        "function_param_name_style": "camel_case",
+        "table_field_name_style": "camel_case",
+        "require_module_name_style":
+        [
+            "camel_case",
+            "pascal_case"
+        ]
+    },
+    "workspace.library": [
+        "definitions"
+    ]
+}

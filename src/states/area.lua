@@ -520,8 +520,10 @@ local getAreaState = function()
     for key, value in pairs(areas) do
         local aabb = AABB.new(Vector3.new(value.Pos1.x, value.Pos1.level, value.Pos1.z), Vector3.new(value.Pos2.x, value.Pos2.level, value.Pos2.z))
         local playerCoordGrid = GetPlayerCoords()
-        local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
-        areaState[key] = aabb:IsInside(playerPos)
+        if playerCoordGrid then
+            local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
+            areaState[key] = aabb:IsInside(playerPos) 
+        end
     end
 
     return areaState

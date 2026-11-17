@@ -1,5 +1,5 @@
 ---@meta
----API and dependency definitions (for LuaLS).
+---Plugin API definitions (for LuaLS).
 
 ---https://developer.runescape.com/rs/math/aabb.html
 ---@class AABB
@@ -15,6 +15,9 @@
 
 ---https://developer.runescape.com/rs/game/coordgrid.html
 ---@class CoordGrid
+---@field level integer The level of this CoordGrid. Valid range is 0-3.
+---@field x integer The world tile X of this CoordGrid, in Grid units. Valid range is 0-12799.
+---@field z integer The world tile Z of this CoordGrid, in Grid units. Valid range is 0-12799.
 
 ---https://developer.runescape.com/rs/core/events.html
 ---@class Event
@@ -33,9 +36,6 @@
 
 ---https://developer.runescape.com/rs/core/plugin.html
 ---@class Plugin
-
----https://prettyui.j3.gg/
----@class prettyui
 
 ---https://developer.runescape.com/rs/math/index.html#random
 ---@class random
