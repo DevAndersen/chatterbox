@@ -528,7 +528,7 @@ local getAreaState = function()
         end
     end
 
-    return areaState
+    return areaState --[[@as AreaState]]
 end
 
 return {

@@ -5,18 +5,18 @@
 
 ---Player equipment slot states.
 ---@class EquipmentSlotState
----@field head string
----@field cape string
----@field amulet string
----@field mainHand string
----@field body string
----@field offhand string
----@field legs string
----@field hands string
----@field feet string
----@field ring string
----@field quiver string
----@field pocket string
+---@field head string?
+---@field cape string?
+---@field amulet string?
+---@field mainHand string?
+---@field body string?
+---@field offhand string?
+---@field legs string?
+---@field hands string?
+---@field feet string?
+---@field ring string?
+---@field quiver string?
+---@field pocket string?
 
 ---Special player equipment checks.
 ---@class EquipmentSpecialState
@@ -265,7 +265,7 @@ local function getEquipmentState()
             -- Misc.
             charmingImp = charmingImp
         }
-    }
+    } --[[@as EquipmentState]]
 end
 
 return {
