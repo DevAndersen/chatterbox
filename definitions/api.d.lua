@@ -35,6 +35,10 @@
 --https://developer.runescape.com/rs/core/index.html#log
 ---@class log
 
+---https://developer.runescape.com/rs/core/events.html?h=logicEvent#logic
+---@class Logic
+---@field logicTick integer How many logic ticks have occurred since the client was started.
+
 ---https://developer.runescape.com/rs/game/player.html
 ---@class Player
 
@@ -46,6 +50,14 @@
 
 ---https://developer.runescape.com/rs/game/list/shapelist.html
 ---@class ShapeList
+
+---https://developer.runescape.com/rs/core/events.html?h=logicEvent#skilltransmit
+---@class SkillTransmit
+---@field skill SkillType The skill that has changed in value.
+---@field oldXP integer The previous XP value for the skill.
+---@field newXP integer The current XP value for the skill.
+---@field oldGameplayLevel integer The previous gameplay level for the skill.
+---@field newGameplayLevel integer The current gameplay level for the skill.
 
 ---https://developer.runescape.com/rs/game/player.html#skilltype
 ---@class SkillType
