@@ -40,6 +40,7 @@
 ---@param skill SkillType
 ---@return SkillLevelState
 local getSkillLevelState = function(skill)
+    ---@type SkillLevelState
     return {
         level = Player.GetLevelUncapped(skill),
         gameplayLevel = Player.GetLevelGameplay(skill),
@@ -47,9 +48,10 @@ local getSkillLevelState = function(skill)
     }
 end
 
----Returns the state of player's skills.
+---Returns the state of the player's skills.
 ---@return SkillState
 local getSkillState = function()
+    ---@type SkillState
     return {
         attack = getSkillLevelState(SkillType.Attack),
         defence = getSkillLevelState(SkillType.Defence),
@@ -80,7 +82,7 @@ local getSkillState = function()
         invention = getSkillLevelState(SkillType.Invention),
         archaeology = getSkillLevelState(SkillType.Archaeology),
         necromancy = getSkillLevelState(SkillType.Necromancy),
-    } --[[@as SkillState]]
+    }
 end
 
 return

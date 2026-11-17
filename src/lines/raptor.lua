@@ -1,3 +1,4 @@
+---@type Line[]
 return {
     [1] = {
         text = "You don't look as tough as you think you do.",
@@ -23,4 +24,4 @@ return {
             return state.skill.slayer.level >= 75
         end,
     },
-} --[=[@as Line[]]=]
+}

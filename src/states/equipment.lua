@@ -90,7 +90,7 @@ local function objectHasParam(objectConfig, param)
     return false
 end
 
----Returns the state of player's equipment.
+---Returns the state of the player's equipment.
 ---@return EquipmentState
 local function getEquipmentState()
     -- Equipment slots.
@@ -220,6 +220,7 @@ local function getEquipmentState()
     -- Misc.
     local charmingImp = pocket == config.Obj.RAND_REWARD_CHARMING_IMP.configName
 
+    ---@type EquipmentState
     return {
         slots = {
             head = head,
@@ -265,7 +266,7 @@ local function getEquipmentState()
             -- Misc.
             charmingImp = charmingImp
         }
-    } --[[@as EquipmentState]]
+    }
 end
 
 return {

@@ -1,7 +1,7 @@
 ---Player state.
 ---@class State
----@field equipment EquipmentState The state of player's equipment.
----@field area AreaState The state of player's equipment.
+---@field equipment EquipmentState The state of the player's equipment.
+---@field area AreaState The state of the player's equipment.
 ---@field skill SkillState The state of the player's skills.
 ---@field quest QuestState The state of the player's quest completions.
 ---@field special SpecialState The state of special player checks.
@@ -61,6 +61,7 @@ local getState = function()
 
     local hasDemonicThrone = hasFurniture(furnitureDemonicThroneId)
 
+    ---@type State
     return {
         equipment = equipmentStateFunctions.getEquipmentState(),
         area = areaStateFunctions.getAreaState(),
@@ -75,7 +76,7 @@ local getState = function()
         follower = follower,
 
         hasDemonicThrone = hasDemonicThrone
-    } --[[@as State]]
+    }
 end
 
 return

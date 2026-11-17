@@ -10,6 +10,7 @@
 ---A line requirement function.
 ---@alias LineRequirement fun(state: State): boolean
 
+---@type Line[]
 return {
     -- Generic
     [1] = {
@@ -564,4 +565,4 @@ return {
             return state.area.MosLeHarmless
         end
     },
-} --[=[@as Line[]]=]
+}
