@@ -9,7 +9,7 @@ Speakers = require("src/speakers")
 local contentLayerFunctions = require("src/interfaces/contentLayer")
 local mainWindowFunctions = require("src/interfaces/window")
 local eventListenerFunctions = require("src/eventListener")
-require("src/debugAreaRenderer")
+--require("src/debugAreaRenderer")
 
 -- Global variables.
 Speaker = nil
