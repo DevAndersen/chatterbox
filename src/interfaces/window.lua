@@ -14,11 +14,11 @@ local stateFunctions = require("src/state")
 ---The plugin UI layer.
 local uiLayer = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__PLUGIN_BUILD_LAYER_TOP)
 
-local currentLine
 local mainWindowWidth = 440
 local mainWindowHeight = 340
+local currentLine
 local speaker
-
+local lineDelay
 local createMainWindow
 
 ---@type Window
@@ -71,6 +71,7 @@ local function createModel()
     local model = ui.Model.new(MainWindow.content)
     model:SetModel(ui.ModelType.MODEL, speaker.model)
     model:SetPos(0, 0)
+    model:SetSize(MainWindow.content.width, MainWindow.content.height)
     model.viewDistance = 1600
     model.animID = config.Seq[LineAnimation.Idle].id
 
@@ -127,7 +128,7 @@ createMainWindow = function()
     -- Clear any potential speaker event data, to ensure lines aren't played for old events
     currentSpeakerEventData = nil
 
-    local lineDelay = 3
+    lineDelay = 3
 
     MainWindow = prettyui.Window.new(uiLayer, {
         title = "Chatterbox",
@@ -178,11 +179,6 @@ createMainWindow = function()
             return
         end
 
-        -- Early return 
-        if lineDelay > 0 then
-            return
-        end
-
         local availableLines = {}
         local playerState = stateFunctions.getState()
 
@@ -227,16 +223,15 @@ createMainWindow = function()
             log(errorMessage)
         end
         currentSpeakerEventData = nil
+        lineDelay = 20
     end
 
-    model:SetSize(MainWindow.content.width, MainWindow.content.height)
-
     Event.Logic.Subscribe(mainWindowLogicEventName, function(logicEvent)
-
-        if logicEvent.logicTick % 10 == 0 and lineDelay > 0 then
+        if logicEvent.logicTick % 20 == 0 and lineDelay > 0 then
             lineDelay = lineDelay - 1
         end
 
+        -- Update the speaker if the speaker ID has changed.
         if lastSpeakerId ~= SpeakerId then
             updateSpeaker()
             lastSpeakerId = SpeakerId
@@ -276,7 +271,7 @@ end
 ---@param speakerEventType SpeakerEventType
 ---@param speakerEventData SpeakerEventData?
 local function speakEvent(speakerEventType, speakerEventData)
-    if MainWindow then
+    if MainWindow and lineDelay == 0 then
         currentSpeakerEventData = { eventType = speakerEventType, eventData = speakerEventData }
     end
 end
