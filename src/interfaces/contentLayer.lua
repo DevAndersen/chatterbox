@@ -3,14 +3,30 @@ local mainWindowFunctions = require("src/interfaces/window")
 local contentLayerReadyEventName = "contentLayerReadyEventName"
 local contentLayerLogicEventName = "contentLayerLogicEventName"
 
----Go to the next speaker
-local function nextSpeaker()
-    SpeakerId = SpeakerId % #Speakers + 1
+local speakerDescriptionButton
+local speakerNameLabel
+
+---Update speaker-related elements of the content layer.
+local function updateSpeakerDetails()
+    if speakerDescriptionButton then
+        speakerDescriptionButton:SetTooltip(Speakers[SpeakerId].description)
+    end
+
+    if speakerNameLabel then
+        speakerNameLabel.content = Speakers[SpeakerId].name
+    end
 end
 
----Go to the previous speaker
+---Go to the next speaker.
+local function nextSpeaker()
+    SpeakerId = SpeakerId % #Speakers + 1
+    updateSpeakerDetails()
+end
+
+---Go to the previous speaker.
 local function previousSpeaker()
     SpeakerId = (SpeakerId - 2) % #Speakers + 1
+    updateSpeakerDetails()
 end
 
 ---Initializes the content layer.
@@ -28,7 +44,7 @@ local initContentLayer = function(contentLayerReadyEvent)
     end
 
     -- Add a label displaying the name of the speaker
-    local speakerNameLabel = ui.Text.new(panel.content)
+    speakerNameLabel = ui.Text.new(panel.content)
     speakerNameLabel:AlignTo(ui.AlignMode.CENTRE)
     speakerNameLabel:SetSize(panel.content.width, 50)
     speakerNameLabel.font = id.Font.QUILL_OBLIQUE_LARGE
@@ -36,7 +52,7 @@ local initContentLayer = function(contentLayerReadyEvent)
     speakerNameLabel.content = Speakers[SpeakerId].name
 
     -- Add a button with a tooltip containing the description of the speaker
-    local speakerDescriptionButton = panel:AddSpriteButton("INFO")
+    speakerDescriptionButton = panel:AddSpriteButton("INFO")
     speakerDescriptionButton:SetTooltip(Speakers[SpeakerId].description)
 
     -- Add a button for toggling the main window.
@@ -53,10 +69,6 @@ local initContentLayer = function(contentLayerReadyEvent)
 
     -- Subscribe to client logic updates
     Event.Logic.Subscribe(contentLayerLogicEventName, function()
-        -- Ensure that speaker-specific details changes if the speaker is changed
-        speakerNameLabel.content = Speakers[SpeakerId].name
-        speakerDescriptionButton:SetTooltip(Speakers[SpeakerId].description)
-
         -- Ensure that the window toggle button shows the correct state
         if windowToggleButton.active ~= ShowMainWindow then
             windowToggleButton:SetActive(ShowMainWindow)
