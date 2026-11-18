@@ -36,7 +36,6 @@
 ---@field gameplayLevel integer The player's gameplay level (including boosts and stat drains) in the skill.
 ---@field xp integer The player's XP in the skill.
 
----
 ---@param skill SkillType
 ---@return SkillLevelState
 local getSkillLevelState = function(skill)

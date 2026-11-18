@@ -2,7 +2,13 @@
 local mainWindowDrawEventName = "mainWindowDrawEventName"
 local mainWindowLogicEventName = "mainWindowLogicEventName"
 
-local speakerEventData
+---@class SpeakerEventInfo
+---@field eventType SpeakerEventType
+---@field eventData SpeakerEventData?
+
+---@type SpeakerEventInfo?
+local currentSpeakerEventData
+
 local currentLine
 
 local createMainWindow
@@ -65,7 +71,7 @@ createMainWindow = function()
     local currentErrorMessage = ""
 
     -- Clear any potential speaker event data, to ensure lines aren't played for old events
-    speakerEventData = nil
+    currentSpeakerEventData = nil
 
     local lineDelay = 3
 
@@ -110,16 +116,19 @@ createMainWindow = function()
     local function playLine()
         -- Early return if no line data was found
         if not linesData then
+            log("EARLY EXIT 1")
             return
         end
-
+        
         -- Early return if a line is already playing
         if currentLine and currentLine.isPlaying then
+            log("EARLY EXIT 2")
             return
         end
-
+        
         -- Early return if the speaker event data is missing
-        if speakerEventData == nil or speakerEventData.EventType == nil then
+        if currentSpeakerEventData == nil or currentSpeakerEventData.eventType == nil then
+            log("EARLY EXIT 3", currentSpeakerEventData)
             return
         end
 
@@ -128,8 +137,7 @@ createMainWindow = function()
 
         -- Check which lines meet their requirements, excluding the previously played line
         for key, value in pairs(linesData) do
-            if lastId ~= key and (value.requirements == nil or value.requirements(playerState)) and speakerEventData.EventType == value.type then
-
+            if (lastId ~= key) and (currentSpeakerEventData.eventType == value.type) and (value.requirements == nil or value.requirements(playerState, currentSpeakerEventData.EventData)) then
                 -- Determine how much the line should be weighed (i.e. how many times it should be added as an available line)
                 local weight = 1
                 if value.weight and value.weight > 1 then
@@ -167,7 +175,7 @@ createMainWindow = function()
             currentErrorMessage = errorMessage
             log(errorMessage)
         end
-        speakerEventData = nil
+        currentSpeakerEventData = nil
     end
 
     model:SetSize(MainWindow.content.width, MainWindow.content.height)
@@ -178,14 +186,14 @@ createMainWindow = function()
             lineDelay = lineDelay - 1
         end
 
-        if lineDelay == 0 and speakerEventData ~= nil then
-            playLine()
-            lineDelay = 20
-        end
-
         if lastSpeakerId ~= SpeakerId then
             updateSpeaker()
             lastSpeakerId = SpeakerId
+        end
+
+        if lineDelay == 0 and currentSpeakerEventData ~= nil then
+            playLine()
+            lineDelay = 20
         end
 
         model:SetSize(MainWindow.content.width, MainWindow.content.height)
@@ -241,9 +249,11 @@ createMainWindow = function()
 end
 
 ---Attempt to invoke a speaker event.
-local function speakEvent(speakerEventType, speakerEventMetadata)
+---@param speakerEventType SpeakerEventType
+---@param speakerEventData SpeakerEventData?
+local function speakEvent(speakerEventType, speakerEventData)
     if MainWindow then
-        speakerEventData = { EventType = speakerEventType, Metadata = speakerEventMetadata }
+        currentSpeakerEventData = { eventType = speakerEventType, eventData = speakerEventData }
     end
 end
 

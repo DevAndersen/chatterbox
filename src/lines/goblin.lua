@@ -8,7 +8,7 @@
 ---@field requirements LineRequirement? An optional requirements check that must either be null or return true for the line to be available.
 
 ---A line requirement function.
----@alias LineRequirement fun(state: State): boolean
+---@alias LineRequirement fun(state: State, data: SpeakerEventData?): boolean
 
 ---@type Line[]
 return {
@@ -30,7 +30,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.GoblinVillage
         end
     },
@@ -39,7 +39,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.LumbridgeGoblins
         end
     },
@@ -48,7 +48,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Quizzical,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.DraynorManor
         end
     },
@@ -57,7 +57,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.PiscatorisFishingColony
         end
     },
@@ -66,7 +66,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.TzhaarFightCave
         end
     },
@@ -75,7 +75,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.MortMyreSwamp
         end
     },
@@ -84,7 +84,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Shifty,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.Canifis
         end
     },
@@ -95,7 +95,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Quizzical,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.equipment.special.fullHam
         end,
     },
@@ -104,7 +104,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Happy,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.equipment.special.partyhat
         end
     },
@@ -113,7 +113,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Shifty,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.equipment.special.santaHat
         end
     },
@@ -122,7 +122,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Quizzical,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.equipment.special.halloweenMask
         end
     },
@@ -131,7 +131,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.equipment.special.partyhat
         end
     },
@@ -140,7 +140,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Shifty,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.equipment.slots.mainHand == config.Obj.MOURNING_PAINT_GUN.configName
         end
     },
@@ -149,7 +149,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Shifty,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.equipment.slots.mainHand == config.whip and state.skill.archaeology.level > 75
         end
     },
@@ -160,7 +160,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.equipment.slots.mainHand == config.Obj.ABYSSAL_WHIP.configName
         end
     },
@@ -181,7 +181,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.GrandExchange
         end
     },
@@ -202,7 +202,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.special.hasExaminedRimmingtonBench == false
         end,
     },
@@ -225,7 +225,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.GrandExchange and state.isIronman
         end
     },
@@ -234,7 +234,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Bored,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.WarsRetreat
         end
     },
@@ -243,7 +243,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.Lumbridge
         end
     },
@@ -252,7 +252,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.Falador
         end
     },
@@ -261,7 +261,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.Tirannwn or state.area.Prifddinas
         end
     },
@@ -270,7 +270,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.Prifddinas
         end
     },
@@ -299,7 +299,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.GnomeStronghold
         end
     },
@@ -308,7 +308,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.MortMyreSwamp
         end
     },
@@ -317,7 +317,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.FremennikIsles
         end
     },
@@ -326,7 +326,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Happy,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.NeitiznotYakPen
         end
     },
@@ -335,7 +335,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Happy,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.Yanille
         end
     },
@@ -344,7 +344,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Quizzical,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.Yanille
         end
     },
@@ -356,7 +356,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.QUEST,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.quest.theGrandTree
                 and state.quest.whileGuthixSleeps == false
         end,
@@ -367,7 +367,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.QUEST,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.quest.whileGuthixSleeps
         end,
     },
@@ -378,8 +378,71 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.SKILL,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.skill.attack.level >= 99
+        end,
+    },
+    [67] = {
+        text = "Congratulations, halfway to 99!",
+        type = SpeakerEventType.LEVEL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return (eventData.level == 92 and eventData.skill ~= SkillType.INVENTION) or (eventData.level == 84 and eventData.skill == SkillType.INVENTION)
+        end,
+    },
+    [68] = {
+        text = "Congratulations, that's halfway to 99!",
+        type = SpeakerEventType.LEVEL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return (eventData.level == 92 and eventData.skill ~= SkillType.INVENTION) or (eventData.level == 84 and eventData.skill == SkillType.INVENTION)
+        end,
+    },
+    [69] = {
+        text = "Congratulations, just one more level to go until 99!",
+        type = SpeakerEventType.LEVEL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.level == 98
+        end,
+    },
+    [70] = {
+        text = "Nice, just one more level until 99!",
+        type = SpeakerEventType.LEVEL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.level == 98
+        end,
+    },
+    [71] = {
+        text = "Congratulations!",
+        type = SpeakerEventType.LEVEL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.level == 99
+        end,
+    },
+    [72] = {
+        text = "Congratulations!",
+        type = SpeakerEventType.LEVEL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.level == 120
+        end,
+    },
+    [73] = {
+        text = "Congratulations!",
+        type = SpeakerEventType.LEVEL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.xp == 200000000
         end,
     },
 
@@ -389,7 +452,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.MONEY,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.coins < 1000000
         end,
     },
@@ -398,18 +461,18 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.MONEY,
         animation = LineAnimation.Shifty,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.coins < 1000000
         end,
     },
 
     -- Humor
     [25] = {
-        text = "Roses are red, violets are blue, your familiar is a pack yak, baroo baroo",
+        text = "Roses are red, violets are blue, your familiar is a pack yak, baroo baroo.",
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.Bored,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.follower == config.Obj.LORE_PACK_YAK
         end
     },
@@ -418,7 +481,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.Happy,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.Daemonheim
         end
     },
@@ -427,7 +490,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.Happy,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.DraynorVillage
         end
     },
@@ -436,7 +499,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.Happy,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.LumbridgeCowPen
         end
     },
@@ -445,7 +508,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.LumbridgeCowPen
         end
     },
@@ -454,7 +517,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.Quizzical,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.VarrockDigSite
         end
     },
@@ -463,7 +526,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.Shifty,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.EastArdougne
         end
     },
@@ -472,7 +535,7 @@ return {
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.HappyExtreme,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.MortMyreSwamp
         end
     },
@@ -543,7 +606,7 @@ return {
         type = SpeakerEventType.DEATH,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.TzhaarFightCave
         end
     },
@@ -552,7 +615,7 @@ return {
         type = SpeakerEventType.DEATH,
         category = LineCategory.GENERIC,
         animation = LineAnimation.HappyExtreme,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.LumbridgeCowPen
         end
     },
@@ -561,7 +624,7 @@ return {
         type = SpeakerEventType.DEATH,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
-        requirements = function(state)
+        requirements = function(state, eventData)
             return state.area.MosLeHarmless
         end
     },

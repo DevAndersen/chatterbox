@@ -1,3 +1,12 @@
+---The event data for skill related events.
+---@class SkillEventData
+---@field skill SkillType
+---@field level integer
+---@field xp integer
+
+---A union of possible event data types.
+---@alias SpeakerEventData SkillEventData
+
 -- Constants
 local mainLogicEventName = "mainLogicEventName"
 local mainSkillTransmitEventName = "mainSkillTransmitEventName"
@@ -15,17 +24,17 @@ end
 
 ---Called when the player trains a skill. Also triggers if no XP is gained.
 local function onTrainSkill(skill, level, xp)
-    mainWindowFunctions.speakEvent(SpeakerEventType.SKILL, { Skill = skill, Level = level, XP = xp })
+    mainWindowFunctions.speakEvent(SpeakerEventType.SKILL, { skill = skill, level = level, xp = xp })
 end
 
 ---Called when the player gain a new level.
 local function onGainLevel(skill, level, xp)
-    mainWindowFunctions.speakEvent(SpeakerEventType.LEVEL, { Skill = skill, Level = level, XP = xp })
+    mainWindowFunctions.speakEvent(SpeakerEventType.LEVEL, { skill = skill, level = level, xp = xp })
 end
 
 ---Called when the player gain XP.
 local function onGainXP(skill, level, xp)
-    mainWindowFunctions.speakEvent(SpeakerEventType.XP, { Skill = skill, Level = level, XP = xp })
+    mainWindowFunctions.speakEvent(SpeakerEventType.XP, { skill = skill, level = level, xp = xp })
 end
 
 ---Called when the player dies.

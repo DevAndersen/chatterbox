@@ -5,7 +5,7 @@
 ---@field model number The model of the speaker (use "id.Model").
 ---@field lines Line[] The lines available to the speaker.
 ---@field resourceDirectory string The name of the resource containing the speaker's audio files.
----@
+
 ---@type Speaker[]
 return {
     [1] = {
