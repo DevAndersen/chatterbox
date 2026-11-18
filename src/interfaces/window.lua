@@ -9,10 +9,20 @@ local mainWindowLogicEventName = "mainWindowLogicEventName"
 ---@type SpeakerEventInfo?
 local currentSpeakerEventData
 
+local stateFunctions = require("src/state")
+
+---The plugin UI layer.
+local uiLayer = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__PLUGIN_BUILD_LAYER_TOP)
+
 local currentLine
+local mainWindowWidth = 440
+local mainWindowHeight = 340
+local speaker
 
 local createMainWindow
-local destroyMainWindow
+
+---@type Window
+MainWindow = nil
 
 ---Stop the currently playing voice line.
 local function stopAudio()
@@ -22,7 +32,7 @@ local function stopAudio()
 end
 
 ---Destroys the main window and performs cleanup logic.
-destroyMainWindow = function()
+local destroyMainWindow = function()
     -- Unsubscribe event listeners
     Event.Logic.Unsubscribe(mainWindowLogicEventName)
     Event.Draw.Unsubscribe(mainWindowDrawEventName)
@@ -46,6 +56,58 @@ local toggleMainWindow = function()
     ShowMainWindow = not ShowMainWindow
 end
 
+local function createTitleText()
+    local title = ui.Text.new(MainWindow.content)
+    title:AlignTo(ui.AlignMode.CENTRE)
+    title:SetSize(mainWindowWidth, 50)
+    title.font = id.Font.QUILL_OBLIQUE_LARGE
+    title.colour = Vector4.new(0.83, 0.71, 0.38, 1.0)
+    title.content = speaker.name
+
+    return title
+end
+
+local function createModel()
+    local model = ui.Model.new(MainWindow.content)
+    model:SetModel(ui.ModelType.MODEL, speaker.model)
+    model:SetPos(0, 0)
+    model.viewDistance = 1600
+    model.animID = config.Seq[LineAnimation.Idle].id
+
+    -- Lighting
+    local ambient = 1.0
+    local contrast = 1.0
+    local antiContrast = 0.0
+    local sunRGB = Vector3.new(1.0, 1.0, 1.0)
+    local sunDirection = Vector3.new(0.0, 0.0, -1.0)
+    local envMapID = -1
+    model:SetLighting(ambient, contrast, antiContrast, sunRGB, sunDirection, envMapID)
+
+    return model
+end
+
+local function createLabel()
+    local label = ui.Text.new(MainWindow.content)
+    label:AlignTo(ui.AlignMode.CENTRE)
+    label:SetPos(0, 120)
+    label:SetSize(MainWindow.content.width - 4, MainWindow.content.height - 60)
+    label.font = id.Font.NOTOSANS_BOLD_14
+    label.colour = Vector4.new(1.0, 1.0, 1.0, 1.0)
+
+    return label
+end
+
+local function createErrorLabel()
+    local errorLabel = ui.Text.new(MainWindow.content)
+    errorLabel:AlignTo(ui.AlignMode.CENTRE)
+    errorLabel:SetPos(0, 0)
+    errorLabel:SetSize(MainWindow.content.width - 4, 120)
+    errorLabel.font = id.Font.NOTOSANS_BOLD_14
+    errorLabel.colour = Vector4.new(1.0, 0.0, 0.0, 1.0)
+
+    return errorLabel
+end
+
 ---Creates the main window.
 createMainWindow = function()
     -- Exit if main window already exists
@@ -53,18 +115,10 @@ createMainWindow = function()
         return
     end
 
-    local state = require("src/state")
-
-    local mainWindowWidth = 440
-    local mainWindowHeight = 340
-
+    speaker = Speakers[SpeakerId]
     local lastSpeakerId = SpeakerId
-    local speaker = Speakers[SpeakerId]
     local linesData = speaker.lines
 
-    local uiLayer = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__PLUGIN_BUILD_LAYER_TOP)
-    local label
-    local errorLabel
     local lastId = ""
     local currentAnimation = LineAnimation.Idle
     local currentText = ""
@@ -89,9 +143,10 @@ createMainWindow = function()
         end,
     })
 
-    local model = ui.Model.new(MainWindow.content)
-
-    local title = ui.Text.new(MainWindow.content)
+    local title = createTitleText()
+    local model = createModel()
+    local label = createLabel()
+    local errorLabel = createErrorLabel()
 
     -- Update the speaker
     local function updateSpeaker()
@@ -107,37 +162,33 @@ createMainWindow = function()
         linesData = speaker.lines
     end
 
-    title:AlignTo(ui.AlignMode.CENTRE)
-    title:SetSize(mainWindowWidth, 50)
-    title.font = id.Font.QUILL_OBLIQUE_LARGE
-    title.colour = Vector4.new(0.83, 0.71, 0.38, 1.0)
-    title.content = speaker.name
-
     local function playLine()
         -- Early return if no line data was found
         if not linesData then
-            log("EARLY EXIT 1")
             return
         end
-        
+
         -- Early return if a line is already playing
         if currentLine and currentLine.isPlaying then
-            log("EARLY EXIT 2")
             return
         end
-        
+
         -- Early return if the speaker event data is missing
         if currentSpeakerEventData == nil or currentSpeakerEventData.eventType == nil then
-            log("EARLY EXIT 3", currentSpeakerEventData)
+            return
+        end
+
+        -- Early return 
+        if lineDelay > 0 then
             return
         end
 
         local availableLines = {}
-        local playerState = state.getState()
+        local playerState = stateFunctions.getState()
 
         -- Check which lines meet their requirements, excluding the previously played line
         for key, value in pairs(linesData) do
-            if (lastId ~= key) and (currentSpeakerEventData.eventType == value.type) and (value.requirements == nil or value.requirements(playerState, currentSpeakerEventData.EventData)) then
+            if (lastId ~= key) and (currentSpeakerEventData.eventType == value.type) and (value.requirements == nil or value.requirements(playerState, currentSpeakerEventData.eventData)) then
                 -- Determine how much the line should be weighed (i.e. how many times it should be added as an available line)
                 local weight = 1
                 if value.weight and value.weight > 1 then
@@ -191,18 +242,20 @@ createMainWindow = function()
             lastSpeakerId = SpeakerId
         end
 
-        if lineDelay == 0 and currentSpeakerEventData ~= nil then
-            playLine()
-            lineDelay = 20
-        end
+        playLine()
 
+        -- Resize the model area to fit the window size.
         model:SetSize(MainWindow.content.width, MainWindow.content.height)
 
+        -- Resize the label area to fit the window size.
         label:SetSize(MainWindow.content.width - 4, MainWindow.content.height - 60)
         label.content = currentText
 
+        -- Set the text of the error label.
         errorLabel.content = currentErrorMessage
 
+        -- If a line is currently being played, animate the model and make the label color white.
+        -- Otherwise, change the model animation to idle, and make the text gray.
         if currentLine and currentLine.isPlaying then
             model.animID = config.Seq[currentAnimation].id
             label.colour = Vector4.new(1.0, 1.0, 1.0, 1.0)
@@ -217,35 +270,6 @@ createMainWindow = function()
         label:SetSize(MainWindow.content.width - 4, MainWindow.content.height - 60)
         errorLabel:SetSize(MainWindow.content.width - 4, 120)
     end)
-
-    -- Configure the model and camera
-    model:SetModel(ui.ModelType.MODEL, speaker.model)
-    model:SetPos(0, 0)
-    model.viewDistance = 1600
-    model.animID = config.Seq[LineAnimation.Idle].id
-
-    local ambient = 1.0
-    local contrast = 1.0
-    local antiContrast = 0.0
-    local sunRGB = Vector3.new(1.0, 1.0, 1.0)
-    local sunDirection = Vector3.new(0.0, 0.0, -1.0)
-    local envMapID = -1
-
-    model:SetLighting(ambient, contrast, antiContrast, sunRGB, sunDirection, envMapID)
-
-    label = ui.Text.new(MainWindow.content)
-    label:AlignTo(ui.AlignMode.CENTRE)
-    label:SetPos(0, 120)
-    label:SetSize(MainWindow.content.width - 4, MainWindow.content.height - 60)
-    label.font = id.Font.NOTOSANS_BOLD_14
-    label.colour = Vector4.new(1.0, 1.0, 1.0, 1.0)
-
-    errorLabel = ui.Text.new(MainWindow.content)
-    errorLabel:AlignTo(ui.AlignMode.CENTRE)
-    errorLabel:SetPos(0, 0)
-    errorLabel:SetSize(MainWindow.content.width - 4, 120)
-    errorLabel.font = id.Font.NOTOSANS_BOLD_14
-    errorLabel.colour = Vector4.new(1.0, 0.0, 0.0, 1.0)
 end
 
 ---Attempt to invoke a speaker event.

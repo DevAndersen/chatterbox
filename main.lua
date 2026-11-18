@@ -1,3 +1,8 @@
+-- Global variables.
+Speaker = nil
+SpeakerId = 1
+ShowMainWindow = false
+
 -- Global script imports.
 require("src/helper")
 require("src/speakerEventType")
@@ -11,11 +16,6 @@ local mainWindowFunctions = require("src/interfaces/window")
 local eventListenerFunctions = require("src/eventListener")
 --require("src/debugAreaRenderer")
 
--- Global variables.
-Speaker = nil
-SpeakerId = 1
-ShowMainWindow = false
-MainWindow = nil
 ContentLayerInterface = contentLayerFunctions.createContentLayer()
 
 -- Register event listeners.
