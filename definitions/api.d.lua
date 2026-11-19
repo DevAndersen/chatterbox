@@ -32,6 +32,13 @@
 ---https://developer.runescape.com/rs/game/inventory.html
 ---@class Inventory
 
+---https://developer.runescape.com/rs/ui/layout_components/layer.html
+---@class Layer
+---@field x integer (Read-only) Current horizontal position for this component relative to its parent.
+---@field y integer (Read-only) Current vertical position for this component relative to its parent.
+---@field width integer (Read-only) Current width for this component.
+---@field height integer (Read-only) Current height for this component.
+
 --https://developer.runescape.com/rs/core/index.html#log
 ---@class log
 

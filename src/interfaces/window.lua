@@ -1,6 +1,10 @@
--- Local variables
+-- Local constants
 local mainWindowDrawEventName = "mainWindowDrawEventName"
 local mainWindowLogicEventName = "mainWindowLogicEventName"
+local mainWindowWidthPersistenceKey = "mainWindowWidth"
+local mainWindowHeightPersistenceKey = "mainWindowHeight"
+local mainWindowXPersistenceKey = "mainWindowX"
+local mainWindowYPersistenceKey = "mainWindowY"
 
 ---@class SpeakerEventInfo
 ---@field eventType SpeakerEventType
@@ -14,8 +18,8 @@ local persistenceFunctions = require("src/persistence")
 ---The plugin UI layer.
 local uiLayer = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__PLUGIN_BUILD_LAYER_TOP)
 
-local mainWindowWidth = 440
-local mainWindowHeight = 340
+local mainWindowWidth = persistenceFunctions.getInt(mainWindowWidthPersistenceKey) or 440
+local mainWindowHeight = persistenceFunctions.getInt(mainWindowHeightPersistenceKey) or 340
 local currentLine
 local speaker
 local lineDelay
@@ -24,6 +28,12 @@ local currentText = ""
 local currentErrorMessage = ""
 local currentAnimation
 local lastId
+
+local width
+local height
+local posX = persistenceFunctions.getInt(mainWindowXPersistenceKey)
+local posY = persistenceFunctions.getInt(mainWindowYPersistenceKey)
+local didLastTickChangeWindowState
 
 ---@type Window
 MainWindow = nil
@@ -197,6 +207,34 @@ local function speakEvent(speakerEventType, speakerEventData)
     lineDelay = 20
 end
 
+---Handles persisting window location and size if they have changed.
+local function handleWindowStateChange()
+    local newWidth = MainWindow.root.width
+    local newHeight = MainWindow.root.height
+    local newPosX = MainWindow.root.x
+    local newPosY = MainWindow.root.y
+
+    local windowStateChange
+
+    if width and height and posX and posY then
+        windowStateChange = width ~= newWidth or height ~= newHeight or posX ~= newPosX or posY ~= newPosY
+    end
+
+    -- Only write to persistence if drag/resize stopped.
+    if didLastTickChangeWindowState and not windowStateChange then
+        persistenceFunctions.setInt(mainWindowWidthPersistenceKey, newWidth)
+        persistenceFunctions.setInt(mainWindowHeightPersistenceKey, newHeight)
+        persistenceFunctions.setInt(mainWindowXPersistenceKey, posX)
+        persistenceFunctions.setInt(mainWindowYPersistenceKey, posY)
+    end
+
+    didLastTickChangeWindowState = windowStateChange
+    width = newWidth
+    height = newHeight
+    posX = newPosX
+    posY = newPosY
+end
+
 ---Creates the main window.
 createMainWindow = function()
     -- Exit if main window already exists
@@ -214,19 +252,33 @@ createMainWindow = function()
 
     lineDelay = 3
 
-    MainWindow = prettyui.Window.new(uiLayer, {
-        title = "Chatterbox",
-        x = -mainWindowWidth / 2,
-        y = -mainWindowHeight / 2,
-        xAnchor = 0.5,
-        yAnchor = 0.5,
-        width = mainWindowWidth,
-        height = mainWindowHeight,
-        resizable = true,
-        onClose = function()
-            toggleMainWindow()
-        end,
-    })
+    if posX and posY then
+        MainWindow = prettyui.Window.new(uiLayer, {
+            title = "Chatterbox",
+            x = posX,
+            y = posY,
+            width = mainWindowWidth,
+            height = mainWindowHeight,
+            resizable = true,
+            onClose = function()
+                toggleMainWindow()
+            end,
+        })
+    else
+        MainWindow = prettyui.Window.new(uiLayer, {
+            title = "Chatterbox",
+            x = -mainWindowWidth / 2,
+            y = -mainWindowHeight / 2,
+            xAnchor = 0.5,
+            yAnchor = 0.5,
+            width = mainWindowWidth,
+            height = mainWindowHeight,
+            resizable = true,
+            onClose = function()
+                toggleMainWindow()
+            end,
+        })
+    end
 
     local title = createTitleText()
     local model = createModel()
@@ -247,6 +299,9 @@ createMainWindow = function()
     end
 
     Event.Logic.Subscribe(mainWindowLogicEventName, function(logicEvent)
+
+        handleWindowStateChange()
+
         if logicEvent.logicTick % 20 == 0 and lineDelay > 0 then
             lineDelay = lineDelay - 1
         end

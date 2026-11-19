@@ -8,3 +8,4 @@
 ---@class Window
 ---@field content any
 ---@field Destroy fun()
+---@field root Layer

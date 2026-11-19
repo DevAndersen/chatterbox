@@ -11,6 +11,8 @@ PersistentDBType = {
     STRUCTURED_DATA = 4, -- Entry that gets serialized directly to/from Lua tables
 }
 
+-- Get/Set integer.
+
 ---Retrieve an integer from persistence.
 ---@param key string
 ---@return integer?
@@ -24,6 +26,8 @@ end
 local function setInt(key, value)
     PersistentDB:SetInt(key, value)
 end
+
+-- Get/Set boolean.
 
 ---Retrieve a boolean from persistence.
 ---@param key string
@@ -39,6 +43,8 @@ local function setBool(key, value)
     PersistentDB:SetBool(key, value)
 end
 
+-- Speaker ID.
+
 ---Retrieve the speaker ID from persistence.
 ---@return integer?
 local getSpeakerId = function()
@@ -50,6 +56,8 @@ end
 local setSpeakerId = function(value)
     setInt(speakerIdKey, value)
 end
+
+-- Main window shown state.
 
 ---Retrieve the main window shown state from persistence.
 ---@return boolean?
@@ -71,6 +79,10 @@ end
 
 ---@type Persistence
 return {
+    getInt = getInt,
+    setInt = setInt,
+    getBool = getBool,
+    setBool = setBool,
     getSpeakerId = getSpeakerId,
     setSpeakerId = setSpeakerId,
     getShowMainWindow = getShowMainWindow,
