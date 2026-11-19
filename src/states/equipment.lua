@@ -3,7 +3,7 @@
 ---@field slots EquipmentSlotState Player's equipment slot states.
 ---@field special EquipmentSpecialState Special equipment checks.
 
----Player equipment slot states.
+---Player equipment slot states. The values contain the object configName (config.Obj.[ITEM_ID].configName) of the items equipped in each slot.
 ---@class EquipmentSlotState
 ---@field head string?
 ---@field cape string?
@@ -55,13 +55,20 @@ local equipmentSlot = {
     POCKET = 18, -- Pocket
 }
 
----Get the object configName of the specified slot. Returns nil if the slot is empty.
+---Get the object configName of the item in the specified work equipment slot. Returns nil if the slot is empty.
 ---@param slot EquipmentSlot The equipment slot to check.
 ---@return string?
 local function getEquipment(slot)
     local wornEquipment = Inventory.Find(id.Inv.WORN)
+
+    -- Return nil if the worn equipment inventory is not currently valid.
+    if not wornEquipment.isValid then
+        return nil
+    end
+
     local objInSlot = wornEquipment:GetSlots(0)[slot].obj
 
+    -- If the item ID for the slot is -1 (indicating that the slot is empty), return nil instead.
     if objInSlot.id == -1 then
         return nil
     end
