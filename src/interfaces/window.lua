@@ -224,8 +224,8 @@ local function handleWindowStateChange()
     if didLastTickChangeWindowState and not windowStateChange then
         persistenceFunctions.setInt(mainWindowWidthPersistenceKey, newWidth)
         persistenceFunctions.setInt(mainWindowHeightPersistenceKey, newHeight)
-        persistenceFunctions.setInt(mainWindowXPersistenceKey, posX)
-        persistenceFunctions.setInt(mainWindowYPersistenceKey, posY)
+        persistenceFunctions.setInt(mainWindowXPersistenceKey, newPosX)
+        persistenceFunctions.setInt(mainWindowYPersistenceKey, newPosY)
     end
 
     didLastTickChangeWindowState = windowStateChange
