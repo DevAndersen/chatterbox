@@ -389,7 +389,7 @@ return {
         },
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
-        animation = LineAnimation.Neutral,
+        animation = LineAnimation.HappyExtreme,
         requirements = function(state, eventData)
             return (eventData.level == 92 and eventData.skill ~= SkillType.INVENTION) or (eventData.level == 84 and eventData.skill == SkillType.INVENTION)
         end,
@@ -401,7 +401,7 @@ return {
         },
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
-        animation = LineAnimation.Neutral,
+        animation = LineAnimation.HappyExtreme,
         requirements = function(state, eventData)
             return eventData.level == 98
         end,
@@ -410,7 +410,7 @@ return {
         text = "Congratulations!",
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
-        animation = LineAnimation.Neutral,
+        animation = LineAnimation.HappyExtreme,
         requirements = function(state, eventData)
             return eventData.level == 99
         end,
@@ -419,7 +419,7 @@ return {
         text = "Congratulations!",
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
-        animation = LineAnimation.Neutral,
+        animation = LineAnimation.HappyExtreme,
         requirements = function(state, eventData)
             return eventData.level == 120
         end,
@@ -431,7 +431,7 @@ return {
         },
         type = SpeakerEventType.SKILL,
         category = LineCategory.SKILL,
-        animation = LineAnimation.Neutral,
+        animation = LineAnimation.HappyExtreme,
         requirements = function(state, eventData)
             return eventData.totalXP == 200000000 and eventData.gainedXP > 0
         end,
