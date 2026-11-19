@@ -2,8 +2,8 @@
 ---@class SkillEventData
 ---@field skill SkillType
 ---@field level integer
----@field xp integer
----@field newXP integer
+---@field gainedXP integer
+---@field totalXP integer
 
 ---A union of possible event data types.
 ---@alias SpeakerEventData SkillEventData
@@ -24,12 +24,12 @@ local function onRandomTick()
 end
 
 ---Called when a skill event happens.
-local function onSkillEvent(eventType, skill, level, xp, newXP)
+local function onSkillEvent(eventType, skill, level, gainedXP, totalXP)
     mainWindowFunctions.speakEvent(eventType, {
         skill = skill,
         level = level,
-        xp = xp,
-        newXP = newXP
+        gainedXP = gainedXP,
+        totalXP = totalXP
     })
 end
 

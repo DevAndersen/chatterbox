@@ -442,7 +442,7 @@ return {
         category = LineCategory.SKILL,
         animation = LineAnimation.Neutral,
         requirements = function(state, eventData)
-            return eventData.newXP == 200000000
+            return eventData.totalXP == 200000000 and eventData.gainedXP > 0
         end,
     },
 
