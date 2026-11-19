@@ -1,5 +1,6 @@
 ---@meta
 ---Plugin API definitions (for LuaLS).
+---Note: Many of the descriptions here are copied directly from the API documentation pages.
 
 ---https://developer.runescape.com/rs/math/aabb.html
 ---@class AABB
