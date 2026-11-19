@@ -372,7 +372,7 @@ return {
         end,
     },
 
-    -- Level
+    -- Skills
     [15] = {
         text = "You look tough. Can you take down the King Black Dragon by wielding nothing more than a bronze dagger?",
         type = SpeakerEventType.TICK,
@@ -438,11 +438,11 @@ return {
     },
     [73] = {
         text = "Congratulations!",
-        type = SpeakerEventType.LEVEL,
+        type = SpeakerEventType.SKILL,
         category = LineCategory.SKILL,
         animation = LineAnimation.Neutral,
         requirements = function(state, eventData)
-            return eventData.xp == 200000000
+            return eventData.newXP == 200000000
         end,
     },
 

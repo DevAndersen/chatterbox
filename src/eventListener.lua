@@ -3,6 +3,7 @@
 ---@field skill SkillType
 ---@field level integer
 ---@field xp integer
+---@field newXP integer
 
 ---A union of possible event data types.
 ---@alias SpeakerEventData SkillEventData
@@ -22,19 +23,14 @@ local function onRandomTick()
     mainWindowFunctions.speakEvent(SpeakerEventType.TICK)
 end
 
----Called when the player trains a skill. Also triggers if no XP is gained.
-local function onTrainSkill(skill, level, xp)
-    mainWindowFunctions.speakEvent(SpeakerEventType.SKILL, { skill = skill, level = level, xp = xp })
-end
-
----Called when the player gain a new level.
-local function onGainLevel(skill, level, xp)
-    mainWindowFunctions.speakEvent(SpeakerEventType.LEVEL, { skill = skill, level = level, xp = xp })
-end
-
----Called when the player gain XP.
-local function onGainXP(skill, level, xp)
-    mainWindowFunctions.speakEvent(SpeakerEventType.XP, { skill = skill, level = level, xp = xp })
+---Called when a skill event happens.
+local function onSkillEvent(eventType, skill, level, xp, newXP)
+    mainWindowFunctions.speakEvent(eventType, {
+        skill = skill,
+        level = level,
+        xp = xp,
+        newXP = newXP
+    })
 end
 
 ---Called when the player dies.
@@ -52,14 +48,10 @@ local skillTransmitEventFunction = function(skillTransmitEvent)
     local newLevel = skillTransmitEvent.newGameplayLevel
     local gainedXP = newXP - oldXP
 
-    onTrainSkill(skill, newLevel, gainedXP)
-
     if oldLevel ~= newLevel then
-        onGainLevel(skill, newLevel, gainedXP)
-    end
-
-    if oldXP ~= newXP then
-        onGainXP(skill, newLevel, gainedXP)
+        onSkillEvent(SpeakerEventType.LEVEL, skill, newLevel, gainedXP, newXP)
+    else
+        onSkillEvent(SpeakerEventType.SKILL, skill, newLevel, gainedXP, newXP)
     end
 end
 

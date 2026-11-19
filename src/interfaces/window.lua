@@ -7,7 +7,6 @@ local mainWindowLogicEventName = "mainWindowLogicEventName"
 ---@field eventData SpeakerEventData?
 
 ---@type SpeakerEventInfo?
-local currentSpeakerEventData
 
 local stateFunctions = require("src/state")
 
@@ -20,6 +19,10 @@ local currentLine
 local speaker
 local lineDelay
 local createMainWindow
+local currentText = ""
+local currentErrorMessage = ""
+local currentAnimation
+local lastId
 
 ---@type Window
 MainWindow = nil
@@ -109,6 +112,89 @@ local function createErrorLabel()
     return errorLabel
 end
 
+---Attempt to invoke a speaker event.
+---@param speakerEventType SpeakerEventType
+---@param speakerEventData SpeakerEventData?
+local function speakEvent(speakerEventType, speakerEventData)
+
+    -- Early return if the speaker is not set.
+    if not speaker then
+        return
+    end
+
+    local linesData = speaker.lines
+
+    -- Early return if the main window is not currently shown.
+    if not MainWindow then
+        return
+    end
+
+    -- Early return if the line delay has not yet reached zero.
+    if lineDelay > 0 then
+        return
+    end
+
+    -- Early return if no line data was found
+    if not linesData then
+        return
+    end
+
+    -- Early return if a line is already playing
+    if currentLine and currentLine.isPlaying then
+        return
+    end
+
+    -- Early return if the speaker event data is missing
+    if speakerEventType == nil then
+        return
+    end
+
+    local availableLines = {}
+    local playerState = stateFunctions.getState()
+
+    -- Check which lines meet their requirements, excluding the previously played line
+    for key, value in pairs(linesData) do
+        if (lastId ~= key) and (speakerEventType == value.type) and (value.requirements == nil or value.requirements(playerState, speakerEventData)) then
+            -- Determine how much the line should be weighed (i.e. how many times it should be added as an available line)
+            local weight = 1
+            if value.weight and value.weight > 1 then
+                weight = value.weight
+            end
+
+            -- Add the line to the list of available lines
+            for _ = 1, weight do
+                availableLines[#availableLines + 1] = {
+                    key = key,
+                    value = value
+                }
+            end
+        end
+    end
+
+    -- Early return if no lines were available
+    if #availableLines == 0 then
+        return
+    end
+
+    local lineIndex = math.floor(random(1, #availableLines + 1))
+    local selectedLine = availableLines[lineIndex]
+
+    lastId = selectedLine.key
+    currentText = selectedLine.value.text
+    currentAnimation = selectedLine.value.animation
+
+    -- Attempt to play the selected line
+    if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.resourceDirectory][tostring(selectedLine.key)]) end) then
+        currentErrorMessage = ""
+    else
+        local errorMessage = string.format("Failed to play sound resource '%s' for speaker '%s'", selectedLine.key, speaker.name)
+        currentErrorMessage = errorMessage
+        log(errorMessage)
+    end
+
+    lineDelay = 20
+end
+
 ---Creates the main window.
 createMainWindow = function()
     -- Exit if main window already exists
@@ -118,15 +204,11 @@ createMainWindow = function()
 
     speaker = Speakers[SpeakerId]
     local lastSpeakerId = SpeakerId
-    local linesData = speaker.lines
 
-    local lastId = ""
-    local currentAnimation = LineAnimation.Idle
-    local currentText = ""
-    local currentErrorMessage = ""
-
-    -- Clear any potential speaker event data, to ensure lines aren't played for old events
-    currentSpeakerEventData = nil
+    lastId = ""
+    currentAnimation = LineAnimation.Idle
+    currentText = ""
+    currentErrorMessage = ""
 
     lineDelay = 3
 
@@ -160,70 +242,6 @@ createMainWindow = function()
         title.content = speaker.name
         model:SetModel(ui.ModelType.MODEL, speaker.model)
         model.animID = config.Seq[LineAnimation.Idle].id
-        linesData = speaker.lines
-    end
-
-    local function playLine()
-        -- Early return if no line data was found
-        if not linesData then
-            return
-        end
-
-        -- Early return if a line is already playing
-        if currentLine and currentLine.isPlaying then
-            return
-        end
-
-        -- Early return if the speaker event data is missing
-        if currentSpeakerEventData == nil or currentSpeakerEventData.eventType == nil then
-            return
-        end
-
-        local availableLines = {}
-        local playerState = stateFunctions.getState()
-
-        -- Check which lines meet their requirements, excluding the previously played line
-        for key, value in pairs(linesData) do
-            if (lastId ~= key) and (currentSpeakerEventData.eventType == value.type) and (value.requirements == nil or value.requirements(playerState, currentSpeakerEventData.eventData)) then
-                -- Determine how much the line should be weighed (i.e. how many times it should be added as an available line)
-                local weight = 1
-                if value.weight and value.weight > 1 then
-                    weight = value.weight
-                end
-
-                -- Add the line to the list of available lines
-                for _ = 1, weight do
-                    availableLines[#availableLines + 1] = {
-                        key = key,
-                        value = value
-                    }
-                end
-
-            end
-        end
-
-        -- Early return if no lines were available
-        if #availableLines == 0 then
-            return
-        end
-
-        local lineIndex = math.floor(random(1, #availableLines + 1))
-        local selectedLine = availableLines[lineIndex]
-
-        lastId = selectedLine.key
-        currentText = selectedLine.value.text
-        currentAnimation = selectedLine.value.animation
-
-        -- Attempt to play the selected line
-        if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.resourceDirectory][tostring(selectedLine.key)]) end) then
-            currentErrorMessage = ""
-        else
-            local errorMessage = string.format("Failed to play sound resource '%s' for speaker '%s'", selectedLine.key, speaker.name)
-            currentErrorMessage = errorMessage
-            log(errorMessage)
-        end
-        currentSpeakerEventData = nil
-        lineDelay = 20
     end
 
     Event.Logic.Subscribe(mainWindowLogicEventName, function(logicEvent)
@@ -236,8 +254,6 @@ createMainWindow = function()
             updateSpeaker()
             lastSpeakerId = SpeakerId
         end
-
-        playLine()
 
         -- Resize the model area to fit the window size.
         model:SetSize(MainWindow.content.width, MainWindow.content.height)
@@ -265,15 +281,6 @@ createMainWindow = function()
         label:SetSize(MainWindow.content.width - 4, MainWindow.content.height - 60)
         errorLabel:SetSize(MainWindow.content.width - 4, 120)
     end)
-end
-
----Attempt to invoke a speaker event.
----@param speakerEventType SpeakerEventType
----@param speakerEventData SpeakerEventData?
-local function speakEvent(speakerEventType, speakerEventData)
-    if MainWindow and lineDelay == 0 then
-        currentSpeakerEventData = { eventType = speakerEventType, eventData = speakerEventData }
-    end
 end
 
 return {
