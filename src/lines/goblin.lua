@@ -1,6 +1,6 @@
 ---Describes a voice line and related information.
 ---@class Line
----@field text string The string displayed for the line.
+---@field text string | table<string, string> The string(s) displayed for the line.
 ---@field type SpeakerEventType The type of event that the line should be triggered by.
 ---@field category LineCategory The category of the line.
 ---@field animation string The animation to play when the line is being spoken.
@@ -382,8 +382,11 @@ return {
             return state.skill.attack.level >= 99
         end,
     },
-    [67] = {
-        text = "Congratulations, halfway to 99!",
+    ["halfwayto99"] = {
+        text = {
+            ["a"] = "Congratulations, halfway to 99!",
+            ["b"] = "Congratulations, that's halfway to 99!"
+        },
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
         animation = LineAnimation.Neutral,
@@ -391,17 +394,11 @@ return {
             return (eventData.level == 92 and eventData.skill ~= SkillType.INVENTION) or (eventData.level == 84 and eventData.skill == SkillType.INVENTION)
         end,
     },
-    [68] = {
-        text = "Congratulations, that's halfway to 99!",
-        type = SpeakerEventType.LEVEL,
-        category = LineCategory.SKILL,
-        animation = LineAnimation.Neutral,
-        requirements = function(state, eventData)
-            return (eventData.level == 92 and eventData.skill ~= SkillType.INVENTION) or (eventData.level == 84 and eventData.skill == SkillType.INVENTION)
-        end,
-    },
-    [69] = {
-        text = "Congratulations, just one more level to go until 99!",
+    ["level98"] = {
+        text = {
+            ["congrats"] = "Congratulations, just one more level to go until 99!",
+            ["nice"] = "Nice, just one more level until 99!"
+        },
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
         animation = LineAnimation.Neutral,
@@ -409,16 +406,7 @@ return {
             return eventData.level == 98
         end,
     },
-    [70] = {
-        text = "Nice, just one more level until 99!",
-        type = SpeakerEventType.LEVEL,
-        category = LineCategory.SKILL,
-        animation = LineAnimation.Neutral,
-        requirements = function(state, eventData)
-            return eventData.level == 98
-        end,
-    },
-    [71] = {
+    ["level99"] = {
         text = "Congratulations!",
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
@@ -427,7 +415,7 @@ return {
             return eventData.level == 99
         end,
     },
-    [72] = {
+    ["level120"] = {
         text = "Congratulations!",
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
@@ -436,8 +424,11 @@ return {
             return eventData.level == 120
         end,
     },
-    [73] = {
-        text = "Congratulations!",
+    ["200m"] = {
+        text = {
+            ["simple"] = "Congratulations!",
+            ["compliment"] = "Congratulations! 200m, that's huge!",
+        },
         type = SpeakerEventType.SKILL,
         category = LineCategory.SKILL,
         animation = LineAnimation.Neutral,

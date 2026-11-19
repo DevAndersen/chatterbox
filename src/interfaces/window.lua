@@ -191,23 +191,46 @@ local function speakEvent(speakerEventType, speakerEventData)
         end
     end
 
+
+    local selectedLine = GetRandomTableElement(availableLines)
+
     -- Early return if no lines were available
-    if #availableLines == 0 then
+    if not selectedLine then
         return
     end
 
-    local lineIndex = math.floor(random(1, #availableLines + 1))
-    local selectedLine = availableLines[lineIndex]
+    local resourceFileName = tostring(selectedLine.key)
 
     lastId = selectedLine.key
-    currentText = selectedLine.value.text
+
+    -- Set the current text to the text of the line, or in the case of lines with multiple text values, select a random text.
+    local textType = type(selectedLine.value.text)
+    if textType == "string" then
+        currentText = selectedLine.value.text
+    elseif textType == "table" then
+        local text, key = GetRandomTableElement(selectedLine.value.text)
+
+        -- Early return if the text or key were null.
+        if not text or not key then
+            return
+        end
+
+        currentText = text
+
+        -- Append the key of the selected text to the resource file name.
+        resourceFileName = resourceFileName .. "_" .. key
+    else
+        return
+    end
+
     currentAnimation = selectedLine.value.animation
+    log(type(resourceFileName))
 
     -- Attempt to play the selected line
-    if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.resourceDirectory][tostring(selectedLine.key)]) end) then
+    if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.resourceDirectory][resourceFileName]) end) then
         currentErrorMessage = ""
     else
-        local errorMessage = string.format("Failed to play sound resource '%s' for speaker '%s'", selectedLine.key, speaker.name)
+        local errorMessage = string.format("Failed to play sound resource '%s' for speaker '%s'", resourceFileName, speaker.name)
         currentErrorMessage = errorMessage
         log(errorMessage)
     end

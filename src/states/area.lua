@@ -525,7 +525,7 @@ local getAreaState = function()
         local playerCoordGrid = GetPlayerCoords()
         if playerCoordGrid then
             local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
-            areaState[key] = aabb:IsInside(playerPos) 
+            areaState[key] = aabb:IsInside(playerPos)
         end
     end
 
