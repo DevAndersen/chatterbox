@@ -13,14 +13,12 @@
 ---@type Line[]
 return {
     -- Generic
-    [1] = {
-        text = "I am your goblin buddy.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.GENERIC,
-        animation = LineAnimation.Happy,
-    },
-    [2] = {
-        text = "Cabbages are actually very tasty.",
+    ["happygeneric"] = {
+        text = {
+            ["goblinbuddy"] = "I am your goblin buddy.",
+            ["tastycabbages"] = "Cabbages are actually very tasty."
+        },
+        weight = 2,
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Happy,
@@ -164,18 +162,6 @@ return {
             return state.equipment.slots.mainHand == config.Obj.ABYSSAL_WHIP.configName
         end
     },
-    [5] = {
-        text = "Did you know: You cannot eat a mud pie. Because it contains compost and clay. And you shouldn't eat those. Apparently.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.TRIVIA,
-        animation = LineAnimation.Neutral,
-    },
-    [6] = {
-        text = "Did you know: Hans is the oldest NPC in RuneScape. He looks good for his age.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.TRIVIA,
-        animation = LineAnimation.Neutral,
-    },
     [7] = {
         text = "Did you know: Mint cakes were once considered highly valuable. They still are to me. I like the taste.",
         type = SpeakerEventType.TICK,
@@ -185,18 +171,6 @@ return {
             return state.area.GrandExchange
         end
     },
-    [8] = {
-        text = "Did you know: A bug once caused the red Fremennik cloak to provide extreme defensive boosts. A very fashionable bug.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.TRIVIA,
-        animation = LineAnimation.Neutral,
-    },
-    [9] = {
-        text = "Did you know: The symbol of Guthix used to look different in RuneScape Classic.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.TRIVIA,
-        animation = LineAnimation.Neutral,
-    },
     [10] = {
         text = "Did you know: There's a ninja hiding on a bench in Rimmington. Just examine it, you'll see.",
         type = SpeakerEventType.TICK,
@@ -205,20 +179,6 @@ return {
         requirements = function(state, eventData)
             return state.special.hasExaminedRimmingtonBench == false
         end,
-    },
-    [13] = {
-        text = "The quest name \"A Void Dance\" is a play on the word \"avoidance\". Or maybe \"avoid dance\", which is what I do.",
-        audio = "The quest name A Void Dance is a play on the word avoidance. Or maybe avoid dance, which is what I do.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.TRIVIA,
-        animation = LineAnimation.Neutral,
-    },
-    [14] = {
-        text = "Baxtorian's name is a wordplay on the word \"backstory\". Jagex are not very subtle.",
-        audio = "Baxtorian's name is a wordplay on the word backstory. Jagex are not very subtle.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.TRIVIA,
-        animation = LineAnimation.Neutral,
     },
     [18] = {
         text = "The Grand Exchange isn't all that useful to you, by the way.",
@@ -274,21 +234,19 @@ return {
             return state.area.Prifddinas
         end
     },
-    [36] = {
-        text = "Did you know: Fairy rings exist in real life. Sadly, they are not very useful for transportation.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.TRIVIA,
-        animation = LineAnimation.Neutral
-    },
-
-    [40] = {
-        text = "Did you know: If you drop magic logs, you can see the stars moving.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.TRIVIA,
-        animation = LineAnimation.Neutral
-    },
-    [41] = {
-        text = "Did you know: Magic logs used to look like a lighter version of willow logs.",
+    ["neutraltrivia"] = {
+        text = {
+            ["fairyrings"] = "Did you know: Fairy rings exist in real life. Sadly, they are not very useful for transportation.",
+            ["magiclogs"] = "Did you know: If you drop magic logs, you can see the stars moving.",
+            ["willowlogs"] = "Did you know: Magic logs used to look like a lighter version of willow logs.",
+            ["baxtorian"] = "Baxtorian's name is a wordplay on the word backstory. Jagex are not very subtle.",
+            ["avoidance"] = "The quest name A Void Dance is a play on the word avoidance. Or maybe avoid dance, which is what I do.",
+            ["redfremmycloak"] = "Did you know: A bug once caused the red Fremennik cloak to provide extreme defensive boosts. A very fashionable bug.",
+            ["classicguthixsymbol"] = "Did you know: The symbol of Guthix used to look different in RuneScape Classic.",
+            ["hans"] = "Did you know: Hans is the oldest NPC in RuneScape. He looks good for his age.",
+            ["mudpie"] = "Did you know: You cannot eat a mud pie. Because it contains compost and clay. And you shouldn't eat those. Apparently."
+        },
+        weight = 9,
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral
