@@ -9,6 +9,7 @@ local mainWindowLogicEventName = "mainWindowLogicEventName"
 ---@type SpeakerEventInfo?
 
 local stateFunctions = require("src/state")
+local persistenceFunctions = require("src/persistence")
 
 ---The plugin UI layer.
 local uiLayer = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__PLUGIN_BUILD_LAYER_TOP)
@@ -57,6 +58,7 @@ local toggleMainWindow = function()
         createMainWindow()
     end
     ShowMainWindow = not ShowMainWindow
+    persistenceFunctions.setShowMainWindow(ShowMainWindow)
 end
 
 local function createTitleText()

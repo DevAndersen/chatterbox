@@ -34,6 +34,8 @@
             "id",
             "Inventory",
             "log",
+            "Logic",
+            "PersistentDB",
             "Player",
             "Plugin",
             "prettyui",

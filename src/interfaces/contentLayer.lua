@@ -1,4 +1,5 @@
 local mainWindowFunctions = require("src/interfaces/window")
+local persistenceFunctions = require("src/persistence")
 
 local contentLayerReadyEventName = "contentLayerReadyEventName"
 local contentLayerLogicEventName = "contentLayerLogicEventName"
@@ -20,12 +21,14 @@ end
 ---Go to the next speaker.
 local function nextSpeaker()
     SpeakerId = SpeakerId % #Speakers + 1
+    persistenceFunctions.setSpeakerId(SpeakerId)
     updateSpeakerDetails()
 end
 
 ---Go to the previous speaker.
 local function previousSpeaker()
     SpeakerId = (SpeakerId - 2) % #Speakers + 1
+    persistenceFunctions.setSpeakerId(SpeakerId)
     updateSpeakerDetails()
 end
 

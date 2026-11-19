@@ -39,6 +39,9 @@
 ---@class Logic
 ---@field logicTick integer How many logic ticks have occurred since the client was started.
 
+---https://developer.runescape.com/rs/core/persistentdb.html
+---@class PersistentDB
+
 ---https://developer.runescape.com/rs/game/player.html
 ---@class Player
 
