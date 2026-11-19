@@ -42,9 +42,13 @@ end
 ---@return State
 local getState = function()
     -- Coin pouch
-    local currencyPouchGp = Inventory.Find(config.Inv.MONEY_POUCH):GetTotal(id.Obj.COINS)
-    local currencyPouchGpb = Inventory.Find(config.Inv.MONEY_POUCH):GetTotal(id.Obj.COINS_B) * 1000000000
-    local coins = currencyPouchGp + currencyPouchGpb
+    local coins = 0
+    local coinPouchInventory = Inventory.Find(config.Inv.MONEY_POUCH)
+    if coinPouchInventory and coinPouchInventory.isValid then
+        local currencyPouchGp = coinPouchInventory:GetTotal(id.Obj.COINS)
+        local currencyPouchGpb = coinPouchInventory:GetTotal(id.Obj.COINS_B) * 1000000000
+        coins = currencyPouchGp + currencyPouchGpb
+    end
 
     -- Ironman status
     local isIronman = var.VarPlayer.IRONMAN_ENABLED.value
