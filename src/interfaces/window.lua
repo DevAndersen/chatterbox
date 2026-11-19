@@ -71,6 +71,8 @@ local toggleMainWindow = function()
     persistenceFunctions.setShowMainWindow(ShowMainWindow)
 end
 
+---Creates the title for the speaker's name.
+---@return Text
 local function createTitleText()
     local title = ui.Text.new(MainWindow.content)
     title:AlignTo(ui.AlignMode.CENTRE)
@@ -82,6 +84,8 @@ local function createTitleText()
     return title
 end
 
+---Creates the model object for the speaker's head.
+---@return Model
 local function createModel()
     local model = ui.Model.new(MainWindow.content)
     model:SetModel(ui.ModelType.MODEL, speaker.model)
@@ -102,6 +106,8 @@ local function createModel()
     return model
 end
 
+---Creates the label for the line text.
+---@return Text
 local function createLabel()
     local label = ui.Text.new(MainWindow.content)
     label:AlignTo(ui.AlignMode.CENTRE)
@@ -113,6 +119,8 @@ local function createLabel()
     return label
 end
 
+---Creates the label for error messages.
+---@return Text
 local function createErrorLabel()
     local errorLabel = ui.Text.new(MainWindow.content)
     errorLabel:AlignTo(ui.AlignMode.CENTRE)

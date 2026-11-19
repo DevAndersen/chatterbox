@@ -7,6 +7,11 @@
 ---https://developer.runescape.com/rs/audio/index.html
 ---@class audio
 
+---https://developer.runescape.com/rs/ui/component.html
+---@class Component
+---@field SetSize function Sets the width/height for this component, optionally taking into account the parent's dimensions.
+---@field colour Vector4 Red, Green, Blue, and Alpha tints represented as a 4-channel vector, with each channel limited to a 0..1 range. On assignment, values outside of this range will be clamped.
+
 ---Global config store.
 ---@class config
 
@@ -45,6 +50,11 @@
 ---https://developer.runescape.com/rs/core/events.html?h=logicEvent#logic
 ---@class Logic
 ---@field logicTick integer How many logic ticks have occurred since the client was started.
+
+---https://developer.runescape.com/rs/ui/decorative_components/model.html
+---@class Model : Component
+---@field animID integer The animation currently playing on the model being drawn
+---@field SetModel function Sets the model to be drawn as part of this component.
 
 ---https://developer.runescape.com/rs/core/persistentdb.html
 ---@class PersistentDB
@@ -102,6 +112,10 @@ SkillType = {
     ARCHAEOLOGY = 27,
     NECROMANCY = 28
 }
+
+---https://developer.runescape.com/rs/ui/decorative_components/text.html
+---@class Text : Component
+---@field content string The text to draw.
 
 ---https://developer.runescape.com/rs/ui/index.html
 ---@class ui
