@@ -44,7 +44,7 @@ local getState = function()
     -- Coin pouch
     local coins = 0
     local coinPouchInventory = Inventory.Find(config.Inv.MONEY_POUCH)
-    if coinPouchInventory and coinPouchInventory.isValid then
+    if coinPouchInventory.isValid then
         local currencyPouchGp = coinPouchInventory:GetTotal(id.Obj.COINS)
         local currencyPouchGpb = coinPouchInventory:GetTotal(id.Obj.COINS_B) * 1000000000
         coins = currencyPouchGp + currencyPouchGpb
