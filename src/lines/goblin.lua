@@ -253,7 +253,6 @@ return {
     },
     [42] = {
         text = "Did you know: The 'g' in 'gnome' is silent.",
-        audio = "Did you know: The 'g' in 'nome' is silent.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
@@ -310,7 +309,6 @@ return {
     -- Quest
     [11] = {
         text = "I like Hazelmere. I hope nothing bad happens to him.",
-        audio = "I like Hazel mere. I hope nothing bad happens to him.",
         type = SpeakerEventType.TICK,
         category = LineCategory.QUEST,
         animation = LineAnimation.Neutral,
@@ -321,7 +319,6 @@ return {
     },
     [12] = {
         text = "I miss Hazelmere. He was a nice guy.",
-        audio = "I miss Hazel mere. He was a nice guy.",
         type = SpeakerEventType.TICK,
         category = LineCategory.QUEST,
         animation = LineAnimation.Neutral,
@@ -396,8 +393,10 @@ return {
     },
 
     -- Money
-    [16] = {
-        text = "If you need money, you can high alch items.",
+    ["moneysub1mneutral"] = {
+        text = {
+            ["alch"] = "If you need money, you can high alch items.",
+        },
         type = SpeakerEventType.TICK,
         category = LineCategory.MONEY,
         animation = LineAnimation.Neutral,
@@ -405,8 +404,12 @@ return {
             return state.coins < 1000000
         end,
     },
-    [17] = {
-        text = "If you need money, you can high alch items. But you cannot high alch people, because that would be wrong.",
+    ["moneysub1mshifty"] = {
+        text = {
+            ["alchpeople"] = "If you need money, you can high alch items. But you cannot high alch people, because that would be wrong.",
+            ["pickpocketing"] = "If you need money, you could always try looking in other people's pockets...",
+            ["thieving"] = "I've heard that thieving is an excellent way to make some quick money."
+        },
         type = SpeakerEventType.TICK,
         category = LineCategory.MONEY,
         animation = LineAnimation.Shifty,
@@ -490,68 +493,37 @@ return {
     },
 
     -- Death
-    [55] = {
-        text = "Say hello to Death for me!",
+    ["quizzicaldeath"] = {
+        text = {
+            ["sayhello"] = "Say hello to Death for me!",
+            ["dontbelieve"] = "I don't believe dying was the right thing to do there.",
+            ["considered"] = " Have you considerednot dying?",
+            ["mean"] = "Did you mean to die like that?",
+            ["looked"] = "That looked painful...",
+            ["bless"] = "Should I bless your grave, or...?"
+        },
+        weight = 5,
         type = SpeakerEventType.DEATH,
         category = LineCategory.HUMOR,
         animation = LineAnimation.Quizzical
     },
-    [51] = {
-        text = "I don't believe dying was the right thing to do there.",
-        type = SpeakerEventType.DEATH,
-        category = LineCategory.GENERIC,
-        animation = LineAnimation.Quizzical
-    },
-    [52] = {
-        text = "Donating money to Death's retirement fund is very kind of you.",
+    ["happydeath"] = {
+        text = {
+            ["donating"] = "Donating money to Death's retirement fund is very kind of you.",
+            ["company"] = "It is nice of you to keep Death company.",
+            ["gracefully"] = "You died very gracefully. It did not look embarrassing at all.",
+            ["link"] = "You are the weakest link. Goodbye."
+        },
         type = SpeakerEventType.DEATH,
         category = LineCategory.HUMOR,
-        animation = LineAnimation.Quizzical
-    },
-    [53] = {
-        text = "Have you considered not dying?",
-        type = SpeakerEventType.DEATH,
-        category = LineCategory.GENERIC,
-        animation = LineAnimation.Quizzical
-    },
-    [54] = {
-        text = "It is nice of you to keep Death company.",
-        type = SpeakerEventType.DEATH,
-        category = LineCategory.GENERIC,
         animation = LineAnimation.Happy
     },
-    [56] = {
-        text = "Did you mean to die like that?",
-        type = SpeakerEventType.DEATH,
-        category = LineCategory.GENERIC,
-        animation = LineAnimation.Quizzical,
-    },
-    [57] = {
-        text = "You died very gracefully. It did not look embarrassing at all.",
-        type = SpeakerEventType.DEATH,
-        category = LineCategory.GENERIC,
-        animation = LineAnimation.Happy
-    },
-    [58] = {
-        text = "That looked painful...",
-        type = SpeakerEventType.DEATH,
-        category = LineCategory.GENERIC,
-        animation = LineAnimation.Quizzical
-    },
-    [59] = {
-        text = "Should I bless your grave, or...?",
-        type = SpeakerEventType.DEATH,
-        category = LineCategory.GENERIC,
-        animation = LineAnimation.Neutral
-    },
-    [60] = {
-        text = "You are the weakest link. Goodbye.",
-        type = SpeakerEventType.DEATH,
-        category = LineCategory.GENERIC,
-        animation = LineAnimation.Neutral
-    },
-    [61] = {
-        text = "No fire cape for you.",
+    ["deathfightcave"] = {
+        text = {
+            ["nofirecape"] = "No fire cape for you.",
+            ["luck"] = "Oh well. Better luck next time.",
+        },
+        weight = 10000,
         type = SpeakerEventType.DEATH,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
@@ -561,6 +533,7 @@ return {
     },
     [62] = {
         text = "That death was udderly embarrassing. Get it? Udder-ly!",
+        weight = 10000,
         type = SpeakerEventType.DEATH,
         category = LineCategory.GENERIC,
         animation = LineAnimation.HappyExtreme,
@@ -570,6 +543,7 @@ return {
     },
     [63] = {
         text = "They should rename that place to SomewhatHarmless.",
+        weight = 2,
         type = SpeakerEventType.DEATH,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Neutral,
