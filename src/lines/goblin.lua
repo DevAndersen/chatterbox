@@ -507,7 +507,7 @@ return {
         category = LineCategory.HUMOR,
         animation = LineAnimation.Quizzical
     },
-    ["happydeath"] = {
+    ["HappyDeath"] = {
         text = {
             ["Donating"] = "Donating money to Death's retirement fund is very kind of you.",
             ["Company"] = "It is nice of you to keep Death company.",
@@ -518,7 +518,7 @@ return {
         category = LineCategory.HUMOR,
         animation = LineAnimation.Happy
     },
-    ["deathfightcave"] = {
+    ["DeathFightCave"] = {
         text = {
             ["NoFireCape"] = "No fire cape for you.",
             ["BetterLuck"] = "Oh well. Better luck next time.",
@@ -535,20 +535,30 @@ return {
         text = "That death was udderly embarrassing. Get it? Udder-ly!",
         weight = 10000,
         type = SpeakerEventType.DEATH,
-        category = LineCategory.GENERIC,
+        category = LineCategory.HUMOR,
         animation = LineAnimation.HappyExtreme,
         requirements = function(state, eventData)
             return state.area.LumbridgeCowPen
         end
     },
-    [63] = {
+    ["MosLeHarmlessDeath"] = {
         text = "They should rename that place to SomewhatHarmless.",
         weight = 2,
         type = SpeakerEventType.DEATH,
-        category = LineCategory.GENERIC,
+        category = LineCategory.HUMOR,
         animation = LineAnimation.Neutral,
         requirements = function(state, eventData)
             return state.area.MosLeHarmless
+        end
+    },
+    ["BarrowsHumor"] = {
+        text = "If you saw a bird feasting on bones here, would that be a barrow marrow sparrow?",
+        weight = 2,
+        type = SpeakerEventType.TICK,
+        category = LineCategory.HUMOR,
+        animation = LineAnimation.Happy,
+        requirements = function(state, eventData)
+            return state.area.Barrows
         end
     },
 }
