@@ -13,7 +13,7 @@
 ---@type Line[]
 return {
     -- Generic
-    ["happygeneric"] = {
+    ["HappyGeneric"] = {
         text = {
             ["goblinbuddy"] = "I am your goblin buddy.",
             ["tastycabbages"] = "Cabbages are actually very tasty."
@@ -23,7 +23,7 @@ return {
         category = LineCategory.GENERIC,
         animation = LineAnimation.Happy,
     },
-    [19] = {
+    ["GoblinVillage"] = {
         text = "It is always nice to visit my home town.",
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
@@ -32,7 +32,7 @@ return {
             return state.area.GoblinVillage
         end
     },
-    [20] = {
+    ["LumbridgeGoblins"] = {
         text = "I was once on vacation here. The local goblins were very nice to me.",
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
@@ -234,17 +234,17 @@ return {
             return state.area.Prifddinas
         end
     },
-    ["neutraltrivia"] = {
+    ["NeutralTrivia"] = {
         text = {
-            ["fairyrings"] = "Did you know: Fairy rings exist in real life. Sadly, they are not very useful for transportation.",
-            ["magiclogs"] = "Did you know: If you drop magic logs, you can see the stars moving.",
-            ["willowlogs"] = "Did you know: Magic logs used to look like a lighter version of willow logs.",
-            ["baxtorian"] = "Baxtorian's name is a wordplay on the word backstory. Jagex are not very subtle.",
-            ["avoidance"] = "The quest name A Void Dance is a play on the word avoidance. Or maybe avoid dance, which is what I do.",
-            ["redfremmycloak"] = "Did you know: A bug once caused the red Fremennik cloak to provide extreme defensive boosts. A very fashionable bug.",
-            ["classicguthixsymbol"] = "Did you know: The symbol of Guthix used to look different in RuneScape Classic.",
-            ["hans"] = "Did you know: Hans is the oldest NPC in RuneScape. He looks good for his age.",
-            ["mudpie"] = "Did you know: You cannot eat a mud pie. Because it contains compost and clay. And you shouldn't eat those. Apparently."
+            ["FairyRings"] = "Did you know: Fairy rings exist in real life. Sadly, they are not very useful for transportation.",
+            ["MagicLogs"] = "Did you know: If you drop magic logs, you can see the stars moving.",
+            ["WillowLogs"] = "Did you know: Magic logs used to look like a lighter version of willow logs.",
+            ["Baxtorian"] = "Baxtorian's name is a wordplay on the word backstory. Jagex are not very subtle.",
+            ["Avoidance"] = "The quest name A Void Dance is a play on the word avoidance. Or maybe avoid dance, which is what I do.",
+            ["redFremmyCloak"] = "Did you know: A bug once caused the red Fremennik cloak to provide extreme defensive boosts. A very fashionable bug.",
+            ["ClassicGuthixSymbol"] = "Did you know: The symbol of Guthix used to look different in RuneScape Classic.",
+            ["Hans"] = "Did you know: Hans is the oldest NPC in RuneScape. He looks good for his age.",
+            ["MudPie"] = "Did you know: You cannot eat a mud pie. Because it contains compost and clay. And you shouldn't eat those. Apparently."
         },
         weight = 9,
         type = SpeakerEventType.TICK,
@@ -337,7 +337,7 @@ return {
             return state.skill.attack.level >= 99
         end,
     },
-    ["halfwayto99"] = {
+    ["FalfwayTo99"] = {
         text = {
             ["a"] = "Congratulations, halfway to 99!",
             ["b"] = "Congratulations, that's halfway to 99!"
@@ -349,10 +349,10 @@ return {
             return (eventData.level == 92 and eventData.skill ~= SkillType.INVENTION) or (eventData.level == 84 and eventData.skill == SkillType.INVENTION)
         end,
     },
-    ["level98"] = {
+    ["Level98"] = {
         text = {
-            ["congrats"] = "Congratulations, just one more level to go until 99!",
-            ["nice"] = "Nice, just one more level until 99!"
+            ["Congrats"] = "Congratulations, just one more level to go until 99!",
+            ["Nice"] = "Nice, just one more level until 99!"
         },
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
@@ -361,7 +361,7 @@ return {
             return eventData.level == 98
         end,
     },
-    ["level99"] = {
+    ["Level99"] = {
         text = "Congratulations!",
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
@@ -370,7 +370,7 @@ return {
             return eventData.level == 99
         end,
     },
-    ["level120"] = {
+    ["Level120"] = {
         text = "Congratulations!",
         type = SpeakerEventType.LEVEL,
         category = LineCategory.SKILL,
@@ -381,8 +381,8 @@ return {
     },
     ["200m"] = {
         text = {
-            ["simple"] = "Congratulations!",
-            ["compliment"] = "Congratulations! 200m, that's huge!",
+            ["Simple"] = "Congratulations!",
+            ["Compliment"] = "Congratulations! 200m, that's huge!",
         },
         type = SpeakerEventType.SKILL,
         category = LineCategory.SKILL,
@@ -393,9 +393,9 @@ return {
     },
 
     -- Money
-    ["moneysub1mneutral"] = {
+    ["MoneySub1mNeutral"] = {
         text = {
-            ["alch"] = "If you need money, you can high alch items.",
+            ["Alch"] = "If you need money, you can high alch items.",
         },
         type = SpeakerEventType.TICK,
         category = LineCategory.MONEY,
@@ -404,11 +404,11 @@ return {
             return state.coins < 1000000
         end,
     },
-    ["moneysub1mshifty"] = {
+    ["MoneySub1mShifty"] = {
         text = {
-            ["alchpeople"] = "If you need money, you can high alch items. But you cannot high alch people, because that would be wrong.",
-            ["pickpocketing"] = "If you need money, you could always try looking in other people's pockets...",
-            ["thieving"] = "I've heard that thieving is an excellent way to make some quick money."
+            ["AlchPeople"] = "If you need money, you can high alch items. But you cannot high alch people, because that would be wrong.",
+            ["Pickpocketing"] = "If you need money, you could always try looking in other people's pockets...",
+            ["Thieving"] = "I've heard that thieving is an excellent way to make some quick money."
         },
         type = SpeakerEventType.TICK,
         category = LineCategory.MONEY,
@@ -493,14 +493,14 @@ return {
     },
 
     -- Death
-    ["quizzicaldeath"] = {
+    ["QuizzicalDeath"] = {
         text = {
-            ["sayhello"] = "Say hello to Death for me!",
-            ["dontbelieve"] = "I don't believe dying was the right thing to do there.",
-            ["considered"] = " Have you considerednot dying?",
-            ["mean"] = "Did you mean to die like that?",
-            ["looked"] = "That looked painful...",
-            ["bless"] = "Should I bless your grave, or...?"
+            ["SayHello"] = "Say hello to Death for me!",
+            ["DontBelieve"] = "I don't believe dying was the right thing to do there.",
+            ["Considered"] = " Have you considerednot dying?",
+            ["Mean"] = "Did you mean to die like that?",
+            ["Looked"] = "That looked painful...",
+            ["Bless"] = "Should I bless your grave, or...?"
         },
         weight = 5,
         type = SpeakerEventType.DEATH,
@@ -509,10 +509,10 @@ return {
     },
     ["happydeath"] = {
         text = {
-            ["donating"] = "Donating money to Death's retirement fund is very kind of you.",
-            ["company"] = "It is nice of you to keep Death company.",
-            ["gracefully"] = "You died very gracefully. It did not look embarrassing at all.",
-            ["link"] = "You are the weakest link. Goodbye."
+            ["Donating"] = "Donating money to Death's retirement fund is very kind of you.",
+            ["Company"] = "It is nice of you to keep Death company.",
+            ["Gracefully"] = "You died very gracefully. It did not look embarrassing at all.",
+            ["Link"] = "You are the weakest link. Goodbye."
         },
         type = SpeakerEventType.DEATH,
         category = LineCategory.HUMOR,
@@ -520,8 +520,8 @@ return {
     },
     ["deathfightcave"] = {
         text = {
-            ["nofirecape"] = "No fire cape for you.",
-            ["luck"] = "Oh well. Better luck next time.",
+            ["NoFireCape"] = "No fire cape for you.",
+            ["BetterLuck"] = "Oh well. Better luck next time.",
         },
         weight = 10000,
         type = SpeakerEventType.DEATH,
