@@ -89,7 +89,7 @@ return {
 
     -- Equipment
     [3] = {
-        text = "Are those HAM robes? I hope you are just wearing them because you like the color pink.",
+        text = "Are those H.A.M. robes? I hope you are just wearing them because you like the color pink.",
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Quizzical,
@@ -148,7 +148,7 @@ return {
         category = LineCategory.EQUIPMENT,
         animation = LineAnimation.Shifty,
         requirements = function(state, eventData)
-            return state.equipment.slots.mainHand == config.whip and state.skill.archaeology.level > 75
+            return state.equipment.slots.mainHand == config.whip and state.skill.archaeology.level >= 75
         end
     },
 
