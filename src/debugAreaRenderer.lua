@@ -14,7 +14,7 @@ local lines = { 0, 1, 1, 2, 2, 3, 3, 0 }
 ---Draw square over the game tiles of the area, with coloring depending if the player is currently inside or outside of the area.
 ---@param pos1 CoordFine
 ---@param pos2 CoordFine
-local function drawAreaSquare(pos1, pos2)
+local function drawAreaSquare(pos1, pos2, isPlayerInside)
     -- Ensure that the two positions are on the same level.
     if pos1.level ~= pos2.level then
         log(string.format(">>> Skipping area [%s, %s], the positions are not on the same level", tostring(pos1), tostring(pos2)))
@@ -25,7 +25,6 @@ local function drawAreaSquare(pos1, pos2)
     local aabb = AABB.new(Vector3.new(pos1.x, pos1.level, pos1.z), Vector3.new(pos2.x, pos2.level, pos2.z))
     local realPlayerCoordGrid = Player.GetEntity().coordGrid
     local playerPos = Vector3.new(realPlayerCoordGrid.x, realPlayerCoordGrid.level, realPlayerCoordGrid.z)
-    local isPlayerInside = aabb:IsInside(playerPos)
 
     -- Coordinates
     local groundHeight = World.GetGroundHeight(realPlayerCoordGrid.level, realPlayerCoordGrid.x * tileSize, realPlayerCoordGrid.z * tileSize) + 1020
@@ -79,10 +78,24 @@ end
 ---Draw an area, including the corner positions.
 ---@param pos1 CoordFine
 ---@param pos2 CoordFine
-local function drawArea(pos1, pos2)
-    drawAreaSquare(pos1, pos2)
+local function drawArea(pos1, pos2, isPlayerInside)
+    drawAreaSquare(pos1, pos2, isPlayerInside)
     drawTileBorder(Vector3.new(pos1.x, pos1.level, pos1.z))
     drawTileBorder(Vector3.new(pos2.x, pos2.level, pos2.z))
+end
+
+local function draw(pos1, pos2, realPlayerCoordGrid, playerCoordGrid, isPlayerInside)
+    -- If the player is currently in a region (i.e. an instanced area), determine the offset from the origin.
+    if World.IsRegion() then
+        local diffX = realPlayerCoordGrid.x - playerCoordGrid.x
+        local diffZ = realPlayerCoordGrid.z - playerCoordGrid.z
+        pos1.x = pos1.x + diffX
+        pos1.z = pos1.z + diffZ
+        pos2.x = pos2.x + diffX
+        pos2.z = pos2.z + diffZ
+    end
+
+    drawArea(pos1, pos2, isPlayerInside)
 end
 
 Event.Draw.Subscribe("chatterboxDebugAreaDrawEvent", function()
@@ -97,27 +110,54 @@ Event.Draw.Subscribe("chatterboxDebugAreaDrawEvent", function()
     local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
 
     for _, area in pairs(areaState.areas) do
-        -- Determine if the player is close enough to the area that it should be rendered.
-        local aabb = AABB.new(
-            Vector3.new(area.Pos1.x - areaRenderDistance, area.Pos1.level - areaRenderDistance, area.Pos1.z - areaRenderDistance),
-            Vector3.new(area.Pos2.x + areaRenderDistance, area.Pos2.level + areaRenderDistance, area.Pos2.z + areaRenderDistance))
 
-        if aabb:IsInside(playerPos) then
+        local isPlayerInside = false
 
-            local pos1 = CoordFine.new(area.Pos1.level, area.Pos1.x, area.Pos1.z)
-            local pos2 = CoordFine.new(area.Pos2.level, area.Pos2.x, area.Pos2.z)
-
-            -- If the player is currently in a region (i.e. an instanced area), determine the offset from the origin.
-            if World.IsRegion() then
-                local diffX = realPlayerCoordGrid.x - playerCoordGrid.x
-                local diffZ = realPlayerCoordGrid.z - playerCoordGrid.z
-                pos1.x = pos1.x + diffX
-                pos1.z = pos1.z + diffZ
-                pos2.x = pos2.x + diffX
-                pos2.z = pos2.z + diffZ
+        if area.Pos1 and area.Pos2 then
+            local areaAABB = AABB.new(Vector3.new(area.Pos1.x, area.Pos1.level, area.Pos1.z), Vector3.new(area.Pos2.x, area.Pos2.level, area.Pos2.z))
+            isPlayerInside = areaAABB:IsInside(playerPos)
+        elseif area.SubAreas then
+            for _, subArea in pairs(area.SubAreas) do
+                local subAreaAABB = AABB.new(Vector3.new(subArea.Pos1.x, subArea.Pos1.level, subArea.Pos1.z), Vector3.new(subArea.Pos2.x, subArea.Pos2.level, subArea.Pos2.z))
+                if subAreaAABB:IsInside(playerPos) then
+                    isPlayerInside = true
+                end
             end
-
-            drawArea(pos1, pos2)
         end
+
+        if isPlayerInside then
+
+        end
+        if area.Pos1 and area.Pos2 then
+            draw(area.Pos1, area.Pos2, realPlayerCoordGrid, playerCoordGrid, isPlayerInside)
+        elseif area.SubAreas then
+            for _, subArea in pairs(area.SubAreas) do
+                draw(subArea.Pos1, subArea.Pos2, realPlayerCoordGrid, playerCoordGrid, isPlayerInside)
+            end
+        end
+
+
+        -- -- Determine if the player is close enough to the area that it should be rendered.
+        -- local aabb = AABB.new(
+        --     Vector3.new(area.Pos1.x - areaRenderDistance, area.Pos1.level - areaRenderDistance, area.Pos1.z - areaRenderDistance),
+        --     Vector3.new(area.Pos2.x + areaRenderDistance, area.Pos2.level + areaRenderDistance, area.Pos2.z + areaRenderDistance))
+
+        -- if aabb:IsInside(playerPos) then
+
+        --     local pos1 = CoordFine.new(area.Pos1.level, area.Pos1.x, area.Pos1.z)
+        --     local pos2 = CoordFine.new(area.Pos2.level, area.Pos2.x, area.Pos2.z)
+
+        --     -- If the player is currently in a region (i.e. an instanced area), determine the offset from the origin.
+        --     if World.IsRegion() then
+        --         local diffX = realPlayerCoordGrid.x - playerCoordGrid.x
+        --         local diffZ = realPlayerCoordGrid.z - playerCoordGrid.z
+        --         pos1.x = pos1.x + diffX
+        --         pos1.z = pos1.z + diffZ
+        --         pos2.x = pos2.x + diffX
+        --         pos2.z = pos2.z + diffZ
+        --     end
+
+        --     drawArea(pos1, pos2)
+        -- end
     end
 end)

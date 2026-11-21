@@ -104,6 +104,7 @@
 
 ---Defined areas
 ---Note: The two corner positions of areas must be on the same level (first CoordGrid constructor parameter).
+---@type table<string, Area>
 local areas = {
     Lumbridge = {
         Pos1 = CoordGrid.new(0,49,50,60,2),
@@ -524,18 +525,37 @@ local areas = {
 }
 ---@diagnostic enable: codestyle-check
 
+---Determines if the player is inside the areaa (including subareas).
+---@param area Area
+---@param playerPos Vector3
+---@return boolean
+local function isPlayerInsideArea(area, playerPos)
+    if area.Pos1 and area.Pos2 then
+        local areaAABB = AABB.new(Vector3.new(area.Pos1.x, area.Pos1.level, area.Pos1.z), Vector3.new(area.Pos2.x, area.Pos2.level, area.Pos2.z))
+        return areaAABB:IsInside(playerPos)
+    elseif area.SubAreas then
+        for _, subArea in pairs(area.SubAreas) do
+            local subAreaAABB = AABB.new(Vector3.new(subArea.Pos1.x, subArea.Pos1.level, subArea.Pos1.z), Vector3.new(subArea.Pos2.x, subArea.Pos2.level, subArea.Pos2.z))
+            if subAreaAABB:IsInside(playerPos) then
+                return true
+            end
+        end
+    end
+    return false
+end
+
 ---Returns all defined areas, and whether or not the player is currently inside of them.
 ---@return AreaState
 local getAreaState = function()
     local areaState = {}
+    local playerCoordGrid = GetPlayerCoords()
 
-    -- Iterate over all areas, adding them as true or false to a table depending if the player is currently within an area.
-    for key, value in pairs(areas) do
-        local aabb = AABB.new(Vector3.new(value.Pos1.x, value.Pos1.level, value.Pos1.z), Vector3.new(value.Pos2.x, value.Pos2.level, value.Pos2.z))
-        local playerCoordGrid = GetPlayerCoords()
-        if playerCoordGrid then
-            local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
-            areaState[key] = aabb:IsInside(playerPos)
+    if playerCoordGrid then
+        local playerPos = Vector3.new(playerCoordGrid.x, playerCoordGrid.level, playerCoordGrid.z)
+
+        -- Iterate over all areas, adding them as true or false to a table depending if the player is currently within an area.
+        for key, area in pairs(areas) do
+            areaState[key] = isPlayerInsideArea(area, playerPos)
         end
     end
 

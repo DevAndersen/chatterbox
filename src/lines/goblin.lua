@@ -599,7 +599,7 @@ return {
         category = LineCategory.HUMOR,
         animation = LineAnimation.Quizzical,
         requirements = function(state, eventData)
-            return state.skill.mining >= 99 and state.skill.crafting >= 99
+            return state.skill.mining.level >= 99 and state.skill.crafting.level >= 99
         end
     },
     ["ThievingSkillingLow"] = {
