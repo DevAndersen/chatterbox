@@ -28,6 +28,7 @@
 ---@field level integer The level of this CoordGrid. Valid range is 0-3.
 ---@field x integer The world tile X of this CoordGrid, in Grid units. Valid range is 0-12799.
 ---@field z integer The world tile Z of this CoordGrid, in Grid units. Valid range is 0-12799.
+---@field ToCoordFine function Returns a CoordFine using the current CoordGrid as a base.
 
 ---https://developer.runescape.com/rs/core/events.html
 ---@class Event
