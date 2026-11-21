@@ -10,13 +10,13 @@ This plugin's Lua code uses [Lua Language Server](https://luals.github.io/) (aka
 
 Location | Description
 ---|---
-`/definitions` | LuaLS definitions for dependencies and the plugin API.
-`/resources` | Audio files.
-`/scripts` | Helper scripts, not part of the actual plugin.
-`/src` | The code of the plugin.
-`/src/interfaces` | Interface and menu code.
-`/src/lines` | Voice line code.
-`/src/states` | Code for checking the state of the player (skills, items, etc.).
+`definitions` | LuaLS definitions for dependencies and the plugin API.
+`resources` | Audio files.
+`scripts` | Helper scripts, not part of the actual plugin.
+`src` | The code of the plugin.
+`src/interfaces` | Interface and menu code.
+`src/lines` | Voice line code.
+`src/states` | Code for checking the state of the player (skills, items, etc.).
 
 ## Dependencies
 
