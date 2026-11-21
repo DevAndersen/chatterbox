@@ -47,7 +47,6 @@
 ---@field GnomeStronghold boolean
 ---@field PiscatorisHunteAarea boolean
 ---@field Karamja boolean
----@field Karamja2 boolean
 ---@field FortForinthry boolean
 ---@field MosLeHarmless boolean
 ---@field Havenhythe boolean
@@ -59,9 +58,6 @@
 ---@field LumbridgeCowPen boolean
 ---@field Tirannwn boolean
 ---@field NeitiznotYakPen boolean
----@field Barrows2 boolean
----@field Barrows3 boolean
----@field Barrows4 boolean
 ---@field BrimhavenAgilityArena boolean
 ---@field Um boolean
 ---@field UmRitualSite boolean
@@ -80,31 +76,29 @@
 ---@field TwinFuriesArena boolean
 ---@field VindictaAndGorvekArena boolean
 ---@field HelwyrArena boolean
+---@field TelosArena boolean
 ---@field TelosArena1 boolean
 ---@field TelosArena2 boolean
 ---@field TelosArena3 boolean
 ---@field TelosArena4 boolean
 ---@field AraxxorArena boolean
 ---@field AraxxiArena boolean
----@field GodWarsDungeon boolean
----@field GraardorArena boolean
----@field KreearraArena boolean
----@field ZilyanaArena boolean
----@field KrilTsutsarothArena boolean
+---@field GodWarsDungeon boolean Note: Overlaps with GraardorArena, KreearraArena, ZilyanaArena, and KrilTsutsarothArena.
+---@field GraardorArena boolean Note: Overlaps with GodWarsDungeon.
+---@field KreearraArena boolean Note: Overlaps with GodWarsDungeon.
+---@field ZilyanaArena boolean Note: Overlaps with GodWarsDungeon.
+---@field KrilTsutsarothArena boolean Note: Overlaps with GodWarsDungeon.
 ---@field NexArena boolean
 ---@field NexAngelOfDeathArena boolean
----@field VoragoArena1 boolean
----@field VoragoArena2 boolean
----@field VoragoArena3 boolean
----@field VoragoArena4 boolean
----@field VoragoArena5 boolean
+---@field VoragoArena boolean
 ---@field ZemouregalAndVorkathArena boolean
 ---@field IvarArena boolean
 
 ---Defines an area of the game world.
 ---@class Area
----@field Pos1 CoordGrid The south-western corner of the area.
----@field Pos2 CoordGrid The north-eastern corner of the area.
+---@field Pos1 CoordGrid? The south-western corner of the area.
+---@field Pos2 CoordGrid? The north-eastern corner of the area.
+---@field SubAreas Area[]? The north-eastern corner of the area.
 
 ---@diagnostic disable: codestyle-check
 
@@ -280,8 +274,24 @@ local areas = {
         Pos2 = CoordGrid.new(0,57,55,63,11),
     },
     Barrows = {
-        Pos1 = CoordGrid.new(0,55,51,28,10),
-        Pos2 = CoordGrid.new(0,55,51,63,45),
+        SubAreas = {
+            Barrows1 = {
+                Pos1 = CoordGrid.new(0,55,51,28,10),
+                Pos2 = CoordGrid.new(0,55,51,63,45),
+            },
+            Barrows2 = {
+                Pos1 = CoordGrid.new(0,55,150,8,7),
+                Pos2 = CoordGrid.new(0,55,150,58,56),
+            },
+            Barrows3 = {
+                Pos1 = CoordGrid.new(0,55,151,4,3),
+                Pos2 = CoordGrid.new(0,55,151,59,58),
+            },
+            Barrows4 = {
+                Pos1 = CoordGrid.new(0,55,149,6,44),
+                Pos2 = CoordGrid.new(0,55,149,30,57),
+            }
+        }
     },
     Edgeville = {
         Pos1 = CoordGrid.new(0,48,54,2,6),
@@ -296,12 +306,16 @@ local areas = {
         Pos2 = CoordGrid.new(0,37,57,36,11),
     },
     Karamja = {
-        Pos1 = CoordGrid.new(0,42,45,2,1),
-        Pos2 = CoordGrid.new(0,46,49,24,46),
-    },
-    Karamja2 = { -- Todo
-        Pos1 = CoordGrid.new(0,42,48,0,55),
-        Pos2 = CoordGrid.new(0,43,50,59,50),
+        SubAreas = {
+            Karamja1 = {
+                Pos1 = CoordGrid.new(0,42,45,2,1),
+                Pos2 = CoordGrid.new(0,46,49,24,46),
+            },
+            Karamja2 = {
+                Pos1 = CoordGrid.new(0,42,48,0,55),
+                Pos2 = CoordGrid.new(0,43,50,59,50),
+            }
+        }
     },
     FortForinthry = {
         Pos1 = CoordGrid.new(0,51,55,10,11),
@@ -346,18 +360,6 @@ local areas = {
     NeitiznotYakPen = {
         Pos1 = CoordGrid.new(0,36,59,11,10),
         Pos2 = CoordGrid.new(0,36,59,24,24),
-    },
-    Barrows2 = { -- Todo
-        Pos1 = CoordGrid.new(0,55,150,8,7),
-        Pos2 = CoordGrid.new(0,55,150,58,56),
-    },
-    Barrows3 = { -- Todo
-        Pos1 = CoordGrid.new(0,55,151,4,3),
-        Pos2 = CoordGrid.new(0,55,151,59,58),
-    },
-    Barrows4 = { -- Todo
-        Pos1 = CoordGrid.new(0,55,149,6,44),
-        Pos2 = CoordGrid.new(0,55,149,30,57),
     },
     BrimhavenAgilityArena = {
         Pos1 = CoordGrid.new(3,43,149,7,8),
@@ -431,21 +433,25 @@ local areas = {
         Pos1 = CoordGrid.new(1,51,107,16,25),
         Pos2 = CoordGrid.new(1,51,107,39,47),
     },
-    TelosArena1 = {
-        Pos1 = CoordGrid.new(0,59,110,10,10),
-        Pos2 = CoordGrid.new(0,59,110,33,33),
-    },
-    TelosArena2 = {
-        Pos1 = CoordGrid.new(0,60,110,10,10),
-        Pos2 = CoordGrid.new(0,60,110,33,33),
-    },
-    TelosArena3 = {
-        Pos1 = CoordGrid.new(0,59,109,10,10),
-        Pos2 = CoordGrid.new(0,59,109,33,33),
-    },
-    TelosArena4 = {
-        Pos1 = CoordGrid.new(1,60,109,12,13),
-        Pos2 = CoordGrid.new(1,60,109,49,50),
+    TelosArena = {
+        SubAreas = {
+            TelosArena1 = {
+                Pos1 = CoordGrid.new(0,59,110,10,10),
+                Pos2 = CoordGrid.new(0,59,110,33,33),
+            },
+            TelosArena2 = {
+                Pos1 = CoordGrid.new(0,60,110,10,10),
+                Pos2 = CoordGrid.new(0,60,110,33,33),
+            },
+            TelosArena3 = {
+                Pos1 = CoordGrid.new(0,59,109,10,10),
+                Pos2 = CoordGrid.new(0,59,109,33,33),
+            },
+            TelosArena4 = {
+                Pos1 = CoordGrid.new(1,60,109,12,13),
+                Pos2 = CoordGrid.new(1,60,109,49,50),
+            }
+        }
     },
     AraxxorArena = {
         Pos1 = CoordGrid.new(1,70,97,10,37),
@@ -455,23 +461,23 @@ local areas = {
         Pos1 = CoordGrid.new(1,71,97,36,46),
         Pos2 = CoordGrid.new(1,71,98,57,5),
     },
-    GodWarsDungeon = { -- Note: Overlaps with GraardorArena, KreearraArena, ZilyanaArena, and KrilTsutsarothArena
+    GodWarsDungeon = {
         Pos1 = CoordGrid.new(0,44,82,0,0),
         Pos2 = CoordGrid.new(0,45,83,63,63),
     },
-    GraardorArena = { -- Note: Overlaps with GodWarsDungeon
+    GraardorArena = {
         Pos1 = CoordGrid.new(0,44,83,47,41),
         Pos2 = CoordGrid.new(0,44,83,60,59),
     },
-    KreearraArena = { -- Note: Overlaps with GodWarsDungeon
+    KreearraArena = {
         Pos1 = CoordGrid.new(0,44,82,4,47),
         Pos2 = CoordGrid.new(0,44,82,22,60),
     },
-    ZilyanaArena = { -- Note: Overlaps with GodWarsDungeon
+    ZilyanaArena = {
         Pos1 = CoordGrid.new(0,45,81,36,59),
         Pos2 = CoordGrid.new(0,45,82,50,8),
     },
-    KrilTsutsarothArena = { -- Note: Overlaps with GodWarsDungeon
+    KrilTsutsarothArena = {
         Pos1 = CoordGrid.new(0,45,83,38,6),
         Pos2 = CoordGrid.new(0,45,83,56,20),
     },
@@ -483,25 +489,29 @@ local areas = {
         Pos1 = CoordGrid.new(2,44,28,15,15),
         Pos2 = CoordGrid.new(2,44,28,49,49),
     },
-    VoragoArena1 = {
-        Pos1 = CoordGrid.new(0,48,95,20,20),
-        Pos2 = CoordGrid.new(0,48,95,43,43),
-    },
-    VoragoArena2 = {
-        Pos1 = CoordGrid.new(0,47,94,20,20),
-        Pos2 = CoordGrid.new(0,47,94,43,43),
-    },
-    VoragoArena3 = {
-        Pos1 = CoordGrid.new(0,48,94,20,20),
-        Pos2 = CoordGrid.new(0,48,94,43,43),
-    },
-    VoragoArena4 = {
-        Pos1 = CoordGrid.new(0,47,93,20,20),
-        Pos2 = CoordGrid.new(0,47,93,43,43),
-    },
-    VoragoArena5 = {
-        Pos1 = CoordGrid.new(0,48,93,19,30),
-        Pos2 = CoordGrid.new(0,48,93,42,34),
+    VoragoArena = {
+        SubAreas = {
+            VoragoArena1 = {
+                Pos1 = CoordGrid.new(0,48,95,20,20),
+                Pos2 = CoordGrid.new(0,48,95,43,43),
+            },
+            VoragoArena2 = {
+                Pos1 = CoordGrid.new(0,47,94,20,20),
+                Pos2 = CoordGrid.new(0,47,94,43,43),
+            },
+            VoragoArena3 = {
+                Pos1 = CoordGrid.new(0,48,94,20,20),
+                Pos2 = CoordGrid.new(0,48,94,43,43),
+            },
+            VoragoArena4 = {
+                Pos1 = CoordGrid.new(0,47,93,20,20),
+                Pos2 = CoordGrid.new(0,47,93,43,43),
+            },
+            VoragoArena5 = {
+                Pos1 = CoordGrid.new(0,48,93,19,30),
+                Pos2 = CoordGrid.new(0,48,93,42,34),
+            }
+        }
     },
     ZemouregalAndVorkathArena = {
         Pos1 = CoordGrid.new(0,20,33,42,34),

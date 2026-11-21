@@ -10,18 +10,28 @@
 ---A line requirement function.
 ---@alias LineRequirement fun(state: State, data: SpeakerEventData?): boolean
 
----@type Line[]
+---@type table<string, Line>
 return {
     -- Generic
     ["HappyGeneric"] = {
         text = {
-            ["goblinbuddy"] = "I am your goblin buddy.",
-            ["tastycabbages"] = "Cabbages are actually very tasty."
+            ["GoblinBuddy"] = "I am your goblin buddy.",
+            ["TastyCabbages"] = "Cabbages are actually very tasty."
         },
         weight = 2,
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Happy,
+    },
+    ["AntiScam"] = {
+        text = {
+            ["Doubling"] = "Someone once told me they'd double my money. Turns out they were just trying to scam me.",
+            ["Trading"] = "Always remember: When trading with others, double-check what's in the trading window before completing the trade."
+        },
+        weight = 2,
+        type = SpeakerEventType.TICK,
+        category = LineCategory.GENERIC,
+        animation = LineAnimation.Neutral,
     },
     ["GoblinVillage"] = {
         text = "It is always nice to visit my home town.",
@@ -41,7 +51,7 @@ return {
             return state.area.LumbridgeGoblins
         end
     },
-    [28] = {
+    ["DraynorManorQuizzical"] = {
         text = "For a haunted manor, this place has quite a few residents. I wonder if they all get along.",
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
@@ -50,7 +60,7 @@ return {
             return state.area.DraynorManor
         end
     },
-    [37] = {
+    ["PiscatorisFishingColonyNeutral"] = {
         text = "Monkfish don't look very much like monks.",
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
@@ -59,7 +69,7 @@ return {
             return state.area.PiscatorisFishingColony
         end
     },
-    [39] = {
+    ["FightCaveTip"] = {
         text = "Remember, Jad's healers will respawn if they heal him up to full health.",
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
@@ -68,7 +78,7 @@ return {
             return state.area.TzhaarFightCave
         end
     },
-    [44] = {
+    ["SnelmFashion"] = {
         text = "Those snails have some pretty shells. They would make for an excellent hat.",
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
@@ -77,7 +87,7 @@ return {
             return state.area.MortMyreSwamp
         end
     },
-    [46] = {
+    ["CanifisShifty"] = {
         text = "The citizens in this place gives me the creeps.",
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
@@ -88,7 +98,7 @@ return {
     },
 
     -- Equipment
-    [3] = {
+    ["HamRobes"] = {
         text = "Are those H.A.M. robes? I hope you are just wearing them because you like the color pink.",
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
@@ -97,34 +107,7 @@ return {
             return state.equipment.special.fullHam
         end,
     },
-    [21] = {
-        text = "That hat looks very expensive. But not nearly as comfortable as mine.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.EQUIPMENT,
-        animation = LineAnimation.Happy,
-        requirements = function(state, eventData)
-            return state.equipment.special.partyhat
-        end
-    },
-    [22] = {
-        text = "Does Santa know that you took his hat? Stealing people's hats isn't a very nice thing to do.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.EQUIPMENT,
-        animation = LineAnimation.Shifty,
-        requirements = function(state, eventData)
-            return state.equipment.special.santaHat
-        end
-    },
-    [23] = {
-        text = "That mask makes you look very scary. But I'm not sure it is going to work on bosses.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.EQUIPMENT,
-        animation = LineAnimation.Quizzical,
-        requirements = function(state, eventData)
-            return state.equipment.special.halloweenMask
-        end
-    },
-    [64] = {
+    ["PartyhatNeutral"] = {
         text = "Judging by your hat, you are ready to party.",
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
@@ -133,7 +116,34 @@ return {
             return state.equipment.special.partyhat
         end
     },
-    [65] = {
+    ["PartyhatHappy"] = {
+        text = "That hat looks very expensive. But not nearly as comfortable as mine.",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.EQUIPMENT,
+        animation = LineAnimation.Happy,
+        requirements = function(state, eventData)
+            return state.equipment.special.partyhat
+        end
+    },
+    ["SantaHat"] = {
+        text = "Does Santa know that you took his hat? Stealing people's hats isn't a very nice thing to do.",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.EQUIPMENT,
+        animation = LineAnimation.Shifty,
+        requirements = function(state, eventData)
+            return state.equipment.special.santaHat
+        end
+    },
+    ["HalloweenMask"] = {
+        text = "That mask makes you look very scary. But I'm not sure it is going to work on bosses.",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.EQUIPMENT,
+        animation = LineAnimation.Quizzical,
+        requirements = function(state, eventData)
+            return state.equipment.special.halloweenMask
+        end
+    },
+    ["FixedDevice"] = {
         text = "That 'sheep painting device' of yours looks rather intimidating.",
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
@@ -142,7 +152,7 @@ return {
             return state.equipment.slots.mainHand == config.Obj.MOURNING_PAINT_GUN.configName
         end
     },
-    [66] = {
+    ["archaeologyIndy"] = {
         text = "You archaeologists sure do love your whips.",
         type = SpeakerEventType.TICK,
         category = LineCategory.EQUIPMENT,
@@ -153,7 +163,7 @@ return {
     },
 
     -- Trivia
-    [4] = {
+    ["AbyssalWhipSpine"] = {
         text = "Did you know: Abyssal whips are made from Abyssal Demon spines. Allegedly.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -162,7 +172,7 @@ return {
             return state.equipment.slots.mainHand == config.Obj.ABYSSAL_WHIP.configName
         end
     },
-    [7] = {
+    ["MintCakeCurrency"] = {
         text = "Did you know: Mint cakes were once considered highly valuable. They still are to me. I like the taste.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -171,7 +181,7 @@ return {
             return state.area.GrandExchange
         end
     },
-    [10] = {
+    ["RimmingtonNinja"] = {
         text = "Did you know: There's a ninja hiding on a bench in Rimmington. Just examine it, you'll see.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -180,7 +190,7 @@ return {
             return state.special.hasExaminedRimmingtonBench == false
         end,
     },
-    [18] = {
+    ["GrandExchangeIronman"] = {
         text = "The Grand Exchange isn't all that useful to you, by the way.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -189,7 +199,7 @@ return {
             return state.area.GrandExchange and state.isIronman
         end
     },
-    [24] = {
+    ["WarCampfireChicken"] = {
         text = "I'm feeling a bit hungry. Would you mind cooking a chicken on War's campfire?",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -198,7 +208,7 @@ return {
             return state.area.WarsRetreat
         end
     },
-    [31] = {
+    ["LumbridgeTriviaNeutral"] = {
         text = "Did you know: the name 'Lumbridge' is a reference to 'Cambridge', where Jagex HQ is located.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -207,7 +217,7 @@ return {
             return state.area.Lumbridge
         end
     },
-    [33] = {
+    ["FaladorTriviaNeutral"] = {
         text = "Did you know: Falador Park used to be where a lot of players did their trading. I don't think the gardener liked it very much.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -216,8 +226,8 @@ return {
             return state.area.Falador
         end
     },
-    [34] = {
-        text = "Did you know: Many elves and elven places names are Welsh words.",
+    ["ElfTrivia"] = {
+        text = "Did you know: Many elves and elven place names are actually Welsh words.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
@@ -225,13 +235,22 @@ return {
             return state.area.Tirannwn or state.area.Prifddinas
         end
     },
-    [35] = {
+    ["PrifddinasTrivia"] = {
         text = "Did you know: 'Prifddinas' is the Welsh word for 'Capital'.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
         requirements = function(state, eventData)
             return state.area.Prifddinas
+        end
+    },
+    ["PrifddinasHumor"] = {
+        text = "Do you get to the Cadarn district very often? Oh, what am I saying - of course you don't.",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.HUMOR,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return state.area.Prifddinas and not state.skill.maxed
         end
     },
     ["NeutralTrivia"] = {
@@ -251,7 +270,7 @@ return {
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral
     },
-    [42] = {
+    ["GnomeTriviaNeutral"] = {
         text = "Did you know: The 'g' in 'gnome' is silent.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -260,7 +279,7 @@ return {
             return state.area.GnomeStronghold
         end
     },
-    [43] = {
+    ["MortMyreEasterEgg"] = {
         text = "Did you know: Ghasts can turn easter eggs into rotten food. A fast way to lose money.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -269,8 +288,8 @@ return {
             return state.area.MortMyreSwamp
         end
     },
-    [47] = {
-        text = "Did you know: The names of these islands are puns on 'Ya, tis' so' and 'Nay, tis' not'.",
+    ["FremennikIslesNames"] = {
+        text = "Did you know: The names of these islands are puns on \"Ya, tis' so\" and \"Nay, tis' not\".",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
         animation = LineAnimation.Neutral,
@@ -278,7 +297,7 @@ return {
             return state.area.FremennikIsles
         end
     },
-    [48] = {
+    ["YakPenPerfume"] = {
         text = "Yak perfume is popular among goblins.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -287,7 +306,7 @@ return {
             return state.area.NeitiznotYakPen
         end
     },
-    [49] = {
+    ["YanilleFreeTomatoes"] = {
         text = "If you pickpocket the Yanille pillory guard, you'll get free tomatoes.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -296,7 +315,7 @@ return {
             return state.area.Yanille
         end
     },
-    [50] = {
+    ["YanillePenguinWalls"] = {
         text = "The walls of this city look perfect for trapping penguins.",
         type = SpeakerEventType.TICK,
         category = LineCategory.TRIVIA,
@@ -307,7 +326,7 @@ return {
     },
 
     -- Quest
-    [11] = {
+    ["HazelmereAlive"] = {
         text = "I like Hazelmere. I hope nothing bad happens to him.",
         type = SpeakerEventType.TICK,
         category = LineCategory.QUEST,
@@ -317,7 +336,7 @@ return {
                 and state.quest.whileGuthixSleeps == false
         end,
     },
-    [12] = {
+    ["HazelmereDead"] = {
         text = "I miss Hazelmere. He was a nice guy.",
         type = SpeakerEventType.TICK,
         category = LineCategory.QUEST,
@@ -328,7 +347,7 @@ return {
     },
 
     -- Skills
-    [15] = {
+    ["AttackMaxNeutral"] = {
         text = "You look tough. Can you take down the King Black Dragon by wielding nothing more than a bronze dagger?",
         type = SpeakerEventType.TICK,
         category = LineCategory.SKILL,
@@ -419,16 +438,19 @@ return {
     },
 
     -- Humor
-    [25] = {
-        text = "Roses are red, violets are blue, your familiar is a pack yak, baroo baroo.",
+    ["PackYakHappy"] = {
+        text = {
+            ["Roses"] = "Roses are red, violets are blue, your familiar is a pack yak, baroo baroo.",
+            ["Snack"] = "If you fill your yak with food, does it become a snack yak?",
+        },
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
-        animation = LineAnimation.Bored,
+        animation = LineAnimation.Happy,
         requirements = function(state, eventData)
             return state.follower == config.Obj.LORE_PACK_YAK
         end
     },
-    [26] = {
+    ["DungeoneeringHappy"] = {
         text = "I enjoy Dungeoneering. It is my favorite minigame.",
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
@@ -437,7 +459,7 @@ return {
             return state.area.Daemonheim
         end
     },
-    [27] = {
+    ["DraynorVillageHappy"] = {
         text = "I heard that the Wise Old Man once robbed a Draynor bank. It is nice to see elderly people with active hobbies.",
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
@@ -446,8 +468,11 @@ return {
             return state.area.DraynorVillage
         end
     },
-    [29] = {
-        text = "Cows have a hundred words for grass. And they're all different variations of 'Moo'.",
+    ["LumbridgeCowPenHumor"] = {
+        text = {
+            ["HundredMoos"] = "Cows have a hundred words for grass. And they're all different variations of 'Moo'.",
+            ["SpeakMoo"] = "I actually speak a little cow. 'Moo' means 'Hello', and also 'Goodbye'.",
+        },
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.Happy,
@@ -455,16 +480,7 @@ return {
             return state.area.LumbridgeCowPen
         end
     },
-    [30] = {
-        text = "I actually speak a little cow. 'Moo' means 'Hello', and also 'Goodbye'.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.HUMOR,
-        animation = LineAnimation.Neutral,
-        requirements = function(state, eventData)
-            return state.area.LumbridgeCowPen
-        end
-    },
-    [32] = {
+    ["DigsiteQuizzical"] = {
         text = "Archaeologist are weird. Why would you dig up dirt if you don't plan on eating it?",
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
@@ -473,8 +489,15 @@ return {
             return state.area.VarrockDigSite
         end
     },
-    [38] = {
-        text = "Nobody can agree on how to pronouncing this city's name. Best to just call it 'Ardy'.",
+    ["EastArdougnePronunciation"] = {
+        text = {
+            ["Ardy"] = "Nobody can agree on how to pronouncing this city's name. Best to just call it 'Ardy'.",
+            ["ArrDoyNee"] = "The name of this city is actually pronounced like 'Arr-doy-nee'.",
+            ["ArrDoughNee"] = "The name of this city is actually pronounced like 'Arr-dough-nee'.",
+            ["ArrDoyn"] = "The name of this city is actually pronounced like 'Arr-doyn'.",
+            ["ArdOughNee"] = "The name of this city is actually pronounced like 'Ard-ough-nee'.",
+            ["Varrock"] = "The name of this city is actually pronounced like 'Varrock'.",
+        },
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.Shifty,
@@ -482,8 +505,8 @@ return {
             return state.area.EastArdougne
         end
     },
-    [45] = {
-        text = "What do you call a terrified Mort Myre spirit? An aghast ghast.",
+    ["MortMyreAghast"] = {
+        text = "What do you call a terrified Mort Myre spirit? An aghast ghast!",
         type = SpeakerEventType.TICK,
         category = LineCategory.HUMOR,
         animation = LineAnimation.HappyExtreme,
@@ -531,7 +554,7 @@ return {
             return state.area.TzhaarFightCave
         end
     },
-    [62] = {
+    ["LumbridgeCowPenDeath"] = {
         text = "That death was udderly embarrassing. Get it? Udder-ly!",
         weight = 10000,
         type = SpeakerEventType.DEATH,
@@ -559,6 +582,82 @@ return {
         animation = LineAnimation.Happy,
         requirements = function(state, eventData)
             return state.area.Barrows
+        end
+    },
+    ["FairiesOnTheMoon"] = {
+        text = "I've heard rumors that there are fairies on the moon. Sounds like nonsense to me.",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.GENERIC,
+        animation = LineAnimation.Quizzical,
+        requirements = function(state, eventData)
+            return not state.quest.lostCity
+        end
+    },
+    ["Gadget"] = {
+        text = "You seem to know a lot about mining and crafting. I knew someone else like that once. Think his name was Steve.",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.HUMOR,
+        animation = LineAnimation.Quizzical,
+        requirements = function(state, eventData)
+            return state.skill.mining >= 99 and state.skill.crafting >= 99
+        end
+    },
+    ["ThievingSkillingLow"] = {
+        text = {
+            ["Wrong"] = "You do realize stealing is wrong, right?",
+            ["Criminal"] = "So, you've decided to become a criminal?",
+            ["Pay"] = "Crime doesn't pay, you know...",
+        },
+        type = SpeakerEventType.SKILL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.skill == SkillType.THIEVING and eventData.level < 50
+        end
+    },
+    ["ThievingSkillingHigh"] = {
+        text = {
+            ["Good"] = "You're a pretty good thief. That was not a compliment.",
+            ["Pay"] = "So, it turns out that crime does pay.",
+        },
+        type = SpeakerEventType.SKILL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.skill == SkillType.THIEVING and eventData.level >= 70
+        end
+    },
+    ["FishingSkillHigh"] = {
+        text = {
+            ["BigFish"] = "I was on a fishing trip once. Caught a fish that was thiiiiiiis big.",
+        },
+        type = SpeakerEventType.SKILL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.skill == SkillType.FISHING and eventData.level >= 70
+        end
+    },
+    ["MiningLevel"] = {
+        text = {
+            ["Rock"] = "You rock!",
+        },
+        type = SpeakerEventType.LEVEL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.skill == SkillType.MINING and eventData.level >= 50
+        end
+    },
+    ["RunecraftingLevel"] = {
+        text = {
+            ["Arms"] = "Remember, don't runecraft till your arms fall off.",
+        },
+        type = SpeakerEventType.LEVEL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.skill == SkillType.RUNECRAFTING and eventData.level >= 90
         end
     },
 }

@@ -1,12 +1,12 @@
----@type Line[]
+---@type table<string, Line>
 return {
-    [1] = {
+    ["1"] = {
         text = "You don't look as tough as you think you do.",
         type = SpeakerEventType.TICK,
         category = LineCategory.GENERIC,
         animation = LineAnimation.Happy,
     },
-    [2] = {
+    ["2"] = {
         text = "Do you even know how to kill a Turoth?",
         type = SpeakerEventType.TICK,
         category = LineCategory.SKILL,
@@ -15,7 +15,7 @@ return {
             return state.skill.slayer.level < 55
         end,
     },
-    [3] = {
+    ["3"] = {
         text = "Do you even remember how to kill a Turoth?",
         type = SpeakerEventType.TICK,
         category = LineCategory.SKILL,

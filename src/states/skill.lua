@@ -29,6 +29,7 @@
 ---@field invention SkillLevelState
 ---@field archaeology SkillLevelState
 ---@field necromancy SkillLevelState
+---@field maxed boolean
 
 ---The state of a specific skill.
 ---@class SkillLevelState
@@ -50,37 +51,99 @@ end
 ---Returns the state of the player's skills.
 ---@return SkillState
 local getSkillState = function()
+    local attack = getSkillLevelState(SkillType.ATTACK)
+    local defence = getSkillLevelState(SkillType.DEFENCE)
+    local strength = getSkillLevelState(SkillType.STRENGTH)
+    local hitpoints = getSkillLevelState(SkillType.HITPOINTS)
+    local ranged = getSkillLevelState(SkillType.RANGED)
+    local prayer = getSkillLevelState(SkillType.PRAYER)
+    local magic = getSkillLevelState(SkillType.MAGIC)
+    local cooking = getSkillLevelState(SkillType.COOKING)
+    local woodcutting = getSkillLevelState(SkillType.WOODCUTTING)
+    local fletching = getSkillLevelState(SkillType.FLETCHING)
+    local fishing = getSkillLevelState(SkillType.FISHING)
+    local firemaking = getSkillLevelState(SkillType.FIREMAKING)
+    local crafting = getSkillLevelState(SkillType.CRAFTING)
+    local smithing = getSkillLevelState(SkillType.SMITHING)
+    local mining = getSkillLevelState(SkillType.MINING)
+    local herblore = getSkillLevelState(SkillType.HERBLORE)
+    local agility = getSkillLevelState(SkillType.AGILITY)
+    local thieving = getSkillLevelState(SkillType.THIEVING)
+    local slayer = getSkillLevelState(SkillType.SLAYER)
+    local farming = getSkillLevelState(SkillType.FARMING)
+    local runecrafting = getSkillLevelState(SkillType.RUNECRAFTING)
+    local hunter = getSkillLevelState(SkillType.HUNTER)
+    local construction = getSkillLevelState(SkillType.CONSTRUCTION)
+    local summoning = getSkillLevelState(SkillType.SUMMONING)
+    local dungeoneering = getSkillLevelState(SkillType.DUNGEONEERING)
+    local divination = getSkillLevelState(SkillType.DIVINATION)
+    local invention = getSkillLevelState(SkillType.INVENTION)
+    local archaeology = getSkillLevelState(SkillType.ARCHAEOLOGY)
+    local necromancy = getSkillLevelState(SkillType.NECROMANCY)
+
+    local maxed =
+        attack >= 99
+        and defence >= 99
+        and strength >= 99
+        and hitpoints >= 99
+        and ranged >= 99
+        and prayer >= 99
+        and magic >= 99
+        and cooking >= 99
+        and woodcutting >= 99
+        and fletching >= 99
+        and fishing >= 99
+        and firemaking >= 99
+        and crafting >= 99
+        and smithing >= 99
+        and mining >= 99
+        and herblore >= 99
+        and agility >= 99
+        and thieving >= 99
+        and slayer >= 99
+        and farming >= 99
+        and runecrafting >= 99
+        and hunter >= 99
+        and construction >= 99
+        and summoning >= 99
+        and dungeoneering >= 99
+        and divination >= 99
+        and invention >= 99
+        and archaeology >= 99
+        and necromancy >= 99
+
     ---@type SkillState
     return {
-        attack = getSkillLevelState(SkillType.ATTACK),
-        defence = getSkillLevelState(SkillType.DEFENCE),
-        strength = getSkillLevelState(SkillType.STRENGTH),
-        hitpoints = getSkillLevelState(SkillType.HITPOINTS),
-        ranged = getSkillLevelState(SkillType.RANGED),
-        prayer = getSkillLevelState(SkillType.PRAYER),
-        magic = getSkillLevelState(SkillType.MAGIC),
-        cooking = getSkillLevelState(SkillType.COOKING),
-        woodcutting = getSkillLevelState(SkillType.WOODCUTTING),
-        fletching = getSkillLevelState(SkillType.FLETCHING),
-        fishing = getSkillLevelState(SkillType.FISHING),
-        firemaking = getSkillLevelState(SkillType.FIREMAKING),
-        crafting = getSkillLevelState(SkillType.CRAFTING),
-        smithing = getSkillLevelState(SkillType.SMITHING),
-        mining = getSkillLevelState(SkillType.MINING),
-        herblore = getSkillLevelState(SkillType.HERBLORE),
-        agility = getSkillLevelState(SkillType.AGILITY),
-        thieving = getSkillLevelState(SkillType.THIEVING),
-        slayer = getSkillLevelState(SkillType.SLAYER),
-        farming = getSkillLevelState(SkillType.FARMING),
-        runecrafting = getSkillLevelState(SkillType.RUNECRAFTING),
-        hunter = getSkillLevelState(SkillType.HUNTER),
-        construction = getSkillLevelState(SkillType.CONSTRUCTION),
-        summoning = getSkillLevelState(SkillType.SUMMONING),
-        dungeoneering = getSkillLevelState(SkillType.DUNGEONEERING),
-        divination = getSkillLevelState(SkillType.DIVINATION),
-        invention = getSkillLevelState(SkillType.INVENTION),
-        archaeology = getSkillLevelState(SkillType.ARCHAEOLOGY),
-        necromancy = getSkillLevelState(SkillType.NECROMANCY),
+        attack = attack,
+        defence = defence,
+        strength = strength,
+        hitpoints = hitpoints,
+        ranged = ranged,
+        prayer = prayer,
+        magic = magic,
+        cooking = cooking,
+        woodcutting = woodcutting,
+        fletching = fletching,
+        fishing = fishing,
+        firemaking = firemaking,
+        crafting = crafting,
+        smithing = smithing,
+        mining = mining,
+        herblore = herblore,
+        agility = agility,
+        thieving = thieving,
+        slayer = slayer,
+        farming = farming,
+        runecrafting = runecrafting,
+        hunter = hunter,
+        construction = construction,
+        summoning = summoning,
+        dungeoneering = dungeoneering,
+        divination = divination,
+        invention = invention,
+        archaeology = archaeology,
+        necromancy = necromancy,
+        maxed = maxed
     }
 end
 
