@@ -356,7 +356,7 @@ return {
             return state.skill.attack.level >= 99
         end,
     },
-    ["FalfwayTo99"] = {
+    ["HalfwayTo99"] = {
         text = {
             ["a"] = "Congratulations, halfway to 99!",
             ["b"] = "Congratulations, that's halfway to 99!"

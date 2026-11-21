@@ -237,7 +237,7 @@ local function speakEvent(speakerEventType, speakerEventData)
     currentAnimation = selectedLine.value.animation
 
     -- Attempt to play the selected line
-    if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.resourceDirectory][resourceFileName].ogg, speakerSoundParams) end) then
+    if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.resourceDirectory][resourceFileName], speakerSoundParams) end) then
         currentErrorMessage = ""
     else
         local errorMessage = string.format("Failed to play sound resource '%s' for speaker '%s'", resourceFileName, speaker.name)
