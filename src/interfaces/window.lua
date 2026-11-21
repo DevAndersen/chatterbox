@@ -20,7 +20,17 @@ local uiLayer = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__PLUGIN_BUIL
 
 local mainWindowWidth = persistenceFunctions.getInt(mainWindowWidthPersistenceKey) or 440
 local mainWindowHeight = persistenceFunctions.getInt(mainWindowHeightPersistenceKey) or 340
+
+---The currently playing sound instance.
+---@type audio.SoundInstance?
 local currentLine
+
+---The parameters used when playing sounds.
+---@type audio.SoundPlaybackParams
+local speakerSoundParams = audio.SoundPlaybackParams.new()
+speakerSoundParams.type = audio.SoundType.SCRIPT
+speakerSoundParams.audioBus = audio.AudioBus.VOICEOVER
+
 local speaker
 local lineDelay
 local createMainWindow
@@ -42,6 +52,7 @@ MainWindow = nil
 local function stopAudio()
     if currentLine and currentLine.isPlaying then
         currentLine:Stop()
+        currentLine = nil
     end
 end
 
@@ -224,10 +235,9 @@ local function speakEvent(speakerEventType, speakerEventData)
     end
 
     currentAnimation = selectedLine.value.animation
-    log(type(resourceFileName))
 
     -- Attempt to play the selected line
-    if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.resourceDirectory][resourceFileName]) end) then
+    if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.resourceDirectory][resourceFileName].ogg, speakerSoundParams) end) then
         currentErrorMessage = ""
     else
         local errorMessage = string.format("Failed to play sound resource '%s' for speaker '%s'", resourceFileName, speaker.name)

@@ -260,7 +260,7 @@ return {
             ["WillowLogs"] = "Did you know: Magic logs used to look like a lighter version of willow logs.",
             ["Baxtorian"] = "Baxtorian's name is a wordplay on the word backstory. Jagex are not very subtle.",
             ["Avoidance"] = "The quest name A Void Dance is a play on the word avoidance. Or maybe avoid dance, which is what I do.",
-            ["redFremmyCloak"] = "Did you know: A bug once caused the red Fremennik cloak to provide extreme defensive boosts. A very fashionable bug.",
+            ["RedFremmyCloak"] = "Did you know: A bug once caused the red Fremennik cloak to provide extreme defensive boosts. A very fashionable bug.",
             ["ClassicGuthixSymbol"] = "Did you know: The symbol of Guthix used to look different in RuneScape Classic.",
             ["Hans"] = "Did you know: Hans is the oldest NPC in RuneScape. He looks good for his age.",
             ["MudPie"] = "Did you know: You cannot eat a mud pie. Because it contains compost and clay. And you shouldn't eat those. Apparently."
