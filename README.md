@@ -1,6 +1,6 @@
 # Chatterbox
 
-Chatterbox is a plugin that lets you bring an interface-based companion with you on your adventures, providing relevant and fun (and occasionally useful) commentary.
+Chatterbox is a plugin that lets you bring an interface-based companion with you on your adventures, providing relevant, fun, and occasionally useful, commentary.
 
 ## Development
 
