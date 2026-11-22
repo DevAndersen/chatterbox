@@ -564,5 +564,6 @@ end
 
 return {
     areas = areas,
-    getAreaState = getAreaState
+    getAreaState = getAreaState,
+    isPlayerInsideArea = isPlayerInsideArea
 }
