@@ -1,6 +1,8 @@
+-- Import functions
 local mainWindowFunctions = require("src/interfaces/window")
 local persistenceFunctions = require("src/persistence")
 
+-- Local constants
 local contentLayerReadyEventName = "contentLayerReadyEventName"
 local contentLayerLogicEventName = "contentLayerLogicEventName"
 

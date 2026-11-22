@@ -1,3 +1,7 @@
+-- Import functions
+local stateFunctions = require("src/state")
+local persistenceFunctions = require("src/persistence")
+
 -- Local constants
 local mainWindowDrawEventName = "mainWindowDrawEventName"
 local mainWindowLogicEventName = "mainWindowLogicEventName"
@@ -9,11 +13,6 @@ local mainWindowYPersistenceKey = "mainWindowY"
 ---@class SpeakerEventInfo
 ---@field eventType SpeakerEventType
 ---@field eventData SpeakerEventData?
-
----@type SpeakerEventInfo?
-
-local stateFunctions = require("src/state")
-local persistenceFunctions = require("src/persistence")
 
 ---The plugin UI layer.
 local uiLayer = ui.Interfaces:GetComponent(id.Component.TOPLEVEL_V2__PLUGIN_BUILD_LAYER_TOP)
@@ -31,18 +30,37 @@ local speakerSoundParams = audio.SoundPlaybackParams.new()
 speakerSoundParams.type = audio.SoundType.SCRIPT
 speakerSoundParams.audioBus = audio.AudioBus.VOICEOVER
 
+---@type Speaker
 local speaker
-local lineDelay
-local createMainWindow
-local currentText = ""
-local currentErrorMessage = ""
-local currentAnimation
-local lastId
 
+---@type integer
+local lineDelay
+
+---@type function
+local createMainWindow
+
+---@type string
+local currentText = ""
+
+local currentErrorMessage = ""
+local currentAnimation = LineAnimation.Idle
+
+---@type string The ID of the last spoken line.
+local lastId = ""
+
+---@type integer? The width of the main window.
 local width
+
+---@type integer? The height of the main window.
 local height
+
+---@type integer? The X-position of the main window.
 local posX = persistenceFunctions.getInt(mainWindowXPersistenceKey)
+
+---@type integer? The Y-position of the main window.
 local posY = persistenceFunctions.getInt(mainWindowYPersistenceKey)
+
+---@type boolean
 local didLastTickChangeWindowState
 
 ---@type Window
@@ -180,6 +198,7 @@ local function speakEvent(speakerEventType, speakerEventData)
         return
     end
 
+    ---@type table<string, Line>
     local availableLines = {}
     local playerState = stateFunctions.getState()
 
@@ -194,32 +213,31 @@ local function speakEvent(speakerEventType, speakerEventData)
 
             -- Add the line to the list of available lines
             for _ = 1, weight do
-                availableLines[#availableLines + 1] = {
-                    key = key,
-                    value = value
-                }
+                availableLines[key] = value
             end
         end
     end
 
-
-    local selectedLine = GetRandomTableElement(availableLines)
+    local selectedLine, selectedLineKey = GetRandomTableElement(availableLines)
 
     -- Early return if no lines were available
-    if not selectedLine then
+    if not selectedLine or not selectedLineKey then
         return
     end
 
-    local resourceFileName = tostring(selectedLine.key)
+    local resourceFileName = tostring(selectedLineKey)
 
-    lastId = selectedLine.key
+    lastId = selectedLineKey
 
     -- Set the current text to the text of the line, or in the case of lines with multiple text values, select a random text.
-    local textType = type(selectedLine.value.text)
+
+    local selectedLineText = selectedLine.text
+    local textType = type(selectedLineText)
+
     if textType == "string" then
-        currentText = selectedLine.value.text
+        currentText = selectedLineText
     elseif textType == "table" then
-        local text, key = GetRandomTableElement(selectedLine.value.text)
+        local text, key = GetRandomTableElement(selectedLineText)
 
         -- Early return if the text or key were null.
         if not text or not key then
@@ -234,7 +252,7 @@ local function speakEvent(speakerEventType, speakerEventData)
         return
     end
 
-    currentAnimation = selectedLine.value.animation
+    currentAnimation = selectedLine.animation
 
     -- Attempt to play the selected line
     if pcall(function() currentLine = audio.Play(Plugin.resources[speaker.resourceDirectory][resourceFileName], speakerSoundParams) end) then
