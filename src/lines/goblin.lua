@@ -660,4 +660,13 @@ return {
             return eventData.skill == SkillType.RUNECRAFTING and eventData.level >= 90
         end
     },
+    ["CrandorBeforeElvarg"] = {
+        text = "Are you sure it's a good idea to enter the lair of a vicious dragon...?",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.GENERIC,
+        animation = LineAnimation.Quizzical,
+        requirements = function(state, eventData)
+            return state.area.Crandor and not state.quest.dragonSlayer
+        end
+    },
 }

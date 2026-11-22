@@ -3,6 +3,7 @@
 ---@field theGrandTree boolean
 ---@field whileGuthixSleeps boolean
 ---@field lostCity boolean
+---@field dragonSlayer boolean
 
 ---Get the quest state.
 ---@return QuestState
@@ -12,6 +13,7 @@ local getQuestState = function()
         theGrandTree = config.Quest.FromID(id.Quest.THEGRANDTREE).hasFinishedQuest,
         whileGuthixSleeps = config.Quest.FromID(id.Quest.WHILE_GUTHIX_SLEEPS).hasFinishedQuest,
         lostCity = config.Quest.FromID(id.Quest.LOST_CITY).hasFinishedQuest,
+        dragonSlayer = config.Quest.FromID(id.Quest.DRAGON_SLAYER).hasFinishedQuest,
     }
 end
 

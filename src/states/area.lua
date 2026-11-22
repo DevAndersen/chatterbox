@@ -93,6 +93,12 @@
 ---@field VoragoArena boolean
 ---@field ZemouregalAndVorkathArena boolean
 ---@field IvarArena boolean
+---@field DwarvenMine boolean
+---@field LivingRockCaverns boolean
+---@field Crandor boolean
+---@field RuneSpanBottomFloor boolean
+---@field RuneSpanMiddleFloor boolean
+---@field RuneSpanTopFloor boolean
 
 ---Defines an area of the game world.
 ---@class Area
@@ -521,6 +527,30 @@ local areas = {
     IvarArena = {
         Pos1 = CoordGrid.new(0,56,25,54,36),
         Pos2 = CoordGrid.new(0,57,25,4,53),
+    },
+    DwarvenMine = {
+        Pos1 = CoordGrid.new(0,46,152,18,4),
+        Pos2 = CoordGrid.new(0,47,153,52,60),
+    },
+    LivingRockCaverns = {
+        Pos1 = CoordGrid.new(0,56,79,22,20),
+        Pos2 = CoordGrid.new(0,57,80,41,42),
+    },
+    Crandor = {
+        Pos1 = CoordGrid.new(0,43,50,60,30),
+        Pos2 = CoordGrid.new(0,44,51,48,46),
+    },
+    RuneSpanBottomFloor = {
+        Pos1 = CoordGrid.new(1,61,94,0,0),
+        Pos2 = CoordGrid.new(1,62,95,63,63),
+    },
+    RuneSpanMiddleFloor = {
+        Pos1 = CoordGrid.new(1,64,94,0,0),
+        Pos2 = CoordGrid.new(1,65,95,63,63),
+    },
+    RuneSpanTopFloor = {
+        Pos1 = CoordGrid.new(1,67,94,0,0),
+        Pos2 = CoordGrid.new(1,68,95,63,63),
     },
 }
 ---@diagnostic enable: codestyle-check
