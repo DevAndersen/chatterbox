@@ -4,7 +4,15 @@ local areaRenderDistance = 32
 local areaStateFunctions = require("src/states/area")
 
 -- Write the player's current grid coordinates to the developer console.
-log(tostring(GetPlayerCoords()))
+local scriptStartPlayerCoordinates = GetPlayerCoords()
+if scriptStartPlayerCoordinates then
+    print(string.format("%d, %d, %d, %d, %d",
+        scriptStartPlayerCoordinates.level,
+        scriptStartPlayerCoordinates.mapSquareX,
+        scriptStartPlayerCoordinates.mapSquareZ,
+        scriptStartPlayerCoordinates.localX,
+        scriptStartPlayerCoordinates.localZ))
+end
 
 -- Shape data
 

@@ -101,6 +101,10 @@ audio.SoundType = {
 ---@field level integer The level of this CoordGrid. Valid range is 0-3.
 ---@field x integer The world tile X of this CoordGrid, in Grid units. Valid range is 0-12799.
 ---@field z integer The world tile Z of this CoordGrid, in Grid units. Valid range is 0-12799.
+---@field mapSquareX integer The mapsquare X of this CoordGrid, in Grid units. Valid range is 0-199.
+---@field mapSquareZ integer The mapsquare Z of this CoordGrid, in Grid units. Valid range is 0-199.
+---@field localX integer The local tile X of this CoordGrid, in Grid units. Valid range is 0-63.
+---@field localZ integer The local tile Z of this CoordGrid, in Grid units. Valid range is 0-63.
 ---@field ToCoordFine fun(self: CoordGrid, fromCentre: boolean): CoordGrid Returns a CoordFine using the current CoordGrid as a base.
 
 ---https://developer.runescape.com/rs/core/events.html
