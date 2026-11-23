@@ -334,11 +334,11 @@ local areas = {
     },
     Karamja = {
         SubAreas = {
-            Karamja1 = {
+            Main = {
                 Pos1 = CoordGrid.new(0, 42, 45, 2, 1),
                 Pos2 = CoordGrid.new(0, 46, 49, 24, 46),
             },
-            Karamja2 = {
+            North = {
                 Pos1 = CoordGrid.new(0, 42, 48, 0, 55),
                 Pos2 = CoordGrid.new(0, 43, 50, 59, 50),
             }
