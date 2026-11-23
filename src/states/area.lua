@@ -109,6 +109,8 @@
 ---@field LuminousWispColony boolean
 ---@field IncandescentWispColony boolean
 ---@field MusaPointPier boolean
+---@field SeersVillageFlaxField boolean
+---@field EternalMagicTrees boolean
 
 ---Defines an area of the game world.
 ---@class Area
@@ -639,6 +641,10 @@ local areas = {
     SeersVillageFlaxField = {
         Pos1 = CoordGrid.new(0, 42, 53, 49, 45),
         Pos2 = CoordGrid.new(0, 42, 53, 63, 59),
+    },
+    EternalMagicTrees = {
+        Pos1 = CoordGrid.new(0, 36, 55, 16, 60),
+        Pos2 = CoordGrid.new(0, 36, 56, 36, 15),
     },
 }
 
