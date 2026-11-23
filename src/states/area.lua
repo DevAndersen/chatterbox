@@ -62,25 +62,21 @@
 ---@field Um boolean
 ---@field UmRitualSite boolean
 ---@field GateOfElidinis boolean
----@field SanctumOfRebirth1 boolean
----@field SanctumOfRebirth2 boolean
----@field SanctumOfRebirth3 boolean
+---@field SanctumOfRebirthVermyxArena boolean
+---@field SanctumOfRebirthKezalamArena boolean
+---@field SanctumOfRebirthNakatraArena boolean
 ---@field TheLostGrove boolean
 ---@field ZukArena boolean
 ---@field ZukThrone boolean
 ---@field KalphiteKingArena boolean
 ---@field ExiledKalphiteQueenArena boolean
 ---@field KalphiteQueenArena boolean
----@field TheHeartOfGielinorMainArea boolean
+---@field TheHeartOfGielinorMainArea boolean Note: Overlaps with HelwyrArena.
 ---@field GregorovicArena boolean
 ---@field TwinFuriesArena boolean
 ---@field VindictaAndGorvekArena boolean
----@field HelwyrArena boolean
+---@field HelwyrArena boolean Note: Overlaps with TheHeartOfGielinorMainArea
 ---@field TelosArena boolean
----@field TelosArena1 boolean
----@field TelosArena2 boolean
----@field TelosArena3 boolean
----@field TelosArena4 boolean
 ---@field AraxxorArena boolean
 ---@field AraxxiArena boolean
 ---@field GodWarsDungeon boolean Note: Overlaps with GraardorArena, KreearraArena, ZilyanaArena, and KrilTsutsarothArena.
@@ -99,6 +95,12 @@
 ---@field RuneSpanBottomFloor boolean
 ---@field RuneSpanMiddleFloor boolean
 ---@field RuneSpanTopFloor boolean
+---@field DeepSeaFishingHub boolean
+---@field FightArena boolean
+---@field PaleWispColony boolean
+---@field FlickeringWispColony boolean
+---@field BrightWispColony boolean
+---@field MusaPointPier boolean
 
 ---Defines an area of the game world.
 ---@class Area
@@ -189,12 +191,24 @@ local areas = {
         Pos2 = CoordGrid.new(0,41,52,61,52),
     },
     Catherby = {
-        Pos1 = CoordGrid.new(0,43,53,28,30),
-        Pos2 = CoordGrid.new(0,44,54,9,12),
+        SubAreas = {
+            Town = {
+                Pos1 = CoordGrid.new(0,43,53,28,30),
+                Pos2 = CoordGrid.new(0,44,54,17,12),
+            },
+            Beach = {
+                Pos1 = CoordGrid.new(0,44,53,14,37),
+                Pos2 = CoordGrid.new(0,44,53,45,45),
+            },
+            Beach2 = {
+                Pos1 = CoordGrid.new(0,44,53,32,32),
+                Pos2 = CoordGrid.new(0,44,53,45,36),
+            },
+        },
     },
     Camelot = {
-        Pos1 = CoordGrid.new(0,43,54,31,61),
-        Pos2 = CoordGrid.new(0,42,54,56,18),
+        Pos1 = CoordGrid.new(0,42,54,56,18),
+        Pos2 = CoordGrid.new(0,43,54,31,61),
     },
     SeersVillage = {
         Pos1 = CoordGrid.new(0,42,54,0,0),
@@ -384,15 +398,15 @@ local areas = {
         Pos1 = CoordGrid.new(2,85,30,0,0),
         Pos2 = CoordGrid.new(2,85,30,63,63),
     },
-    SanctumOfRebirth1 = { -- Todo
+    SanctumOfRebirthVermyxArena = {
         Pos1 = CoordGrid.new(1,86,21,8,41),
         Pos2 = CoordGrid.new(1,86,21,55,55),
     },
-    SanctumOfRebirth2 = { -- Todo
+    SanctumOfRebirthKezalamArena = {
         Pos1 = CoordGrid.new(1,85,23,18,16),
         Pos2 = CoordGrid.new(1,85,23,44,48),
     },
-    SanctumOfRebirth3 = { -- Todo
+    SanctumOfRebirthNakatraArena = {
         Pos1 = CoordGrid.new(1,88,21,18,12),
         Pos2 = CoordGrid.new(1,88,21,43,58),
     },
@@ -420,7 +434,7 @@ local areas = {
         Pos1 = CoordGrid.new(0,54,148,10,10),
         Pos2 = CoordGrid.new(0,54,148,52,46),
     },
-    TheHeartOfGielinorMainArea = { -- Note: Overlaps with HelwyrArena
+    TheHeartOfGielinorMainArea = {
         Pos1 = CoordGrid.new(1,48,107,45,40),
         Pos2 = CoordGrid.new(1,51,110,19,16),
     },
@@ -436,7 +450,7 @@ local areas = {
         Pos1 = CoordGrid.new(1,48,107,16,17),
         Pos2 = CoordGrid.new(1,48,107,39,47),
     },
-    HelwyrArena = { -- Note: Overlaps with TheHeartOfGielinorMainArea
+    HelwyrArena = {
         Pos1 = CoordGrid.new(1,51,107,16,25),
         Pos2 = CoordGrid.new(1,51,107,39,47),
     },
@@ -552,7 +566,40 @@ local areas = {
         Pos1 = CoordGrid.new(1,67,94,0,0),
         Pos2 = CoordGrid.new(1,68,95,63,63),
     },
+    DeepSeaFishingHub = {
+        Pos1 = CoordGrid.new(0,32,110,15,37),
+        Pos2 = CoordGrid.new(0,33,111,36,39),
+    },
+    FightArena = {
+        Pos1 = CoordGrid.new(0,40,49,3,3),
+        Pos2 = CoordGrid.new(0,40,49,59,60),
+    },
+    PaleWispColony = {
+        Pos1 = CoordGrid.new(0,48,50,43,10),
+        Pos2 = CoordGrid.new(0,48,50,54,21),
+    },
+    FlickeringWispColony = {
+        Pos1 = CoordGrid.new(0,46,53,57,4),
+        Pos2 = CoordGrid.new(0,47,53,4,15),
+    },
+    BrightWispColony = {
+        Pos1 = CoordGrid.new(0,51,52,34,63),
+        Pos2 = CoordGrid.new(0,51,53,44,9),
+    },
+    GlowingWispColony = {
+        Pos1 = CoordGrid.new(0,42,53,40,14),
+        Pos2 = CoordGrid.new(0,42,53,52,26),
+    },
+    MusaPointPier = {
+        Pos1 = CoordGrid.new(0,45,49,40,39),
+        Pos2 = CoordGrid.new(0,45,49,49,44),
+    },
+    SeersVillageFlaxField = {
+        Pos1 = CoordGrid.new(0,42,53,49,45),
+        Pos2 = CoordGrid.new(0,42,53,63,59),
+    }
 }
+
 ---@diagnostic enable: codestyle-check
 
 ---Determines if the player is inside the areaa (including subareas).

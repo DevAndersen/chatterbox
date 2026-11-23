@@ -60,15 +60,6 @@ return {
             return state.area.DraynorManor
         end
     },
-    ["PiscatorisFishingColonyNeutral"] = {
-        text = "Monkfish don't look very much like monks.",
-        type = SpeakerEventType.TICK,
-        category = LineCategory.GENERIC,
-        animation = LineAnimation.Neutral,
-        requirements = function(state, eventData)
-            return state.area.PiscatorisFishingColony
-        end
-    },
     ["FightCaveTip"] = {
         text = "Remember, Jad's healers will respawn if they heal him up to full health.",
         type = SpeakerEventType.TICK,
@@ -667,6 +658,82 @@ return {
         animation = LineAnimation.Quizzical,
         requirements = function(state, eventData)
             return state.area.Crandor and not state.quest.dragonSlayer
+        end
+    },
+    ["AraxxorAraxxiNeutral"] = {
+        text = {
+            ["BigSpider"] = "I normally don't mind spiders, but that one does not seem very friendly.",
+            ["LittleOnes"] = "Watch out for the little ones, too!"
+        },
+        weight = 10000,
+        type = SpeakerEventType.TICK,
+        category = LineCategory.GENERIC,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return state.area.AraxxorArena or state.area.AraxxiArena
+        end
+    },
+    ["LivingRockCaverns"] = {
+        text = {
+            ["Friendly"] = "Careful, those big walking rock don't look friendly.",
+        },
+        type = SpeakerEventType.SKILL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Shifty,
+        requirements = function(state, eventData)
+            return state.area.LivingRockCaverns
+        end
+    },
+    ["FishingLivingRockCaverns"] = {
+        text = {
+            ["Tasty"] = "These underground fish do look rather tasty.",
+        },
+        type = SpeakerEventType.SKILL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.skill == SkillType.FISHING and state.area.LivingRockCaverns
+        end
+    },
+    ["FishingPiscatorisFishingColony"] = {
+        text = "Monkfish don't look very much like monks.",
+        type = SpeakerEventType.SKILL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.skill == SkillType.FISHING and state.area.PiscatorisFishingColony
+        end
+    },
+    ["FishingCatherby"] = {
+        text = {
+            ["Tasty"] = "These underground fish do look rather tasty.",
+        },
+        type = SpeakerEventType.SKILL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return eventData.skill == SkillType.FISHING and state.area.Catherby
+        end
+    },
+    ["FishingDeepSeaFishingHub"] = {
+        text = {
+            ["Scary"] = "Argh, just saw a really ugly fish! Oh, nevermind. It was just my own reflection.",
+            ["HugeShark"] = "Careful not fall into the water here. Those sharks are huge!",
+        },
+        type = SpeakerEventType.SKILL,
+        category = LineCategory.SKILL,
+        animation = LineAnimation.Shifty,
+        requirements = function(state, eventData)
+            return eventData.skill == SkillType.FISHING and state.area.DeepSeaFishingHub
+        end
+    },
+    ["FightArena"] = {
+        text = "Remember the first rule of fight arena: You do not talk about fight arena!",
+        type = SpeakerEventType.TICK,
+        category = LineCategory.GENERIC,
+        animation = LineAnimation.Neutral,
+        requirements = function(state, eventData)
+            return state.area.FightArena
         end
     },
 }
